@@ -3,7 +3,7 @@ services:
     name: sample_matchingapp_db
     runtime: ruby
     plan: free
-    buildCommand: "./bin/render-build.shW
+    buildCommand: "./bin/render-build.sh"
     startCommand: "./bin/rails server"
     envVars:
       - key: DATABASE_URL
