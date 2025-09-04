@@ -1,21 +1,21 @@
 services:
   - type: web
-    name: sample_matching_app_db
+    name: sample_matching_app_db_
     runtime: ruby
-    region: oregon
+    region: singapore
     plan: free
     buildCommand: "./bin/render-build.sh"
     startCommand: "./bin/rails server"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: sample_matching_app_db
+          name: sample_matching_app_db_
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
         value: 2
 databases:
-  - name: sample_matching_app_db
+  - name: sample_matching_app_db_
     plan: free
     

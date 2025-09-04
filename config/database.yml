@@ -83,8 +83,8 @@ production:
     adapter: postgresql
     encoding: unicode
     pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: sample_matching_app_production
-    username: <任意のユーザー名>
+    database: sample_matching_app_db_
+    username: sample_matching_app_db_user
     password: <%= ENV['DB_PASSWORD'] %> # .envで設定
   cache:
     <<: *primary_production
