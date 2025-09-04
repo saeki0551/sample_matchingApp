@@ -10,7 +10,7 @@ services:
     env: ruby
     region: singapore
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    startCommand: "./bin/rails server"
     envVars:
       - key: <%= ENV['DATABASE_URL'] %>
         fromDatabase:
