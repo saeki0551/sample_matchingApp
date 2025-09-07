@@ -70,3 +70,4 @@ group :production do
 end
 
 gem "sassc-rails"
+gem "devise"
