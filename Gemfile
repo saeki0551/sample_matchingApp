@@ -71,3 +71,5 @@ end
 
 gem "sassc-rails"
 gem "devise"
+gem "active_hash"
+gem "haml-rails"

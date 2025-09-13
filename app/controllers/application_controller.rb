@@ -11,4 +11,8 @@ private
   def after_sign_out_path_for(resource)
     new_user_session_path # ログアウト後に遷移するpathを設定
   end
+
+  def after_sign_up_path_for(resource)
+    ○○_path #サインアップ遷移先のパス
+  end
 end
