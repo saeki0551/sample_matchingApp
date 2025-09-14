@@ -1,9 +1,9 @@
 <h3>ユーザープロフィール作成</h3>
-<%= form_with model: @user, local: true do |f| %>
+<%= form_with model: @user, url: create_new_user_path, local: true, data: { turbo: false } do |f| %>
   <%= f.label :name, "あなたの名前を入力してください" %></br>
   <%= f.text_field :name %></br>
 
-  <%= f.label :name, "あなたの年齢を選択してください" %></br>
+  <%= f.label :age, "あなたの年齢を選択してください" %></br>
   <%= f.number_field :age, autocomplete: "off" %></br>
 
   <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>
