@@ -1,1 +1,19 @@
-<p>ユーザープロフィール作成</p>
+<h3>ユーザープロフィール作成</h3>
+<%= form_with model: @user, url: create_new_user_path, local: true, data: { turbo: false } do |f| %>
+  <%= f.label :name, "あなたの名前を入力してください" %></br>
+  <%= f.text_field :name %></br>
+
+  <%= f.label :age, "あなたの年齢を選択してください" %></br>
+  <%= f.number_field :age, autocomplete: "off" %></br>
+
+  <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>
+  <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930 %></br>
+
+  <%= f.label :prefecture_id, "お住いの都道府県を選択してください" %></br>
+  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, prompt: "北海道") %></br>
+
+  <%= f.label :hobby_id, "あなたの趣味を選択してください" %></br>
+  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, prompt: "ゲーム") %></br>
+
+  <%= f.submit "完了" %>
+<% end %>

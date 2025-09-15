@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "tops#index"
   resources :users
+  post "users/create", to: "users#create", as: :create_new_user
 end
