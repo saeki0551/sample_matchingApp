@@ -17,5 +17,4 @@ Rails.application.routes.draw do
   root "tops#index"
   resources :users
   post "users/create", to: "users#create", as: :create_new_user
-  get "users/:id/destroy", to: "users#destroy", as: :destroy_user
 end
