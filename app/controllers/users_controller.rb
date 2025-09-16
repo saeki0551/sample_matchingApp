@@ -18,6 +18,12 @@ class UsersController < ApplicationController
     end 
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.delete
+    redirect_to users_path, notice: 'アカウントが削除されました。'
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :age, :birth_date, :prefecture_id, :hobby_id)

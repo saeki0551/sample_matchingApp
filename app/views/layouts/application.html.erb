@@ -25,6 +25,7 @@
   <header>
     <% if user_signed_in? %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <%= link_to "アカウント削除", destroy_user_path(current_user.id), data: { turbo_method: :delete }, onclick: "return confirm('本当にアカウントを削除してよろしいですか？');"%>
     <% else %>
 
     <% end %>
