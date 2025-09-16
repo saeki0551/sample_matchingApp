@@ -17,6 +17,12 @@ class UsersController < ApplicationController
       render :back
     end 
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.delete
+    redirect_to users_path, notice: 'アカウントが削除されました。'
+  end
   
   private
   def user_params
