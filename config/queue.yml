@@ -15,4 +15,7 @@ test:
   <<: *default
 
 production:
-  <<: *default
+  workers:
+    - queues:[active_storage*, mailers]
+      threads: 3
+      polling_interval: 5
