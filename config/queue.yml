@@ -15,7 +15,4 @@ test:
   <<: *default
 
 production:
-  workers:
-    - queues: "*"
-      threads: 3
-      polling_interval: 5
+  <<: *default
