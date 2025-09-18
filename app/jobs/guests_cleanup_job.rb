@@ -1,7 +1,4 @@
 class GuestsCleanupJob < ApplicationJob
-  queue_as :low_priority
-  self.queue_name_prefix = nil
-  # ...
 end
 
 # 以上で、production環境ではproduction_low_priorityというキューでジョブが
