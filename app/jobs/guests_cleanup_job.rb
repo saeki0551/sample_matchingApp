@@ -1,5 +1,6 @@
 class GuestsCleanupJob < ApplicationJob
   queue_as :low_priority
+  self.queue_name_prefix = nil
   # ...
 end
 
