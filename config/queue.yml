@@ -16,6 +16,6 @@ test:
 
 production:
   workers:
-    - queues: active_storage*
+    - queues: "*"
       threads: 3
       polling_interval: 5
