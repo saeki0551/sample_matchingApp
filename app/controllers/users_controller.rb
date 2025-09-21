@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @user = User.find(15)
-    @user_information = @user.user_information
+    # @user = User.find(15)
+    # @user_information = @user.user_information
     # binding.pry
   end
 
