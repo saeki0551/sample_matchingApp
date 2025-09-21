@@ -4,16 +4,16 @@
   <%= f.file_field :image, accept: "image/*" %></br>
 
   <%= f.label :age, "あなたの年齢を選択してください" %></br>
-  <%= f.number_field :age, autocomplete: "off" %></br>
+  <%= f.number_field :age, autocomplete: "off", value: 18 %></br>
 
   <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>
-  <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930 %></br>
+  <%= f.date_select :birth_date, use_month_numbers: true, default: { day: 1, month: 1 }, start_year:1960, end_year:2015 %></br>
 
   <%= f.label :prefecture_id, "お住いの都道府県を選択してください" %></br>
-  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, prompt: "北海道") %></br>
+  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>
 
   <%= f.label :hobby_id, "あなたの趣味を選択してください" %></br>
-  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, prompt: "ゲーム") %></br>
+  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>
 
   <%= f.submit "完了" %>
 <% end %>

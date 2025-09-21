@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @user_informations = UserInformation.all
     # binding.pry
   end
 

@@ -1,20 +1,17 @@
-  <% @users.each do |user| %>
-    <% @user_informations.each do |user_information| %>
-      <% if user.id == user_information.user_id %>
-        <% if user_information.image.attached? %>
-          <%= image_tag user_information.image, size: "50x50" %><br>
-        <% else %>
-          <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>
-        <% end %>
-        <ul>
-          <li>名前：<%= user.name %></li>
-          <li>メールアドレス：<%= user.email %></li>
-          <li>年齢：<%= user_information.age %></li>
-          <li>生年月日：<%= user_information.birth_date %></li>
-          <li>都道府県：<%= user_information.prefecture.name %></li>
-          <li>趣味：<%= user_information.hobby.name %></li>
-        </ul>
-      <% else %>
-      <% end %>
-    <% end %>
+<% @users.each do |user| %>
+  <% if user.user_information.image.attached? %>
+    <%= image_tag user.user_information.image, size: "50x50" %><br>
+  <% else %>
+    <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>
   <% end %>
+  <ul>
+    <li><%= user.id %></li>
+    <li><%= user.user_information.user_id %></li>
+    <li>名前：<%= user.name %></li>
+    <li>メールアドレス：<%= user.email %></li>
+    <li>年齢：<%= user.user_information.age %></li>
+    <li>生年月日：<%= user.user_information.birth_date %></li>
+    <li>都道府県：<%= user.user_information.prefecture.name %></li>
+    <li>趣味：<%= user.user_information.hobby.name %></li>
+  </ul>
+<% end %>
