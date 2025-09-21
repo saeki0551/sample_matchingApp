@@ -60,6 +60,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def after_sign_up_path_for(resource)   
-    new_user_path #サインアップ遷移先のパス
+    new_user_information_path #サインアップ遷移先のパス
   end
 end
