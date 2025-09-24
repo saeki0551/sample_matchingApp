@@ -10,5 +10,6 @@ bin/rails assets:clean
 # If you have a paid instance type, we recommend moving
 # database migrations like this one from the build command
 # to the pre-deploy command:
-# bin/rails db:migrate
-DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset
+rake db:drop
+rake db:create
+bin/rails db:migrate
