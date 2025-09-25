@@ -8,12 +8,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    user = User.find(params[:id])
     # @user_information = UserInformation.find_by(user_id: params[:id])
     # # binding.pry
     # @user_information.delete
-    @user.destroy
-    redirect_to users_path, notice: 'アカウントが削除されました。'
+    if user.destroy
+      redirect_to user_session_path, notice: "アカウントの削除が完了しました"
+    else
+      flash.now[:alert] = "アカウントの削除に失敗しました"
+      render :index
+    end
   end
-
 end
