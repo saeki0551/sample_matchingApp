@@ -18,6 +18,16 @@ class UsersController < ApplicationController
     end 
   end
 
+  def destroy
+    user = User.find(params[:id])
+    if user.destroy
+      redirect_to user_session_path, notice: "アカウントの削除が完了しました"
+    else
+      flash.now[:alert] = "アカウントの削除に失敗しました"
+      render :index
+    end
+  end
+  
   private
   def user_params
     params.require(:user).permit(:name, :age, :birth_date, :prefecture_id, :hobby_id)
