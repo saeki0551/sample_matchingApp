@@ -1,9 +1,5 @@
 <% @users.each do |user| %>
-  <% if user.user_information.image.attached? %>
-    <%= image_tag user.user_information.image, size: "50x50" %><br>
-  <% else %>
-    <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>
-  <% end %>
+  <%= image_tag user.user_information.image, size: "50x50" %><br>
   <ul>
     <li><%= user.id %></li>
     <li><%= user.user_information.user_id %></li>

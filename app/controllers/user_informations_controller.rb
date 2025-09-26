@@ -5,7 +5,7 @@ class UserInformationsController < ApplicationController
 
   def create
     @user_information = UserInformation.new(user_information_params)
-    # binding.pry
+    @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     if @user_information.save
       redirect_to users_path
     else
@@ -15,7 +15,7 @@ class UserInformationsController < ApplicationController
 
   private
   def user_information_params
-    params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)
+    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)
     # binding.pry
   end
 end
