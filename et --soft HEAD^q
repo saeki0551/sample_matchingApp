@@ -1,0 +1,1128 @@
+[33mcommit 8028a003cfd7364787739cd0f3f5adecf8d2b63e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/defaultUserInforamtionColumns[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sat Sep 27 14:05:22 2025 +0900
+
+    update
+
+[1mdiff --git a/app/controllers/user_informations_controller.rb b/app/controllers/user_informations_controller.rb[m
+[1mindex f2aae8b..dbdbb51 100644[m
+[1m--- a/app/controllers/user_informations_controller.rb[m
+[1m+++ b/app/controllers/user_informations_controller.rb[m
+[36m@@ -1,21 +1,12 @@[m
+ class UserInformationsController < ApplicationController[m
+[31m-  def new[m
+[31m-    @user_information = UserInformation.new[m
+[31m-  end[m
+[31m-[m
+   def create[m
+[31m-    @user_information = UserInformation.new(user_information_params)[m
+[32m+[m[32m    @user_information = UserInformation.new(user_id: current_user.id)[m
+     @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")[m
+[32m+[m[32m    # binding.pry[m
+     if @user_information.save[m
+[31m-      redirect_to users_path[m
+[32m+[m[32m      redirect_to users_path, notice: "アカウントが作成されました。"[m
+     else[m
+[31m-      render :back[m
+[32m+[m[32m      redirect_to controller: :tops, action: :index, alert: "アカウントの作成に失敗しました。アカウントを削除してください。"[m
+     end [m
+   end[m
+[31m-[m
+[31m-  private[m
+[31m-  def user_information_params[m
+[31m-    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)[m
+[31m-    # binding.pry[m
+[31m-  end[m
+ end[m
+[1mdiff --git a/app/controllers/users/registrations_controller.rb b/app/controllers/users/registrations_controller.rb[m
+[1mindex 5df9807..61b0299 100644[m
+[1m--- a/app/controllers/users/registrations_controller.rb[m
+[1m+++ b/app/controllers/users/registrations_controller.rb[m
+[36m@@ -60,6 +60,6 @@[m [mclass Users::RegistrationsController < Devise::RegistrationsController[m
+   #   super(resource)[m
+   # end[m
+   def after_sign_up_path_for(resource)   [m
+[31m-    new_user_information_path #サインアップ遷移先のパス[m
+[32m+[m[32m    create_user_information_path #サインアップ遷移先のパス[m
+   end[m
+ end[m
+[1mdiff --git a/config/routes.rb b/config/routes.rb[m
+[1mindex 6cf5745..2580496 100644[m
+[1m--- a/config/routes.rb[m
+[1m+++ b/config/routes.rb[m
+[36m@@ -20,5 +20,5 @@[m [mRails.application.routes.draw do[m
+   get "users/:id/destroy", to: "users#destroy", as: :destroy_user[m
+ [m
+   get "user_informations/new", to: "user_informations#new", as: :new_user_information[m
+[31m-  post "user_informations/create", to: "user_informations#create", as: :create_user_information[m
+[32m+[m[32m  get "user_informations/create", to: "user_informations#create", as: :create_user_information[m
+ end[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex 777116a..3a128e5 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+[1mdiff --git a/db/migrate/20250927041921_change_data_column_to_user_informations.rb b/db/migrate/20250927041921_change_data_column_to_user_informations.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b0deb1c[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20250927041921_change_data_column_to_user_informations.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass ChangeDataColumnToUserInformations < ActiveRecord::Migration[8.0][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    change_column :user_informations, :age, :integer, default: 30, null: false[m
+[32m+[m[32m    change_column :user_informations, :birth_date, :date, default: "1995-01-01", null: false[m
+[32m+[m[32m    change_column :user_informations, :prefecture_id, :interger, default: 13, null: false[m
+[32m+[m[32m    change_column :user_informations, :hobby_id, :integer, default: 1, null: false[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/schema.rb b/db/schema.rb[m
+[1mindex 6dfa38a..9f62ff3 100644[m
+[1m--- a/db/schema.rb[m
+[1m+++ b/db/schema.rb[m
+[36m@@ -10,7 +10,7 @@[m
+ #[m
+ # It's strongly recommended that you check this file into your version control system.[m
+ [m
+[31m-ActiveRecord::Schema[8.0].define(version: 2025_09_20_124928) do[m
+[32m+[m[32mActiveRecord::Schema[8.0].define(version: 2025_09_27_041921) do[m[41m[m
+   create_table "active_storage_attachments", force: :cascade do |t|[m
+     t.string "name", null: false[m
+     t.string "record_type", null: false[m
+[36m@@ -40,10 +40,10 @@[m [mActiveRecord::Schema[8.0].define(version: 2025_09_20_124928) do[m
+   end[m
+ [m
+   create_table "user_informations", force: :cascade do |t|[m
+[31m-    t.integer "age", null: false[m
+[31m-    t.date "birth_date", null: false[m
+[31m-    t.integer "prefecture_id", null: false[m
+[31m-    t.integer "hobby_id", null: false[m
+[32m+[m[32m    t.integer "age", default: 30, null: false[m[41m[m
+[32m+[m[32m    t.date "birth_date", default: "1995-01-01", null: false[m[41m[m
+[32m+[m[32m    t.integer "prefecture_id", default: 13, null: false[m[41m[m
+[32m+[m[32m    t.integer "hobby_id", default: 1, null: false[m[41m[m
+     t.datetime "created_at", null: false[m
+     t.datetime "updated_at", null: false[m
+     t.integer "user_id"[m
+
+[33mcommit ae28e486375b4574a524256957e735cb38224281[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/feature/userIndexScss[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m, [m[1;32mfeature/userIndexScss[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Fri Sep 26 20:52:59 2025 +0900
+
+    ビューの編集
+
+[1mdiff --git a/app/views/users/index.html.erb b/app/views/users/index.html.erb[m
+[1mindex 6a90d8c..d60cb2e 100644[m
+[1m--- a/app/views/users/index.html.erb[m
+[1m+++ b/app/views/users/index.html.erb[m
+[36m@@ -1,8 +1,14 @@[m
+ <% @users.each do |user| %>[m
+   <%= image_tag user.user_information.image, size: "50x50" %><br>[m
+   <ul>[m
+[32m+[m[32m<%[m[41m[m
+[32m+[m[32m=begin[m[41m[m
+[32m+[m[32m%>[m[41m[m
+     <li><%= user.id %></li>[m
+     <li><%= user.user_information.user_id %></li>[m
+[32m+[m[32m<%[m[41m[m
+[32m+[m[32m=end[m[41m[m
+[32m+[m[32m%>[m[41m[m
+     <li>名前：<%= user.name %></li>[m
+     <li>メールアドレス：<%= user.email %></li>[m
+     <li>年齢：<%= user.user_information.age %></li>[m
+
+[33mcommit 5ccc9a9340d41d7caf73b2c8206b4fc6797ae020[m[33m ([m[1;31morigin/feature/uploadUsericon2[m[33m, [m[1;32mfeature/uploadUsericon2[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Fri Sep 26 14:59:21 2025 +0900
+
+    デフォルト画像
+
+[1mdiff --git a/app/controllers/user_informations_controller.rb b/app/controllers/user_informations_controller.rb[m
+[1mindex fb25880..f2aae8b 100644[m
+[1m--- a/app/controllers/user_informations_controller.rb[m
+[1m+++ b/app/controllers/user_informations_controller.rb[m
+[36m@@ -5,7 +5,7 @@[m [mclass UserInformationsController < ApplicationController[m
+ [m
+   def create[m
+     @user_information = UserInformation.new(user_information_params)[m
+[31m-    # binding.pry[m
+[32m+[m[32m    @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")[m
+     if @user_information.save[m
+       redirect_to users_path[m
+     else[m
+[36m@@ -15,7 +15,7 @@[m [mclass UserInformationsController < ApplicationController[m
+ [m
+   private[m
+   def user_information_params[m
+[31m-    params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)[m
+[32m+[m[32m    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)[m
+     # binding.pry[m
+   end[m
+ end[m
+[1mdiff --git a/app/views/user_informations/new.html.erb b/app/views/user_informations/new.html.erb[m
+[1mindex 4a95e6c..6b0127a 100644[m
+[1m--- a/app/views/user_informations/new.html.erb[m
+[1m+++ b/app/views/user_informations/new.html.erb[m
+[36m@@ -1,8 +1,5 @@[m
+ <h3>ユーザープロフィール作成</h3>[m
+ <%= form_with model: @user_information, url: create_user_information_path, local: true, data: { turbo: false } do |f| %>[m
+[31m-  <%= f.label :image, "プロフィール画像をアップロードしてください。" %><br>[m
+[31m-  <%= f.file_field :image, accept: "image/*" %></br>[m
+[31m-[m
+   <%= f.label :age, "あなたの年齢を選択してください" %></br>[m
+   <%= f.number_field :age, autocomplete: "off", value: 18 %></br>[m
+ [m
+[1mdiff --git a/app/views/users/index.html.erb b/app/views/users/index.html.erb[m
+[1mindex f8f8f3d..6a90d8c 100644[m
+[1m--- a/app/views/users/index.html.erb[m
+[1m+++ b/app/views/users/index.html.erb[m
+[36m@@ -1,9 +1,5 @@[m
+ <% @users.each do |user| %>[m
+[31m-  <% if user.user_information.image.attached? %>[m
+[31m-    <%= image_tag user.user_information.image, size: "50x50" %><br>[m
+[31m-  <% else %>[m
+[31m-    <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m
+[31m-  <% end %>[m
+[32m+[m[32m  <%= image_tag user.user_information.image, size: "50x50" %><br>[m[41m[m
+   <ul>[m
+     <li><%= user.id %></li>[m
+     <li><%= user.user_information.user_id %></li>[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex b5349b7..777116a 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+
+[33mcommit 2549037b7b232e6f030b2f8d418309ab95e102b8[m[33m ([m[1;31morigin/feature/destroyUserCorrection[m[33m, [m[1;32mfeature/userInformationColumnView[m[33m, [m[1;32mfeature/destroyUserCorrection[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Thu Sep 25 22:19:59 2025 +0900
+
+    削除アクション修正
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mindex c74e3eb..673ea73 100644[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -8,12 +8,15 @@[m [mclass UsersController < ApplicationController[m
+   end[m
+ [m
+   def destroy[m
+[31m-    @user = User.find(params[:id])[m
+[32m+[m[32m    user = User.find(params[:id])[m[41m[m
+     # @user_information = UserInformation.find_by(user_id: params[:id])[m
+     # # binding.pry[m
+     # @user_information.delete[m
+[31m-    @user.destroy[m
+[31m-    redirect_to users_path, notice: 'アカウントが削除されました。'[m
+[32m+[m[32m    if user.destroy[m[41m[m
+[32m+[m[32m      redirect_to user_session_path, notice: "アカウントの削除が完了しました"[m[41m[m
+[32m+[m[32m    else[m[41m[m
+[32m+[m[32m      flash.now[:alert] = "アカウントの削除に失敗しました"[m[41m[m
+[32m+[m[32m      render :index[m[41m[m
+[32m+[m[32m    end[m[41m[m
+   end[m
+[31m-[m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb[m
+[1mindex 465b03b..b179cf4 100644[m
+[1m--- a/app/views/layouts/application.html.erb[m
+[1m+++ b/app/views/layouts/application.html.erb[m
+[36m@@ -32,6 +32,10 @@[m
+   </header>[m
+ [m
+   <body>[m
+[32m+[m[32m    <% flash.each do |name, msg| %>[m
+[32m+[m[32m      <%= content_tag :div, msg, class: name %>[m
+[32m+[m[32m    <% end %>[m
+[32m+[m
+     <%= yield %>[m
+   </body>[m
+ </html>[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex 66ec29f..b5349b7 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+
+[33mcommit d860acd73e18dfccd0b62bef588f7cb4e0bfe9d8[m[33m ([m[1;31morigin/feature/userInformationColumnView[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Thu Sep 25 17:21:33 2025 +0900
+
+    DB
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c74e3eb[m
+[1m--- /dev/null[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mclass UsersController < ApplicationController[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  def index[m[41m[m
+[32m+[m[32m    @users = User.all[m[41m[m
+[32m+[m[32m    # @user = User.find(15)[m[41m[m
+[32m+[m[32m    # @user_information = @user.user_information[m[41m[m
+[32m+[m[32m    # binding.pry[m[41m[m
+[32m+[m[32m  end[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m  def destroy[m[41m[m
+[32m+[m[32m    @user = User.find(params[:id])[m[41m[m
+[32m+[m[32m    # @user_information = UserInformation.find_by(user_id: params[:id])[m[41m[m
+[32m+[m[32m    # # binding.pry[m[41m[m
+[32m+[m[32m    # @user_information.delete[m[41m[m
+[32m+[m[32m    @user.destroy[m[41m[m
+[32m+[m[32m    redirect_to users_path, notice: 'アカウントが削除されました。'[m[41m[m
+[32m+[m[32m  end[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32mend[m
+\ No newline at end of file[m
+
+[33mcommit efaae2ffcd1a7abd6b3c91bea78c51dafd54521b[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Thu Sep 25 17:03:12 2025 +0900
+
+    DB
+
+[1mdiff --git a/bin/render.build.sh b/bin/render-build.sh[m
+[1msimilarity index 100%[m
+[1mrename from bin/render.build.sh[m
+[1mrename to bin/render-build.sh[m
+
+[33mcommit 9587da69912612f4d79dfcf40252fe46f6e61297[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Thu Sep 25 17:00:08 2025 +0900
+
+    DB
+
+[1mdiff --git a/bin/render.build.sh b/bin/render.build.sh[m
+[1mnew file mode 100644[m
+[1mindex 0000000..34f9e58[m
+[1m--- /dev/null[m
+[1m+++ b/bin/render.build.sh[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m#!/usr/bin/env bash[m
+[32m+[m
+[32m+[m[32m# Exit on error[m
+[32m+[m[32mset -o errexit[m
+[32m+[m
+[32m+[m[32mbundle install[m
+[32m+[m[32mbin/rails assets:precompile[m
+[32m+[m[32mbin/rails assets:clean[m
+[32m+[m
+[32m+[m[32m# If you have a paid instance type, we recommend moving[m
+[32m+[m[32m# database migrations like this one from the build command[m
+[32m+[m[32m# to the pre-deploy command:[m
+[32m+[m[32mbin/rails db:migrate[m
+
+[33mcommit 737cec34ad0f61b410ef2b321e6b7bf1d73aacd2[m
+Author: s0551 <nsaekitadayasu@icloud.com>
+Date:   Wed Sep 24 18:25:02 2025 +0900
+
+    Delete bin/render-build.sh
+
+[1mdiff --git a/bin/render-build.sh b/bin/render-build.sh[m
+[1mdeleted file mode 100755[m
+[1mindex 34f9e58..0000000[m
+[1m--- a/bin/render-build.sh[m
+[1m+++ /dev/null[m
+[36m@@ -1,13 +0,0 @@[m
+[31m-#!/usr/bin/env bash[m
+[31m-[m
+[31m-# Exit on error[m
+[31m-set -o errexit[m
+[31m-[m
+[31m-bundle install[m
+[31m-bin/rails assets:precompile[m
+[31m-bin/rails assets:clean[m
+[31m-[m
+[31m-# If you have a paid instance type, we recommend moving[m
+[31m-# database migrations like this one from the build command[m
+[31m-# to the pre-deploy command:[m
+[31m-bin/rails db:migrate[m
+
+[33mcommit fafc1f95454f70a4047387153706d5c42e8f2981[m
+Author: s0551 <nsaekitadayasu@icloud.com>
+Date:   Wed Sep 24 18:23:24 2025 +0900
+
+    Delete app/controllers/users_controller.rb
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mdeleted file mode 100644[m
+[1mindex ffcfca4..0000000[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ /dev/null[m
+[36m@@ -1,17 +0,0 @@[m
+[31m-class UsersController < ApplicationController[m
+[31m-[m
+[31m-  def index[m
+[31m-    @users = User.all[m
+[31m-    # binding.pry[m
+[31m-  end[m
+[31m-[m
+[31m-  def destroy[m
+[31m-    @user = User.find(params[:id])[m
+[31m-    # @user_information = UserInformation.find_by(user_id: params[:id])[m
+[31m-    # # binding.pry[m
+[31m-    # @user_information.delete[m
+[31m-    @user.destroy[m
+[31m-    redirect_to users_path, notice: 'アカウントが削除されました。'[m
+[31m-  end[m
+[31m-[m
+[31m-end[m
+
+[33mcommit 2ef343c6f67a6f91721ac0c4b84319856cc55b58[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Wed Sep 24 17:25:49 2025 +0900
+
+    DB
+
+[1mdiff --git a/bin/render-build.sh b/bin/render-build.sh[m
+[1mindex ed03f1b..34f9e58 100755[m
+[1m--- a/bin/render-build.sh[m
+[1m+++ b/bin/render-build.sh[m
+[36m@@ -10,6 +10,4 @@[m [mbin/rails assets:clean[m
+ # If you have a paid instance type, we recommend moving[m
+ # database migrations like this one from the build command[m
+ # to the pre-deploy command:[m
+[31m-bin/rails db:drop[m
+[31m-bin/rails db:create[m
+ bin/rails db:migrate[m
+
+[33mcommit 5fccafc5300cebb341a0fa47dc4740c14b831e97[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Wed Sep 24 16:20:48 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/bin/render-build.sh b/bin/render-build.sh[m
+[1mindex b0a06a4..ed03f1b 100755[m
+[1m--- a/bin/render-build.sh[m
+[1m+++ b/bin/render-build.sh[m
+[36m@@ -10,6 +10,6 @@[m [mbin/rails assets:clean[m
+ # If you have a paid instance type, we recommend moving[m
+ # database migrations like this one from the build command[m
+ # to the pre-deploy command:[m
+[31m-rake db:drop[m
+[31m-rake db:create[m
+[32m+[m[32mbin/rails db:drop[m
+[32m+[m[32mbin/rails db:create[m
+ bin/rails db:migrate[m
+
+[33mcommit 3288b3429f1e1fd139cac03e3fc0c92b4928ddb5[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Wed Sep 24 16:18:47 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/bin/render-build.sh b/bin/render-build.sh[m
+[1mindex a3de346..b0a06a4 100755[m
+[1m--- a/bin/render-build.sh[m
+[1m+++ b/bin/render-build.sh[m
+[36m@@ -10,5 +10,6 @@[m [mbin/rails assets:clean[m
+ # If you have a paid instance type, we recommend moving[m
+ # database migrations like this one from the build command[m
+ # to the pre-deploy command:[m
+[31m-# bin/rails db:migrate[m
+[31m-DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset[m
+\ No newline at end of file[m
+[32m+[m[32mrake db:drop[m
+[32m+[m[32mrake db:create[m
+[32m+[m[32mbin/rails db:migrate[m
+
+[33mcommit ac5043913146ac3568abe416204f3be835918dc0[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Wed Sep 24 16:16:25 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/bin/render-build.sh b/bin/render-build.sh[m
+[1mindex 08eef67..a3de346 100755[m
+[1m--- a/bin/render-build.sh[m
+[1m+++ b/bin/render-build.sh[m
+[36m@@ -10,4 +10,5 @@[m [mbin/rails assets:clean[m
+ # If you have a paid instance type, we recommend moving[m
+ # database migrations like this one from the build command[m
+ # to the pre-deploy command:[m
+[31m-bin/rails db:migrate[m
+\ No newline at end of file[m
+[32m+[m[32m# bin/rails db:migrate[m
+[32m+[m[32mDISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset[m
+\ No newline at end of file[m
+
+[33mcommit 070bc1ccf416f67636dd2aec11be2296c035a977[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sun Sep 21 16:10:39 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex e075e6f..66ec29f 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+
+[33mcommit 57bb5cf32d8f7abed8bd329dc7650f072db21b53[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sun Sep 21 15:57:48 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mindex 6eea731..ffcfca4 100644[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -2,7 +2,6 @@[m [mclass UsersController < ApplicationController[m
+ [m
+   def index[m
+     @users = User.all[m
+[31m-    @user_informations = UserInformation.all[m
+     # binding.pry[m
+   end[m
+ [m
+[1mdiff --git a/app/views/user_informations/new.html.erb b/app/views/user_informations/new.html.erb[m
+[1mindex e48cdd0..4a95e6c 100644[m
+[1m--- a/app/views/user_informations/new.html.erb[m
+[1m+++ b/app/views/user_informations/new.html.erb[m
+[36m@@ -4,16 +4,16 @@[m
+   <%= f.file_field :image, accept: "image/*" %></br>[m
+ [m
+   <%= f.label :age, "あなたの年齢を選択してください" %></br>[m
+[31m-  <%= f.number_field :age, autocomplete: "off" %></br>[m
+[32m+[m[32m  <%= f.number_field :age, autocomplete: "off", value: 18 %></br>[m[41m[m
+ [m
+   <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>[m
+[31m-  <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930 %></br>[m
+[32m+[m[32m  <%= f.date_select :birth_date, use_month_numbers: true, default: { day: 1, month: 1 }, start_year:1960, end_year:2015 %></br>[m[41m[m
+ [m
+   <%= f.label :prefecture_id, "お住いの都道府県を選択してください" %></br>[m
+[31m-  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, prompt: "北海道") %></br>[m
+[32m+[m[32m  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>[m[41m[m
+ [m
+   <%= f.label :hobby_id, "あなたの趣味を選択してください" %></br>[m
+[31m-  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, prompt: "ゲーム") %></br>[m
+[32m+[m[32m  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>[m[41m[m
+ [m
+   <%= f.submit "完了" %>[m
+ <% end %>[m
+[1mdiff --git a/app/views/users/index.html.erb b/app/views/users/index.html.erb[m
+[1mindex 8bff8e9..f8f8f3d 100644[m
+[1m--- a/app/views/users/index.html.erb[m
+[1m+++ b/app/views/users/index.html.erb[m
+[36m@@ -1,20 +1,17 @@[m
+[31m-  <% @users.each do |user| %>[m
+[31m-    <% @user_informations.each do |user_information| %>[m
+[31m-      <% if user.id == user_information.user_id %>[m
+[31m-        <% if user_information.image.attached? %>[m
+[31m-          <%= image_tag user_information.image, size: "50x50" %><br>[m
+[31m-        <% else %>[m
+[31m-          <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m
+[31m-        <% end %>[m
+[31m-        <ul>[m
+[31m-          <li>名前：<%= user.name %></li>[m
+[31m-          <li>メールアドレス：<%= user.email %></li>[m
+[31m-          <li>年齢：<%= user_information.age %></li>[m
+[31m-          <li>生年月日：<%= user_information.birth_date %></li>[m
+[31m-          <li>都道府県：<%= user_information.prefecture.name %></li>[m
+[31m-          <li>趣味：<%= user_information.hobby.name %></li>[m
+[31m-        </ul>[m
+[31m-      <% else %>[m
+[31m-      <% end %>[m
+[31m-    <% end %>[m
+[31m-  <% end %>[m
+\ No newline at end of file[m
+[32m+[m[32m<% @users.each do |user| %>[m[41m[m
+[32m+[m[32m  <% if user.user_information.image.attached? %>[m[41m[m
+[32m+[m[32m    <%= image_tag user.user_information.image, size: "50x50" %><br>[m[41m[m
+[32m+[m[32m  <% else %>[m[41m[m
+[32m+[m[32m    <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m[41m[m
+[32m+[m[32m  <% end %>[m[41m[m
+[32m+[m[32m  <ul>[m[41m[m
+[32m+[m[32m    <li><%= user.id %></li>[m[41m[m
+[32m+[m[32m    <li><%= user.user_information.user_id %></li>[m[41m[m
+[32m+[m[32m    <li>名前：<%= user.name %></li>[m[41m[m
+[32m+[m[32m    <li>メールアドレス：<%= user.email %></li>[m[41m[m
+[32m+[m[32m    <li>年齢：<%= user.user_information.age %></li>[m[41m[m
+[32m+[m[32m    <li>生年月日：<%= user.user_information.birth_date %></li>[m[41m[m
+[32m+[m[32m    <li>都道府県：<%= user.user_information.prefecture.name %></li>[m[41m[m
+[32m+[m[32m    <li>趣味：<%= user.user_information.hobby.name %></li>[m[41m[m
+[32m+[m[32m  </ul>[m[41m[m
+[32m+[m[32m<% end %>[m
+\ No newline at end of file[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex fe0261c..e075e6f 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+
+[33mcommit e3e5bb33066079abe7872403fc6e119b134334d9[m[33m ([m[1;31morigin/feature/userInformationColumn[m[33m)[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sun Sep 21 14:43:30 2025 +0900
+
+    userInformationColumnView
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mindex 28d0d9d..6eea731 100644[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -2,8 +2,7 @@[m [mclass UsersController < ApplicationController[m
+ [m
+   def index[m
+     @users = User.all[m
+[31m-    # @user = User.find(15)[m
+[31m-    # @user_information = @user.user_information[m
+[32m+[m[32m    @user_informations = UserInformation.all[m
+     # binding.pry[m
+   end[m
+ [m
+[1mdiff --git a/app/views/users/index.html.erb b/app/views/users/index.html.erb[m
+[1mindex 6341304..8bff8e9 100644[m
+[1m--- a/app/views/users/index.html.erb[m
+[1m+++ b/app/views/users/index.html.erb[m
+[36m@@ -1,11 +1,20 @@[m
+   <% @users.each do |user| %>[m
+[31m-    <% if @user_information.image.attached? %>[m
+[31m-      <%= image_tag @user_information.image, size: "50x50" %><br>[m
+[31m-    <% else %>[m
+[31m-      <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m
+[32m+[m[32m    <% @user_informations.each do |user_information| %>[m[41m[m
+[32m+[m[32m      <% if user.id == user_information.user_id %>[m[41m[m
+[32m+[m[32m        <% if user_information.image.attached? %>[m[41m[m
+[32m+[m[32m          <%= image_tag user_information.image, size: "50x50" %><br>[m[41m[m
+[32m+[m[32m        <% else %>[m[41m[m
+[32m+[m[32m          <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m[41m[m
+[32m+[m[32m        <% end %>[m[41m[m
+[32m+[m[32m        <ul>[m[41m[m
+[32m+[m[32m          <li>名前：<%= user.name %></li>[m[41m[m
+[32m+[m[32m          <li>メールアドレス：<%= user.email %></li>[m[41m[m
+[32m+[m[32m          <li>年齢：<%= user_information.age %></li>[m[41m[m
+[32m+[m[32m          <li>生年月日：<%= user_information.birth_date %></li>[m[41m[m
+[32m+[m[32m          <li>都道府県：<%= user_information.prefecture.name %></li>[m[41m[m
+[32m+[m[32m          <li>趣味：<%= user_information.hobby.name %></li>[m[41m[m
+[32m+[m[32m        </ul>[m[41m[m
+[32m+[m[32m      <% else %>[m[41m[m
+[32m+[m[32m      <% end %>[m[41m[m
+     <% end %>[m
+[31m-    <li>[m
+[31m-      <%= user.name %>[m
+[31m-      <%= user.email %>[m
+[31m-    </li>[m
+   <% end %>[m
+\ No newline at end of file[m
+
+[33mcommit 510587600c38dc7dd9470625a325ee7086d6d33c[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sun Sep 21 14:22:37 2025 +0900
+
+    userInformationColumn
+
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mindex a1801d2..28d0d9d 100644[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -2,8 +2,8 @@[m [mclass UsersController < ApplicationController[m
+ [m
+   def index[m
+     @users = User.all[m
+[31m-    @user = User.find(15)[m
+[31m-    @user_information = @user.user_information[m
+[32m+[m[32m    # @user = User.find(15)[m
+[32m+[m[32m    # @user_information = @user.user_information[m
+     # binding.pry[m
+   end[m
+ [m
+
+[33mcommit 9aeea089e5f3e220a7e259ed88c1e56ec8c8807d[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Sun Sep 21 14:10:28 2025 +0900
+
+    userInformationColumn
+
+[1mdiff --git a/app/controllers/application_controller.rb b/app/controllers/application_controller.rb[m
+[1mindex 3e7072b..9ea618f 100644[m
+[1m--- a/app/controllers/application_controller.rb[m
+[1m+++ b/app/controllers/application_controller.rb[m
+[36m@@ -2,10 +2,16 @@[m [mclass ApplicationController < ActionController::Base[m
+   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.[m
+   allow_browser versions: :modern[m
+   before_action :authenticate_user![m
+[32m+[m[32m  before_action :configure_permitted_parameters , if: :devise_controller?[m
+ [m
+[31m-private [m
+[32m+[m[32m  protected[m
+[32m+[m[32m  def configure_permitted_parameters[m
+[32m+[m[32m    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  private[m[41m [m
+   def after_sign_in_path_for(resource)[m
+[31m-    root_path # ログイン後に遷移するpathを設定[m
+[32m+[m[32m    users_path # ログイン後に遷移するpathを設定[m
+   end[m
+ [m
+   def after_sign_out_path_for(resource)[m
+[1mdiff --git a/app/controllers/user_informations_controller.rb b/app/controllers/user_informations_controller.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..fb25880[m
+[1m--- /dev/null[m
+[1m+++ b/app/controllers/user_informations_controller.rb[m
+[36m@@ -0,0 +1,21 @@[m
+[32m+[m[32mclass UserInformationsController < ApplicationController[m
+[32m+[m[32m  def new[m
+[32m+[m[32m    @user_information = UserInformation.new[m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  def create[m
+[32m+[m[32m    @user_information = UserInformation.new(user_information_params)[m
+[32m+[m[32m    # binding.pry[m
+[32m+[m[32m    if @user_information.save[m
+[32m+[m[32m      redirect_to users_path[m
+[32m+[m[32m    else[m
+[32m+[m[32m      render :back[m
+[32m+[m[32m    end[m[41m [m
+[32m+[m[32m  end[m
+[32m+[m
+[32m+[m[32m  private[m
+[32m+[m[32m  def user_information_params[m
+[32m+[m[32m    params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)[m
+[32m+[m[32m    # binding.pry[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/controllers/users/registrations_controller.rb b/app/controllers/users/registrations_controller.rb[m
+[1mindex b1cda50..5df9807 100644[m
+[1m--- a/app/controllers/users/registrations_controller.rb[m
+[1m+++ b/app/controllers/users/registrations_controller.rb[m
+[36m@@ -60,6 +60,6 @@[m [mclass Users::RegistrationsController < Devise::RegistrationsController[m
+   #   super(resource)[m
+   # end[m
+   def after_sign_up_path_for(resource)   [m
+[31m-    new_user_path #サインアップ遷移先のパス[m
+[32m+[m[32m    new_user_information_path #サインアップ遷移先のパス[m
+   end[m
+ end[m
+[1mdiff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb[m
+[1mindex f3b3c8b..a1801d2 100644[m
+[1m--- a/app/controllers/users_controller.rb[m
+[1m+++ b/app/controllers/users_controller.rb[m
+[36m@@ -2,30 +2,18 @@[m [mclass UsersController < ApplicationController[m
+ [m
+   def index[m
+     @users = User.all[m
+[31m-  end[m
+[31m-[m
+[31m-  def new[m
+[31m-    @user = User.new[m
+[31m-  end[m
+[31m-[m
+[31m-  def create[m
+[31m-    @user = current_user[m
+[31m-    if @user.update(user_params)[m
+[31m-      # binding.pry[m
+[31m-      redirect_to users_path[m
+[31m-    else[m
+[31m-      render :back[m
+[31m-    end [m
+[32m+[m[32m    @user = User.find(15)[m
+[32m+[m[32m    @user_information = @user.user_information[m
+[32m+[m[32m    # binding.pry[m
+   end[m
+ [m
+   def destroy[m
+     @user = User.find(params[:id])[m
+[31m-    @user.delete[m
+[32m+[m[32m    # @user_information = UserInformation.find_by(user_id: params[:id])[m
+[32m+[m[32m    # # binding.pry[m
+[32m+[m[32m    # @user_information.delete[m
+[32m+[m[32m    @user.destroy[m
+     redirect_to users_path, notice: 'アカウントが削除されました。'[m
+   end[m
+ [m
+[31m-  private[m
+[31m-  def user_params[m
+[31m-    params.require(:user).permit(:image, :name, :age, :birth_date, :prefecture_id, :hobby_id)[m
+[31m-  end[m
+ end[m
+[1mdiff --git a/app/helpers/user_informations_helper.rb b/app/helpers/user_informations_helper.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ff9ea21[m
+[1m--- /dev/null[m
+[1m+++ b/app/helpers/user_informations_helper.rb[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mmodule UserInformationsHelper[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/models/hobby.rb b/app/models/hobby.rb[m
+[1mindex 990d2c8..95d2cf0 100644[m
+[1m--- a/app/models/hobby.rb[m
+[1m+++ b/app/models/hobby.rb[m
+[36m@@ -5,5 +5,5 @@[m [mclass Hobby < ActiveHash::Base[m
+   ][m
+ [m
+   include ActiveHash::Associations[m
+[31m-  has_many :users[m
+[32m+[m[32m  has_many :user_informations[m[41m[m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/app/models/prefecture.rb b/app/models/prefecture.rb[m
+[1mindex 0c62582..4db5aee 100644[m
+[1m--- a/app/models/prefecture.rb[m
+[1m+++ b/app/models/prefecture.rb[m
+[36m@@ -19,5 +19,5 @@[m [mclass Prefecture < ActiveHash::Base[m
+   ][m
+ [m
+   include ActiveHash::Associations[m
+[31m-  has_many :users[m
+[32m+[m[32m  has_one :user_information[m[41m[m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/app/models/user.rb b/app/models/user.rb[m
+[1mindex 600f2b9..4038172 100644[m
+[1m--- a/app/models/user.rb[m
+[1m+++ b/app/models/user.rb[m
+[36m@@ -3,11 +3,6 @@[m [mclass User < ApplicationRecord[m
+   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable[m
+   devise :database_authenticatable, :registerable,[m
+          :recoverable, :rememberable, :validatable[m
+[31m-[m
+[31m-  extend ActiveHash::Associations::ActiveRecordExtensions[m
+[31m-  belongs_to_active_hash :prefecture[m
+[31m-  belongs_to_active_hash :hobby[m
+[31m-[m
+[31m-  has_one_attached :image[m
+   [m
+[32m+[m[32m  has_one :user_information, dependent: :destroy[m[41m  [m
+ end[m
+\ No newline at end of file[m
+[1mdiff --git a/app/models/user_information.rb b/app/models/user_information.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..fa75dd5[m
+[1m--- /dev/null[m
+[1m+++ b/app/models/user_information.rb[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32mclass UserInformation < ApplicationRecord[m
+[32m+[m[32m  belongs_to :user[m
+[32m+[m[32m  has_one_attached :image[m
+[32m+[m
+[32m+[m[32m  extend ActiveHash::Associations::ActiveRecordExtensions[m
+[32m+[m[32m  belongs_to_active_hash :prefecture[m
+[32m+[m[32m  belongs_to_active_hash :hobby[m
+[32m+[m[32mend[m
+[1mdiff --git a/app/views/devise/registrations/new.html.erb b/app/views/devise/registrations/new.html.erb[m
+[1mindex d655b66..ebc7d85 100644[m
+[1m--- a/app/views/devise/registrations/new.html.erb[m
+[1m+++ b/app/views/devise/registrations/new.html.erb[m
+[36m@@ -8,6 +8,11 @@[m
+     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>[m
+   </div>[m
+ [m
+[32m+[m[32m  <div class="field">[m
+[32m+[m[32m    <%= f.label :name %><br />[m
+[32m+[m[32m    <%= f.text_field :name, autocomplete: "name" %>[m
+[32m+[m[32m  </div>[m
+[32m+[m
+   <div class="field">[m
+     <%= f.label :password %>[m
+     <% if @minimum_password_length %>[m
+[1mdiff --git a/app/views/users/new.html.erb b/app/views/user_informations/new.html.erb[m
+[1msimilarity index 79%[m
+[1mrename from app/views/users/new.html.erb[m
+[1mrename to app/views/user_informations/new.html.erb[m
+[1mindex 9173278..e48cdd0 100644[m
+[1m--- a/app/views/users/new.html.erb[m
+[1m+++ b/app/views/user_informations/new.html.erb[m
+[36m@@ -1,11 +1,8 @@[m
+ <h3>ユーザープロフィール作成</h3>[m
+[31m-<%= form_with model: @user, url: create_new_user_path, local: true, data: { turbo: false } do |f| %>[m
+[32m+[m[32m<%= form_with model: @user_information, url: create_user_information_path, local: true, data: { turbo: false } do |f| %>[m[41m[m
+   <%= f.label :image, "プロフィール画像をアップロードしてください。" %><br>[m
+   <%= f.file_field :image, accept: "image/*" %></br>[m
+ [m
+[31m-  <%= f.label :name, "あなたの名前を入力してください" %></br>[m
+[31m-  <%= f.text_field :name %></br>[m
+[31m-[m
+   <%= f.label :age, "あなたの年齢を選択してください" %></br>[m
+   <%= f.number_field :age, autocomplete: "off" %></br>[m
+ [m
+[1mdiff --git a/app/views/users/index.html.erb b/app/views/users/index.html.erb[m
+[1mindex 71c5e25..6341304 100644[m
+[1m--- a/app/views/users/index.html.erb[m
+[1m+++ b/app/views/users/index.html.erb[m
+[36m@@ -1,6 +1,6 @@[m
+   <% @users.each do |user| %>[m
+[31m-    <% if user.image.attached? %>[m
+[31m-      <%= image_tag user.image, size: "50x50" %><br>[m
+[32m+[m[32m    <% if @user_information.image.attached? %>[m[41m[m
+[32m+[m[32m      <%= image_tag @user_information.image, size: "50x50" %><br>[m[41m[m
+     <% else %>[m
+       <%= image_tag "defaultUserIcon.png", size: "50x50" %><br>[m
+     <% end %>[m
+[1mdiff --git a/config/routes.rb b/config/routes.rb[m
+[1mindex 49502b2..6cf5745 100644[m
+[1m--- a/config/routes.rb[m
+[1m+++ b/config/routes.rb[m
+[36m@@ -18,4 +18,7 @@[m [mRails.application.routes.draw do[m
+   resources :users[m
+   post "users/create", to: "users#create", as: :create_new_user[m
+   get "users/:id/destroy", to: "users#destroy", as: :destroy_user[m
+[32m+[m
+[32m+[m[32m  get "user_informations/new", to: "user_informations#new", as: :new_user_information[m
+[32m+[m[32m  post "user_informations/create", to: "user_informations#create", as: :create_user_information[m
+ end[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex 59dd40c..fe0261c 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+[1mdiff --git a/db/migrate/20250913054053_add_column_to_users.rb b/db/migrate/20250913054053_add_column_to_users.rb[m
+[1mdeleted file mode 100644[m
+[1mindex 10bf626..0000000[m
+[1m--- a/db/migrate/20250913054053_add_column_to_users.rb[m
+[1m+++ /dev/null[m
+[36m@@ -1,8 +0,0 @@[m
+[31m-class AddColumnToUsers < ActiveRecord::Migration[8.0][m
+[31m-  def change[m
+[31m-    add_column :users, :age, :integer [m
+[31m-    add_column :users, :birth_date, :date[m
+[31m-    add_column :users, :prefecture_id, :integer [m
+[31m-    add_column :users, :hobby_id, :integer [m
+[31m-  end[m
+[31m-end[m
+[1mdiff --git a/db/migrate/20250920072211_change_pointname_on_user.rb b/db/migrate/20250920072211_change_pointname_on_user.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0606ee3[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20250920072211_change_pointname_on_user.rb[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32mclass ChangePointnameOnUser < ActiveRecord::Migration[8.0][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    change_column_null :users, :name, false[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20250920114143_create_user_informations.rb b/db/migrate/20250920114143_create_user_informations.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7c640ef[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20250920114143_create_user_informations.rb[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32mclass CreateUserInformations < ActiveRecord::Migration[8.0][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    create_table :user_informations do |t|[m
+[32m+[m[32m      t.integer :age, null: false[m
+[32m+[m[32m      t.date :birth_date, null: false[m
+[32m+[m[32m      t.integer :prefecture_id, null: false[m
+[32m+[m[32m      t.integer :hobby_id, null: false[m
+[32m+[m
+[32m+[m[32m      t.timestamps[m
+[32m+[m[32m    end[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/migrate/20250920124928_add_user_id_to_user_informations.rb b/db/migrate/20250920124928_add_user_id_to_user_informations.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0e87b4a[m
+[1m--- /dev/null[m
+[1m+++ b/db/migrate/20250920124928_add_user_id_to_user_informations.rb[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32mclass AddUserIdToUserInformations < ActiveRecord::Migration[8.0][m
+[32m+[m[32m  def change[m
+[32m+[m[32m    add_reference :user_informations, :user, foreign_key: true[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/db/schema.rb b/db/schema.rb[m
+[1mindex acb463b..6dfa38a 100644[m
+[1m--- a/db/schema.rb[m
+[1m+++ b/db/schema.rb[m
+[36m@@ -10,7 +10,7 @@[m
+ #[m
+ # It's strongly recommended that you check this file into your version control system.[m
+ [m
+[31m-ActiveRecord::Schema[8.0].define(version: 2025_09_17_081400) do[m
+[32m+[m[32mActiveRecord::Schema[8.0].define(version: 2025_09_20_124928) do[m[41m[m
+   create_table "active_storage_attachments", force: :cascade do |t|[m
+     t.string "name", null: false[m
+     t.string "record_type", null: false[m
+[36m@@ -39,23 +39,31 @@[m [mActiveRecord::Schema[8.0].define(version: 2025_09_17_081400) do[m
+     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true[m
+   end[m
+ [m
+[32m+[m[32m  create_table "user_informations", force: :cascade do |t|[m[41m[m
+[32m+[m[32m    t.integer "age", null: false[m[41m[m
+[32m+[m[32m    t.date "birth_date", null: false[m[41m[m
+[32m+[m[32m    t.integer "prefecture_id", null: false[m[41m[m
+[32m+[m[32m    t.integer "hobby_id", null: false[m[41m[m
+[32m+[m[32m    t.datetime "created_at", null: false[m[41m[m
+[32m+[m[32m    t.datetime "updated_at", null: false[m[41m[m
+[32m+[m[32m    t.integer "user_id"[m[41m[m
+[32m+[m[32m    t.index ["user_id"], name: "index_user_informations_on_user_id"[m[41m[m
+[32m+[m[32m  end[m[41m[m
+[32m+[m[41m[m
+   create_table "users", force: :cascade do |t|[m
+     t.string "email", default: "", null: false[m
+     t.string "encrypted_password", default: "", null: false[m
+[31m-    t.string "name"[m
+[32m+[m[32m    t.string "name", null: false[m[41m[m
+     t.string "reset_password_token"[m
+     t.datetime "reset_password_sent_at"[m
+     t.datetime "remember_created_at"[m
+     t.datetime "created_at", null: false[m
+     t.datetime "updated_at", null: false[m
+[31m-    t.integer "age"[m
+[31m-    t.date "birth_date"[m
+[31m-    t.integer "prefecture_id"[m
+[31m-    t.integer "hobby_id"[m
+     t.index ["email"], name: "index_users_on_email", unique: true[m
+     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true[m
+   end[m
+ [m
+   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"[m
+   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"[m
+[32m+[m[32m  add_foreign_key "user_informations", "users"[m[41m[m
+ end[m
+[1mdiff --git a/test/controllers/user_informations_controller_test.rb b/test/controllers/user_informations_controller_test.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b29c89e[m
+[1m--- /dev/null[m
+[1m+++ b/test/controllers/user_informations_controller_test.rb[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mrequire "test_helper"[m
+[32m+[m
+[32m+[m[32mclass UserInformationsControllerTest < ActionDispatch::IntegrationTest[m
+[32m+[m[32m  # test "the truth" do[m
+[32m+[m[32m  #   assert true[m
+[32m+[m[32m  # end[m
+[32m+[m[32mend[m
+[1mdiff --git a/test/fixtures/authors.yml b/test/fixtures/authors.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4e4834d[m
+[1m--- /dev/null[m
+[1m+++ b/test/fixtures/authors.yml[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html[m
+[32m+[m
+[32m+[m[32mone:[m
+[32m+[m[32m  age: 1[m
+[32m+[m[32m  birth_date: 2025-09-20[m
+[32m+[m[32m  prefecture_id: 1[m
+[32m+[m[32m  hobby_id: 1[m
+[32m+[m
+[32m+[m[32mtwo:[m
+[32m+[m[32m  age: 1[m
+[32m+[m[32m  birth_date: 2025-09-20[m
+[32m+[m[32m  prefecture_id: 1[m
+[32m+[m[32m  hobby_id: 1[m
+[1mdiff --git a/test/fixtures/user_informations.yml b/test/fixtures/user_informations.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9c55901[m
+[1m--- /dev/null[m
+[1m+++ b/test/fixtures/user_informations.yml[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html[m
+[32m+[m
+[32m+[m[32mone:[m
+[32m+[m[32m  age: 1[m
+[32m+[m[32m  birth_date: 2025-09-20[m
+[32m+[m[32m  prefecture_id: 1[m
+[32m+[m[32m  hobby_id: 1[m
+[32m+[m[32m  user: one[m
+[32m+[m
+[32m+[m[32mtwo:[m
+[32m+[m[32m  age: 1[m
+[32m+[m[32m  birth_date: 2025-09-20[m
+[32m+[m[32m  prefecture_id: 1[m
+[32m+[m[32m  hobby_id: 1[m
+[32m+[m[32m  user: two[m
+[1mdiff --git a/test/models/author_test.rb b/test/models/author_test.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b2d7df1[m
+[1m--- /dev/null[m
+[1m+++ b/test/models/author_test.rb[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mrequire "test_helper"[m
+[32m+[m
+[32m+[m[32mclass AuthorTest < ActiveSupport::TestCase[m
+[32m+[m[32m  # test "the truth" do[m
+[32m+[m[32m  #   assert true[m
+[32m+[m[32m  # end[m
+[32m+[m[32mend[m
+[1mdiff --git a/test/models/user_information_test.rb b/test/models/user_information_test.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..844d19a[m
+[1m--- /dev/null[m
+[1m+++ b/test/models/user_information_test.rb[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mrequire "test_helper"[m
+[32m+[m
+[32m+[m[32mclass UserInformationTest < ActiveSupport::TestCase[m
+[32m+[m[32m  # test "the truth" do[m
+[32m+[m[32m  #   assert true[m
+[32m+[m[32m  # end[m
+[32m+[m[32mend[m
+
+[33mcommit 185ef645446229ef9b24efdaf7515e62fae8e342[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Fri Sep 19 18:56:18 2025 +0900
+
+    amazons3
+
+[1mdiff --git a/config/environments/production.rb b/config/environments/production.rb[m
+[1mindex cb4aed0..8b42e05 100644[m
+[1m--- a/config/environments/production.rb[m
+[1m+++ b/config/environments/production.rb[m
+[36m@@ -50,8 +50,8 @@[m [mRails.application.configure do[m
+   config.cache_store = :solid_cache_store[m
+ [m
+   # Replace the default in-process and non-durable queuing backend for Active Job.[m
+[31m-  config.active_job.queue_adapter = :solid_queue[m
+[31m-  config.solid_queue.connects_to = { database: { writing: :queue } }[m
+[32m+[m[32m  # config.active_job.queue_adapter = :solid_queue[m
+[32m+[m[32m  # config.solid_queue.connects_to = { database: { writing: :queue } }[m
+ [m
+   # Ignore bad email addresses and do not raise email delivery errors.[m
+   # Set this to true and configure the email server for immediate delivery to raise delivery errors.[m
+[1mdiff --git a/db/development.sqlite3 b/db/development.sqlite3[m
+[1mindex e5fda59..59dd40c 100644[m
+Binary files a/db/development.sqlite3 and b/db/development.sqlite3 differ
+
+[33mcommit 9bcbbaae30bb83a4ab1c8d5ed878bea2f60e883a[m
+Author: SaekiNaohiko <nsaekitadayayu@icloud.com>
+Date:   Fri Sep 19 18:53:20 2025 +0900
+
+    amazons3
+
+[1mdiff --git a/app/jobs/guests_cleanup_job.rb b/app/jobs/guests_cleanup_job.rb[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b1d95ef[m
+[1m--- /dev/null[m
+[1m+++ b/app/jobs/guests_cleanup_job.rb[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32mclass GuestsCleanupJob < ApplicationJob[m
+[32m+[m[32m  queue_as :urgent[m
+[32m+[m
+[32m+[m[32m  def perform(*args)[m
+[32m+[m[32m    # Do something later[m
+[32m+[m[32m  end[m
+[32m+[m[32mend[m
+[1mdiff --git a/config/database.yml b/config/database.yml[m
+[1mindex a1211e3..864370c 100644[m
+[1m--- a/config/database.yml[m
+[1m+++ b/config/database.yml[m
+[36m@@ -94,7 +94,7 @@[m [mproduction:[m
+     migrations_paths: db/cache_migrate[m
+   queue:[m
+     <<: *primary_production[m
+[31m-    database: sample_matching_app_production_queue[m
+[32m+[m[32m    database:  storage/production_queue.sqlite3[m
+     migrations_paths: db/queue_migrate[m
+   cable:[m
+     <<: *primary_production[m
+[1mdiff --git a/config/queue.yml b/config/queue.yml[m
+[1mindex 3ce4e9d..2d965a5 100644[m
+[1m--- a/config/queue.yml[m
+[1m+++ b/config/queue.yml[m
+[36m@@ -5,14 +5,11 @@[m [mdefault: &default[m
+   workers:[m
+     - queues: "*"[m
+       threads: 3[m
+[31m-      processes: <%= (ENV["JOB_CONCURRENCY"] || 1).to_i %>[m
+[32m+[m[32m      processes: <%= (ENV["JOB_CONCURRENCY"] || 1) %>[m
+       polling_interval: 0.1[m
+ [m
+[31m-development:[m
+[31m-  <<: *default[m
+[31m-[m
+[31m-test:[m
+[31m-  <<: *default[m
+[31m-[m
+ production:[m
+[31m-  <<: *default[m
+[32m+[m[32m  workers:[m
+[32m+[m[32m    - queues:[active_storage*, mailers][m
+[32m+[m[32m      threads: 3[m
+[32m+[m[32m      polling_interval: 5[m
+\ No newline at end of file[m
