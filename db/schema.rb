@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_20_124928) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_27_062100) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,10 +40,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_20_124928) do
   end
 
   create_table "user_informations", force: :cascade do |t|
-    t.integer "age", null: false
-    t.date "birth_date", null: false
-    t.integer "prefecture_id", null: false
-    t.integer "hobby_id", null: false
+    t.integer "age", default: 30, null: false
+    t.date "birth_date", default: "1995-01-01", null: false
+    t.integer "prefecture_id", default: 13, null: false
+    t.integer "hobby_id", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
