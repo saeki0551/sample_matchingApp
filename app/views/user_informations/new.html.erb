@@ -1,8 +1,7 @@
 <h3>ユーザープロフィール作成</h3>
 <%= form_with model: @user_information, url: create_user_information_path, local: true, data: { turbo: false } do |f| %>
   <%= f.label :image, "アイコンにする画像をアップロードしてください。"%></br>
-  <%= f.file_field :image %></br>
-  <%= f.label :age, "あなたの年齢を選択してください" %></br>
+<%= f.file_field :image, accept: "image/*" %></br>  <%= f.label :age, "あなたの年齢を選択してください" %></br>
   <%= f.number_field :age, autocomplete: "off", value: 18 %></br>
 
   <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>
