@@ -13,8 +13,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    # binding.pry
-    # @user = User.new(create_users_params)
+    @user = User.new(create_users_params)
+    session[:user_form] = @user
+    redirect_to controller: :user_informations, action: :new, notice: "プロフィール情報を下さい。"
   end
 
   
@@ -28,8 +29,8 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+ private
   def create_users_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :name, :password, :password_confirmation)
   end
 end
