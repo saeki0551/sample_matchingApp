@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  age: 1
+  birth_date: 2025-09-20
+  prefecture_id: 1
+  hobby_id: 1
+  user: one
+
+two:
+  age: 1
+  birth_date: 2025-09-20
+  prefecture_id: 1
+  hobby_id: 1
+  user: two
