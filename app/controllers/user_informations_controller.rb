@@ -29,6 +29,7 @@ class UserInformationsController < ApplicationController
   end
 
   private
-  def user_informations_params
+  def user_information_params
+    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id).merge(user_id: current_user.id)
   end
 end
