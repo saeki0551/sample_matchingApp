@@ -1,3 +1,8 @@
 <%= stylesheet_link_tag "topIndex", media: "all" %>
 
-<p>トップページです</p>
+<p>ようこそサンプルマッチングサイトへ</p>
+
+<ul>
+  <li><%= link_to "ログイン", new_user_session_path %></li>
+  <li><%= link_to "アカウント作成", new_user_path %></li>
+</ul>
