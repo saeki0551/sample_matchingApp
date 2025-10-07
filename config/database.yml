@@ -85,6 +85,7 @@ production:
     url: <%= ENV['DATABASE_URL'] %>
     encoding: unicode
     pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    hostname: dpg-d3i9le8dl3ps73d1m7ag-a
     database: sample_matching_app_db_tell
     username: sample_matching_app_db_user
     password: <%= ENV['DB_PASSWORD'] %> # .envで設定
