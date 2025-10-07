@@ -3,7 +3,8 @@ class UserInformationsController < ApplicationController
 
   def new
     @user = User.new(user_params)
-    # @user.user_information = UserInformation.new
+    @user.build_user_information
+    # @user_information = UserInformation.new
     # binding.pry
   end
   

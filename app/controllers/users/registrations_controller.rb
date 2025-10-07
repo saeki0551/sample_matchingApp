@@ -62,7 +62,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(create_user_params)
-    @user.user_information = UserInformation.new(user_information_params)
+    # @user.user_information = UserInformation.new(user_information_params)
+    # binding.pry
+    binding.pry
     if @user.user_information.image.attached?
       #なにもしない
     else
@@ -79,13 +81,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
   def create_user_params
     # binding.pry
-    params.require(:user).permit(:email, :name, :password, :password_confirmation)
+    params.require(:user).permit(:email, :name, :password, :password_confirmation, user_information_attributes: [:image, :age, :birth_date, :prefecture_id, :hobby_id])
   end
 
-  private
-  def user_information_params
-    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id)
-  end
+  # private
+  # def user_information_params
+  #   params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id, user_information_attributes: [:image])
+  #   # binding.pry
+  # end
 
   def after_sign_up_path_for(resource) 
     users_path #サインアップ遷移先のパス

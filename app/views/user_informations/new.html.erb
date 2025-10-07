@@ -5,7 +5,7 @@
   <%= user_form.password_field :password, value: @user.password %></br>
   <%= user_form.password_field :password_confirmation, value: @user.password_confirmation %></br>
 
-  <%= fields_for :user_information, @user.user_information do |user_information_form| %>
+  <%= user_form.fields_for :user_information do |user_information_form| %>
     <%= user_information_form.label :image, "アイコンにする画像をアップロードしてください。"%></br>
     <%= user_information_form.file_field :image, accept: "image/*" %></br>
 
