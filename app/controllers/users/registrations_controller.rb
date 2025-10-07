@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -64,7 +65,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(create_user_params)
     # @user.user_information = UserInformation.new(user_information_params)
     # binding.pry
-    binding.pry
     if @user.user_information.image.attached?
       #なにもしない
     else
@@ -74,7 +74,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
     else
-      render controller: :tops, action: :index, alert: "アカウントの作成に失敗しました。アカウントを削除して下さい。"
+      flash.now[:alert] = "アカウントの作成に失敗しました。"
+      render "users/new"
     end 
   end
 
