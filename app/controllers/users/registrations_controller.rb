@@ -68,7 +68,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
-    binding.pry
     if @user.save
       @user_information.save
       redirect_to users_path, notice: "アカウント作成に成功しました"
@@ -79,7 +78,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
   def user_information_params
-    params.require(:user_information).permit(:age, :birth_date, :prefecture_id, :hobby_id)
+    params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id)
   end
 
   def after_sign_up_path_for(resource)   
