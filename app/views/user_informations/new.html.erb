@@ -1,5 +1,5 @@
 <h3>ユーザープロフィール作成</h3>
-<%= form_with model: @user_information, url: create_user_information_path, local: true, data: { turbo: false } do |f| %>
+<%= form_with model: @user_information, url: create_user_registration_path, local: true, data: { turbo: false } do |f| %>
   <%= f.label :image, "アイコンにする画像をアップロードしてください。"%></br>
   <%= f.file_field :image, accept: "image/*" %></br>
   

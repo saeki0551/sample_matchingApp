@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
-  }
+  }, skip: [:registrations]
+  devise_scope :user do
+    post 'users', to: 'users/registrations#create', as: :create_user_registration
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,6 +22,6 @@ Rails.application.routes.draw do
   post "users/create", to: "users#create", as: :create_new_user
   get "users/:id/destroy", to: "users#destroy", as: :destroy_user
 
-  post "user_informations/new", to: "user_informations#new", as: :new_user_information
+  get "user_informations/new", to: "user_informations#new", as: :new_user_information
   post "user_informations/create", to: "user_informations#create", as: :create_user_information
 end
