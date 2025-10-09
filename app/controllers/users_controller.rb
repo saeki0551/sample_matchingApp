@@ -3,9 +3,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    # @user = User.find(15)
-    # @user_information = @user.user_information
-    # binding.pry
   end
 
   def new
@@ -13,8 +10,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    # binding.pry
-    # @user = User.new(create_users_params)
+    @user = User.new(create_users_params)
+    session[:user_form] = @user
+    redirect_to controller: :user_informations, action: :new, notice: "プロフィール情報を下さい。"
   end
 
   
