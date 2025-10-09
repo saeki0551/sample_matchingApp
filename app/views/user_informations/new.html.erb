@@ -1,19 +1,26 @@
 <h3>ユーザープロフィール作成</h3>
-<%= form_with model: @user_information, url: create_user_registration_path, local: true, data: { turbo: false } do |f| %>
-  <%= f.label :image, "アイコンにする画像をアップロードしてください。"%></br>
-  <%= f.file_field :image, accept: "image/*" %></br>
-  
-  <%= f.label :age, "あなたの年齢を選択してください" %></br>
-  <%= f.number_field :age, autocomplete: "off", value: 18 %></br>
+<%= form_with model: @user, url: create_user_registration_path, local: true, data: { turbo: false } do |user_form| %>
+  <%= user_form.email_field :email, value: @user.email %></br>
+  <%= user_form.text_field :name, value: @user.name %></br>
+  <%= user_form.password_field :password, value: @user.password %></br>
+  <%= user_form.password_field :password_confirmation, value: @user.password_confirmation %></br>
 
-  <%= f.label :birth_date, "あなたの生年月日を入力してください" %></br>
-  <%= f.date_select :birth_date, use_month_numbers: true, default: { day: 1, month: 1 }, start_year:1960, end_year:2015 %></br>
+  <%= user_form.fields_for :user_information do |user_information_form| %>
+    <%= user_information_form.label :image, "アイコンにする画像をアップロードしてください。"%></br>
+    <%= user_information_form.file_field :image, accept: "image/*" %></br>
 
-  <%= f.label :prefecture_id, "お住いの都道府県を選択してください" %></br>
-  <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>
+    <%= user_information_form.label :age, "あなたの年齢を選択してください" %></br>
+    <%= user_information_form.number_field :age, autocomplete: "off", value: 18 %></br>
 
-  <%= f.label :hobby_id, "あなたの趣味を選択してください" %></br>
-  <%= f.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>
+    <%= user_information_form.label :birth_date, "あなたの生年月日を入力してください" %></br>
+    <%= user_information_form.date_select :birth_date, use_month_numbers: true, default: { day: 1, month: 1 }, start_year:1960, end_year:2015 %></br>
 
-  <%= f.submit "完了" %>
+    <%= user_information_form.label :prefecture_id, "お住いの都道府県を選択してください" %></br>
+    <%= user_information_form.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>
+
+    <%= user_information_form.label :hobby_id, "あなたの趣味を選択してください" %></br>
+      <%= user_information_form.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>
+  <% end %>
+  <%= user_form.submit "完了" %>
 <% end %>
+
