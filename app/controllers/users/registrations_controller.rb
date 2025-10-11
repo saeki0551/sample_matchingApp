@@ -71,9 +71,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.save
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
-    else
-      flash.now[:alert] = "アカウントの作成に失敗しました。"
-      render "users/new"
+    else 
+      @created_user = User.select(:email).find_by(email: @user.email) # select email from users where email = '101@101';
+      if @user.email == @created_user.email
+        flash.now[:alert] = "このメールアドレスは登録されています。ログインしてください。"
+        render "users/new"
+      else
+        flash.now[:alert] = "アカウントの作成に失敗しました。"
+        render "users/new"
+      end
     end 
   end
 
