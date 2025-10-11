@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new]
 
   def index
-    @users = User.all
+    @users = User.where(is_deleted: false)
   end
 
   def new
@@ -11,16 +11,11 @@ class UsersController < ApplicationController
   
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      redirect_to user_session_path, notice: "アカウントの削除が完了しました"
+    if user.update(is_deleted: true)
+      redirect_to destroy_user_session_path, notice: "アカウントの削除が完了しました"
     else
       flash.now[:alert] = "アカウントの削除に失敗しました"
       render :index
     end
-  end
-
-  private
-  def create_users_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
