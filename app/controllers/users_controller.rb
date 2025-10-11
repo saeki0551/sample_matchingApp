@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    user = current_user
+    user = User.find(params[:id])
     if user.update(is_deleted: true)
       redirect_to destroy_user_session_path, notice: "アカウントの削除が完了しました"
     else
