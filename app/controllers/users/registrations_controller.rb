@@ -68,21 +68,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       @user.user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
+  
     if @user.save
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
-    else 
+    else
       @created_user = User.select(:email).find_by(email: @user.email) # select email from users where email = '101@101';
       if @user.email == @created_user.email
-        flash.now[:alert] = "このメールアドレスは登録されています。ログインしてください。"
+        flash.now[:alert] = "このメールアドレスは登録されています。ログインしてください。" 
         render "users/new"
       else
-        flash.now[:alert] = "アカウントの作成に失敗しました。"
         render "users/new"
+        flash.now[:alert] = "予想外のエラー、アカウントの作成に失敗しました。"
       end
     end 
   end
-
+  
   private
   def create_user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation, user_information_attributes: [:image, :age, :birth_date, :prefecture_id, :hobby_id])
