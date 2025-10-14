@@ -5,9 +5,7 @@ class UserInformationsController < ApplicationController
 
   def create
     @user_information = UserInformation.new(user_information_params)
-    if @user_information.image.attached?
-      #なにもしない
-    else
+    unless @user_information.image.attached?
       @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
     if @user_information.save
