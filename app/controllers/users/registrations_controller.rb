@@ -62,10 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(create_user_params)
-    # @user.user_information = UserInformation.new(user_information_params)
-    if @user.user_information.image.attached?
-      #なにもしない
-    else
+    unless @user.user_information.image.attached?
       @user.user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
     if @user.save
