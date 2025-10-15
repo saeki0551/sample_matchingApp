@@ -61,27 +61,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
-    @user = User.new(session[:user_form])
-    @user_information = UserInformation.new(user_information_params)
-    if @user_information.image.attached?
-      #なにもしない
-    else
-      @user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
+    binding
+    @user = User.new(create_user_params)
+    unless @user.user_information.image.attached?
+      @user.user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
     if @user.save
-      @user_information.save
-      redirect_to users_path, notice: "アカウント作成に成功しました"
+      sign_in(@user)
+      redirect_to users_path, notice: "アカウントの作成に成功しました。"
     else
-      render controller: :tops, action: :index, alert: "アカウントの作成に失敗しました。アカウントを削除して下さい。"
+      flash.now[:alert] = "アカウントの作成に失敗しました。"
+      render "users/new"
     end 
   end
 
   private
-  def user_information_params
-    params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id)
-  end
 
-  def after_sign_up_path_for(resource)   
-    new_user_information_path #サインアップ遷移先のパス
-  end
+    def create_user_params
+      params.require(:user).permit(:email, :name, :password, :password_confirmation, user_information_attributes: [:image, :age, :birth_date, :prefecture_id, :hobby_id])
+    end
+
+    def after_sign_up_path_for(resource) 
+      users_path #サインアップ遷移先のパス
+    end
 end
+
