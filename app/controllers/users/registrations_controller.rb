@@ -62,13 +62,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(create_user_params)
-    # @user.user_information = UserInformation.new(user_information_params)
-    if @user.user_information.image.attached?
-      #なにもしない
-    else
+    unless @user.user_information.image.attached?
       @user.user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
     end
-  
     if @user.save
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
@@ -91,7 +87,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def create_user_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation, user_information_attributes: [:image, :age, :birth_date, :prefecture_id, :hobby_id])
     end
-    
+
     def after_sign_up_path_for(resource) 
       users_path #サインアップ遷移先のパス
     end
