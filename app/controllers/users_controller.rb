@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new]
 
   def index
-    @users = User.all
+    @users = User.where(is_deleted: false)
   end
 
   def new
@@ -11,11 +11,12 @@ class UsersController < ApplicationController
   
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      redirect_to user_session_path, notice: "アカウントの削除が完了しました"
+    return redirect_to users_path, alert: "ユーザーidが一致しないため、退会ができません。"  unless user.id == current_user.id
+
+    if user.update(is_deleted: true)
+      redirect_to destroy_user_session_path, notice: "退会が完了しました" #deviseの Signed out successfully のメッセージに上書きされてしまう。
     else
-      flash.now[:alert] = "アカウントの削除に失敗しました"
-      render :index
+      redirect_to users_path, alert: "予想外のエラー、退会に失敗しました。" 
     end
   end
 end

@@ -24,4 +24,16 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  def create
+    @user = User.find_by(email: params[:user][:email])
+    return redirect_to new_user_session_path, alert: "このメールアドレスのユーザーは存在しません。" unless @user.present?
+    return redirect_to new_user_session_path, alert: "パスワードが間違っています。" unless @user.valid_password?(params[:user][:password])
+    return redirect_to new_user_session_path, alert: "このユーザーは退会済みです。" if @user.is_deleted
+
+    if sign_in(@user)
+      redirect_to users_path, notice: "ログインしました"
+    else
+      redirect_to new_user_session_path, alert: "予想外のエラー、ログインに失敗しました。" 
+    end
+  end
 end
