@@ -9,5 +9,7 @@
     <li>生年月日：<%= user.user_information.birth_date %></li>
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
     <li>趣味：<%= user.user_information.hobby.name %></li>
+    <li>ステータス：<%= user.is_deleted %></li>
+
   </ul>
 <% end %>

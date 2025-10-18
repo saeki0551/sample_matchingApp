@@ -69,11 +69,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
     else
-      flash.now[:alert] = "アカウントの作成に失敗しました。"
-      render "users/new"
+      @created_user = User.select(:email, :is_deleted).find_by(email: @user.email) # select email from users where email = '101@101';
+      if @created_user.is_deleted == true
+        flash.now[:alert] = "このアカウントは退会済みです。" 
+        render "users/new"
+      elsif @user.email == @created_user.email
+        flash.now[:alert] = "このメールアドレスは登録されています。ログインしてください。" 
+        render "users/new"
+      else
+        flash.now[:alert] = "予想外のエラー、アカウントの作成に失敗しました。"
+      end
     end 
   end
-
+  
   private
 
     def create_user_params
@@ -84,4 +92,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
       users_path #サインアップ遷移先のパス
     end
 end
+
 
