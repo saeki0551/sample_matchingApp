@@ -18,10 +18,4 @@ class UsersController < ApplicationController
       render :index
     end
   end
-
-  private
-
-    def create_users_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
 end
