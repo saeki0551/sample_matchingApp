@@ -61,7 +61,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
-    binding
     @user = User.new(create_user_params)
     unless @user.user_information.image.attached?
       @user.user_information.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
