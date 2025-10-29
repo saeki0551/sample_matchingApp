@@ -66,7 +66,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
     else
-      flash.now[:alert] = "アカウントの作成に失敗しました。"
+      flash.now[:alert] = "予想外のエラー、アカウントの作成に失敗しました。"
       render "users/new"
     end 
   end
