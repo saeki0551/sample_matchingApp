@@ -62,6 +62,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(create_user_params)
+    @created_user = User.order(updated_at: :desc).limit(1).find_by(email: @user.email)
+    return redirect_to  new_user_path, alert: "このユーザーは作成済みです。ログインしてください。" if @created_user.present?
+    return redirect_to  new_user_path, alert: "パスワードが間違っています。" if @user.password != @user.password_confirmation
     if @user.save
       sign_in(@user)
       redirect_to users_path, notice: "アカウントの作成に成功しました。"
