@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_one :user_information, dependent: :destroy  
   accepts_nested_attributes_for :user_information
 
-  validates :email, :name, :password, :password_confirmation presence: true
+  validates :email, :name, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
   
 end
