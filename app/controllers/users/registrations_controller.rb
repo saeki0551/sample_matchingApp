@@ -61,19 +61,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
-    @user = User.new(create_user_params)
-    if @user.save
-      sign_in(@user)
-      redirect_to users_path, notice: "アカウントの作成に成功しました。"
-    else
-      redirect_to new_user_path, alert: "予想外のエラー、アカウントの作成に失敗しました。"
-    end 
+    user = User.new(create_user_params)
+    user_information = UserInformation.new(create_user_information_params)
+
+    ActiveRecord::Base.transaction do
+      user.save!
+      user_information.user_id = user.id
+      user_information.save!
+    end
+    # if user.save
+    sign_in(user)
+    redirect_to users_path, notice: "アカウントの作成に成功しました。"
+    # else
+    #   redirect_to new_user_path, alert: "予想外のエラー、アカウントの作成に失敗しました。"
+    # end 
   end
 
   private
 
     def create_user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation, user_information_attributes: [:image, :age, :birth_date, :prefecture_id, :hobby_id])
+      params.require(:user).permit(:email, :name, :password, :password_confirmation)
+    end
+
+    def create_user_information_params
+      params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id)
     end
 
     def after_sign_up_path_for(resource) 
