@@ -9,8 +9,7 @@ class UserInformationsController < ApplicationController
       @created_user = User.order(updated_at: :desc).limit(1).find_by(email: @user.email)
       return redirect_to  new_user_path, alert: "このユーザーは作成済みです。ログインしてください。" if @created_user.present?
     end  
-    
-    @user.build_user_information
+    @user_information = UserInformation.new
   end
 
   private
