@@ -68,13 +68,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user.save!
       user_information.user_id = user.id
       user_information.save!
-    end
-    # if user.save
+    rescue => e
+      raise ActiveRecord::Rollback
+    end 
     sign_in(user)
     redirect_to users_path, notice: "アカウントの作成に成功しました。"
-    # else
-    #   redirect_to new_user_path, alert: "予想外のエラー、アカウントの作成に失敗しました。"
-    # end 
   end
 
   private
