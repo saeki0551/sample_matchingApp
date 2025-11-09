@@ -66,9 +66,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     ActiveRecord::Base.transaction do
       user.save!
+    # raise RuntimeError, "実行時エラーです"
       user_information.user_id = user.id
       user_information.save!
     rescue => e
+      $error = e
       raise ActiveRecord::Rollback
     end 
     sign_in(user)
