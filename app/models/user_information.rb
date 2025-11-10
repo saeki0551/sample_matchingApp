@@ -5,6 +5,8 @@ class UserInformation < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :hobby
+
+  enum :gender, { "男性": 0, "女性": 1 }
   
   before_save :attach_default_image
 

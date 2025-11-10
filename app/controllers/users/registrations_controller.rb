@@ -61,6 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
+    binding.pry
     user = User.new(create_user_params)
     user_information = UserInformation.new(create_user_information_params)
 
@@ -83,7 +84,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def create_user_information_params
-      params.require(:user_information).permit(:image, :age, :birth_date, :prefecture_id, :hobby_id)
+      params.require(:user_information).permit(:image, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
     end
 
     def after_sign_up_path_for(resource) 
