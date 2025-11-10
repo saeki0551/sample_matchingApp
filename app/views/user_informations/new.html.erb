@@ -15,6 +15,12 @@
     <%= user_information_form.label :birth_date, "あなたの生年月日を入力してください" %></br>
     <%= user_information_form.date_select :birth_date, use_month_numbers: true, default: { day: 1, month: 1 }, start_year:1960, end_year:2015 %></br>
 
+    <%= user_information_form.label :gender, "あなたの性別を選択してください" %></br>
+    <%= user_information_form.label :man, "男性"  %>
+    <%= user_information_form.radio_button :gender, :"男性", checked: true %>
+    <%= user_information_form.label :man, "女性"  %>
+    <%= user_information_form.radio_button :gender, :女性 %></br>
+
     <%= user_information_form.label :prefecture_id, "お住いの都道府県を選択してください" %></br>
     <%= user_information_form.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>
 

@@ -61,7 +61,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def create
-    binding.pry
     user = User.new(create_user_params)
     user_information = UserInformation.new(create_user_information_params)
 
