@@ -66,7 +66,7 @@ end
 
 group :production do
   # Use PstgreSQL as the database for Active Record
-  gem "pg", "~> 1.1"
+  gem "pg", "~> 1.6"
 end
 
 gem "sassc-rails"
