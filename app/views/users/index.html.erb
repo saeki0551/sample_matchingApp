@@ -10,5 +10,8 @@
     <li>性別：<%= user.user_information.gender %></li>
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
     <li>趣味：<%= user.user_information.hobby.name %></li>
+    <li>退会ステータス：<%= user.is_deleted %></li>
+    <li>退会回数：<%= user.cancel_membership_count %></li>
+    <li>退会日時：<%= user.cancel_membership_time %></li>
   </ul>
 <% end %>
