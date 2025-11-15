@@ -79,7 +79,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def create_user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation)
+      params.require(:user).permit(:email, :name, :password, :password_confirmation, :cancel_membership_count)
     end
 
     def create_user_information_params
