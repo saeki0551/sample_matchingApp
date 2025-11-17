@@ -6,7 +6,7 @@ class UserInformationsController < ApplicationController
     if User.exists?(email: @user.email)
       @created_user = User.order(updated_at: :desc).limit(1).select(:email, :is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: @user.email)
       return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。" if @created_user.is_deleted == false 
-      return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。" if @created_user.is_deleted == true && Time.zone.now - @created_user.cancel_membership_time <= 100 
+      return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。" if @created_user.is_deleted == true && Time.zone.now - @created_user.cancel_membership_time < 100 
       if Time.zone.now - @created_user.cancel_membership_time >= 100  && @created_user.is_deleted == true 
         @user.cancel_membership_count = @created_user.cancel_membership_count + 1 # 再登録ユーザーに退会回数を渡す
       end 
