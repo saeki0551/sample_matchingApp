@@ -25,7 +25,7 @@
   <header>
     <div class="navigation">
       <ul>
-        <li><%= image_tag "siteIcon.png", size: "80x80" %><br></li>
+        <li><%= image_tag "siteIcon.png", size: "80x80", style: "display: block; border: 0; padding: 0; margin: 0;" %><br></li>
         <% if user_signed_in? %>
           <li><%= link_to "マッチングした相手", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "メッセージ", root_path,  class:"navigationLink" %></li>
