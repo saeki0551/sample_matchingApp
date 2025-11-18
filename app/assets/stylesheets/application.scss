@@ -9,11 +9,11 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-ul {
+.navigation ul {
   display: flex;
 }
 
-li {
+.navigation li {
   list-style: none;
 }
 
