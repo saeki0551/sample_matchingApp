@@ -25,7 +25,7 @@
     <%= user_information_form.collection_select(:prefecture_id, Prefecture.all, :id, :name, selected: 1) %></br>
 
     <%= user_information_form.label :hobby_id, "あなたの趣味を選択してください" %></br>
-      <%= user_information_form.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>
+    <%= user_information_form.collection_select(:hobby_id, Hobby.all, :id, :name, selected: 1) %></br>
   <% end %>
   <%= user_form.submit "完了" %>
 <% end %>
