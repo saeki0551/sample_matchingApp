@@ -31,6 +31,7 @@
           <li><%= link_to "メッセージ", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "検索", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink" %></li>
+          <li><%= link_to "アカウント設定", root_path,  class:"navigationLink" %></li>
           <li>
             <%= link_to "退会する", 
                         destroy_user_path(current_user.id), 
