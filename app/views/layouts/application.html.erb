@@ -28,7 +28,7 @@
       <%= link_to "退会する", 
                   destroy_user_path(current_user.id), 
                   data: { turbo_method: :delete }, 
-                  onclick: "return confirm('本当に削除退会しますか？※一度退会すると、データは引き継げません。');" %>    
+                  onclick: "return confirm('本当に退会しますか？※一度退会すると、データは引き継げません。');" %>    
     <% else %>
     <% end %>
   </header>
