@@ -9,10 +9,6 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
-.navigation {
-  margin: 0 40px 0 0;
-}
-
 .navigation ul {
   display: flex;
 }
@@ -21,6 +17,7 @@
   list-style: none;
   align-content: center;
   margin: 0 auto;
+  flex-grow: 1;
 }
 
 .navigationLink {
