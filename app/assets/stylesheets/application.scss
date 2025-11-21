@@ -47,3 +47,14 @@
 .navigationLink:hover {
   color: indigo;
 }
+
+.loginLink{
+  border: 1px solid white;
+  border-radius: 1em;
+  padding: 5px;
+}
+
+.loginLink:hover{
+  background-color: white;
+  color: orange;
+}
