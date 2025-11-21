@@ -16,10 +16,21 @@
 .navigation li {
   list-style: none;
   align-content: center;
-  margin: 0 auto;
   flex-grow: 1;
 }
 
+.navigation li:first-child {
+  margin-left: 30px;
+}
+
+.navigation li:nth-child(2) {
+  margin-left: 40px;
+}
+
+.navigation li:last-child {
+  margin-right: 70px ;
+}
+
 .navigationLink {
-  text-decoration: none; 
+  text-decoration: none;
 }
