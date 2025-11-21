@@ -17,11 +17,17 @@
 .navigation li {
   list-style: none;
   align-content: center;
+}
+
+.navigation li:nth-child(n + 2) {
   flex-grow: 1;
 }
 
 .navigation li:first-child {
   margin-left: 30px;
+  background-color: white;
+  padding: 0 5px;
+  border-radius: 25%;
 }
 
 .navigation li:nth-child(2) {
