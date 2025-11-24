@@ -26,6 +26,8 @@ class Users::SessionsController < Devise::SessionsController
   # end
    def create
     user = User.order(updated_at: :desc).limit(1).find_by(email: params[:user][:email])
+    return redirect_to new_user_session_path, alert: "このメールアドレスのアカウントは存在しません。" unless user.present?
+    return redirect_to new_user_session_path, alert: "パスワードが間違っています。" unless user.valid_password?(params[:user][:password])
     return redirect_to new_user_session_path, alert: "ログインできません。" if user.is_deleted
 
     if sign_in(user)
