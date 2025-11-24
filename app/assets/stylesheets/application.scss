@@ -70,3 +70,26 @@
   background-color: white;
   color: indigo;
 }
+
+.logOutLink {
+  border: 1px solid white;
+  border-radius: 1em;
+  padding: 5px;
+  color: yellow;
+}
+
+.logOutLink:hover {
+  background-color: white;
+}
+
+.cancelMembershipLink {
+  border: 1px solid white;
+  border-radius: 1em;
+  padding: 5px;
+  color: red;
+}
+
+.cancelMembershipLink:hover {
+  background-color: white;
+  color: red;
+}
