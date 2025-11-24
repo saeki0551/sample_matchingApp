@@ -48,13 +48,25 @@
   color: indigo;
 }
 
-.loginLink{
+.loginLink {
   border: 1px solid white;
   border-radius: 1em;
   padding: 5px;
 }
 
-.loginLink:hover{
+.loginLink:hover {
+  background-color: white;
+  color: indigo;
+}
+
+.newUserLink{
+  border: 1px solid white;
+  border-radius: 1em;
+  padding: 5px;
+  background-color: skyblue;
+}
+
+.newUserLink:hover {
   background-color: white;
   color: indigo;
 }
