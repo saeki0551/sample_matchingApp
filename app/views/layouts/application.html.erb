@@ -31,20 +31,20 @@
           <li><%= link_to "メッセージ", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "検索", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "マイページ", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink logOutLink" %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink sessionLink logoutLink" %></li>
           <li>
             <%= link_to "退会する", 
                         destroy_user_path(current_user.id), 
                         data: { turbo_method: :delete }, 
                         onclick: "return confirm('本当にアカウントを削除してよろしいですか？');",
-                        class:"navigationLink cancelMembershipLink" %>
+                        class:"navigationLink sessionLink cancelMembershipLink" %>
           </li>
         <% else %>
           <li><%= link_to "ホーム", root_path, class:"navigationLink" %></li>
           <li><%= link_to "コラム", root_path, class:"navigationLink" %></li>
           <li><%= link_to "料金", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "ログイン", new_user_session_path, class:"navigationLink loginLink" %></li>
-          <li><%= link_to "アカウント作成", new_user_path, class:"navigationLink newUserLink" %></li>
+          <li><%= link_to "ログイン", new_user_session_path, class:"navigationLink sessionLink loginLink" %></li>
+          <li><%= link_to "アカウント作成", new_user_path, class:"navigationLink sessionLink newUserLink" %></li>
         <% end %>
       </ul>
     </div>
