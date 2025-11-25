@@ -9,6 +9,16 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
+body {
+  margin-top: 100px;
+}
+
+.navigation {
+  position: fixed;
+  width: 100%;
+  margin-top: -100px;
+}
+
 .navigation ul {
   display: flex;
   background-color: orange;
