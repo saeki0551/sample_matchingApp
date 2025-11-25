@@ -4,6 +4,7 @@
   <%= user_form.hidden_field :name, value: @user.name %></br>
   <%= user_form.hidden_field :password, value: @user.password %></br>
   <%= user_form.hidden_field :password_confirmation, value: @user.password_confirmation %></br>
+  <%= user_form.hidden_field :cancel_membership_count, value: @user.cancel_membership_count %></br>
 
   <%= fields_for @user_information, local: true, data: { turbo: false } do |user_information_form| %>
     <%= user_information_form.label :image, "アイコンにする画像をアップロードしてください。"%></br>

@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   post "user_informations/new", to: "user_informations#new", as: :new_user_information
   post "user_informations/create", to: "user_informations#create", as: :create_user_information
+
+  get "tops/cancel_membership", to: "tops#cancel_membership"
 end
