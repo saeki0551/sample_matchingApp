@@ -9,7 +9,7 @@ class UserInformationsController < ApplicationController
       return redirect_to  new_user_path, alert: "新規登録できませんでした。ログインするか、一定時間後に新規登録してください。" if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < ACCOUNT_STOP_TIME
     
       if Time.zone.now - created_user.cancel_membership_time >= ACCOUNT_STOP_TIME  && created_user.is_deleted 
-        @user.cancel_membership_count = created_user.cancel_membership_count + 1 # 再登録ユーザーに退会回数を渡す
+        @user.cancel_membership_count = created_user.cancel_membership_count + 1
       end 
     end
     @user.check_password
