@@ -59,7 +59,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  def after_sign_up_path_for(resource)   
-    new_user_information_path #サインアップ遷移先のパス
+  def create
+    user = User.new(create_user_params)
+    user_information = UserInformation.new(create_user_information_params)
+
+    ActiveRecord::Base.transaction do
+      user.save!
+      user_information.user_id = user.id
+      user_information.save!
+    rescue => $error
+      raise ActiveRecord::Rollback
+    end 
+    sign_in(user)
+    redirect_to users_path, notice: "アカウントの作成に成功しました。"
   end
+
+  private
+
+    def create_user_params
+      params.require(:user).permit(:email, :name, :password, :password_confirmation)
+    end
+
+    def create_user_information_params
+      params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
+    end
+
+    def after_sign_up_path_for(resource) 
+      users_path #サインアップ遷移先のパス
+    end
 end

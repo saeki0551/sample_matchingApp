@@ -3,8 +3,8 @@
   <ul>
     <li><%= user.id %></li>
     <li><%= user.user_information.user_id %></li>
-    <li>名前：<%= user.name %></li>
     <li>メールアドレス：<%= user.email %></li>
+    <li>名前：<%= user.user_information.name %></li>
     <li>年齢：<%= user.user_information.age %></li>
     <li>生年月日：<%= user.user_information.birth_date %></li>
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
