@@ -1,3 +1,15 @@
-p {
-    color: red;
+.triangle {
+  width: 0px;
+  height: 0px;
+  border-top: 600px solid yellow;
+  border-right: 600px solid transparent;
+  border-left: 600px solid transparent;
+  border-bottom: 600px solid transparent;
+  margin: 0 auto;
+}
+
+.catchCopy {
+  position: relative;
+  top: 270px;
+  text-align: center;
 }
