@@ -32,7 +32,6 @@
 }
 
 .sessionLink .newUserLink:hover {
-  border: 1px solid dimgray;
   background-color: white;
   color: orange;
   text-decoration: none;
@@ -41,4 +40,8 @@
 
 .sessionLink .loginLink {
   color: dimgray;
+}
+
+.sessionLink .loginLink:hover {
+  color: indigo;
 }
