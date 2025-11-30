@@ -1,20 +1,23 @@
-.triangle {
-  width: 0px;
-  height: 0px;
-  border-top: 600px solid yellow;
-  border-right: 600px solid transparent;
-  border-left: 600px solid transparent;
-  border-bottom: 100px solid transparent;
+.wrapper {
+  margin: 0 100px;
+}
+
+.catchCopyBackground {
+  border-radius: 100em;
+  padding: 300px;
+  background-color:  yellow;
   margin: 0 auto;
 }
 
 .catchCopy {
   position: relative;
-  top: 270px;
+  top: 350px;
   text-align: center;
+  color: dimgray;
 }
 
 .sessionLink {
+  margin-top: 100px;
   text-align: center;
 }
 
