@@ -4,7 +4,7 @@
   border-top: 600px solid yellow;
   border-right: 600px solid transparent;
   border-left: 600px solid transparent;
-  border-bottom: 600px solid transparent;
+  border-bottom: 100px solid transparent;
   margin: 0 auto;
 }
 
@@ -12,4 +12,33 @@
   position: relative;
   top: 270px;
   text-align: center;
+}
+
+.sessionLink {
+  text-align: center;
+}
+
+.sessionLink p {
+  margin: 25px 0;
+}
+
+
+.sessionLink .newUserLink {
+  border-radius: 3em;
+  padding: 20px;
+  background-color: orange;
+  color: white;
+  text-decoration: none;
+}
+
+.sessionLink .newUserLink:hover {
+  border: 1px solid dimgray;
+  background-color: white;
+  color: orange;
+  text-decoration: none;
+}
+
+
+.sessionLink .loginLink {
+  color: dimgray;
 }
