@@ -59,7 +59,23 @@
   margin: 0 30px;
 }
 
+.flow-explanation .image-blank {
+  position: relative;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+  border-radius: 50%;  
+  background: orange;
+}
+
 .flow-explanation img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
   width: 100px;
   height: auto;
 }
