@@ -1,6 +1,27 @@
 .container {
-  margin: 0 100px;
+  margin: 0 50px;
   line-height: 0em;
+  background-image:
+			radial-gradient(290px 300px , skyblue 20%, transparent 20%),
+			radial-gradient(800px 780px , skyblue 20%, transparent 20%),
+			radial-gradient(1000px 990px , skyblue 20%, transparent 20%),
+			radial-gradient(400px 380px , skyblue 20%, transparent 20%),
+			radial-gradient(750px 750px , skyblue 20%, transparent 20%),
+			radial-gradient(100px 100px , skyblue 20%, transparent 20%);
+		background-size: 
+			1230px 1280px,
+			810px 910px,
+			1470px 990px,
+			1200px 1700px,
+			1520px 1200px,
+			1100px 1300px;
+		background-position: 
+			-300px -550px,
+			-200px 100px,
+			50px 510px,
+			-200px -550px,
+			-180px -250px,
+			130px -150px;
 }
 
 .catchCopyBackground {
