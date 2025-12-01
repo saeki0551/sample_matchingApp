@@ -50,7 +50,22 @@
   color: indigo;
 }
 
+.flow-explanation-warppar {
+
+}
+
+.flow-explanation {
+  text-align: center;
+  margin: 0 30px;
+}
+
 .flow-explanation img {
   width: 100px;
   height: auto;
+}
+
+.flow-explanation-section {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 50px;
 }
