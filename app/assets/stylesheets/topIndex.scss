@@ -50,9 +50,15 @@
   color: indigo;
 }
 
-.flow-explanation-warppar {
-
+.flow-explanation-warppar h2{
+  color: orange;
 }
+
+.flow-explanation-warppar .step{
+  border-bottom: 2px dashed orange;
+  margin-bottom: 30px;
+}
+
 
 .flow-explanation {
   text-align: center;
