@@ -9,12 +9,12 @@
   border-radius: 5em;
   padding: 0 50px;
   background-image:
-			radial-gradient(290px 300px , skyblue 20%, transparent 20%),
-			radial-gradient(800px 780px , skyblue 20%, transparent 20%),
-			radial-gradient(1000px 990px , skyblue 20%, transparent 20%),
-			radial-gradient(400px 380px , skyblue 20%, transparent 20%),
-			radial-gradient(750px 750px , skyblue 20%, transparent 20%),
-			radial-gradient(100px 100px , skyblue 20%, transparent 20%);
+			radial-gradient(290px 300px , yellow 20%, transparent 20%),
+			radial-gradient(800px 780px , yellow 20%, transparent 20%),
+			radial-gradient(1000px 990px , yellow 20%, transparent 20%),
+			radial-gradient(400px 380px , yellow 20%, transparent 20%),
+			radial-gradient(750px 750px , yellow 20%, transparent 20%),
+			radial-gradient(100px 100px , yellow 20%, transparent 20%);
 		background-size: 
 			1230px 1280px,
 			810px 910px,
@@ -121,4 +121,5 @@
 }
 
 .flow-explanation-section p {
+  color: dimgray;
 }
