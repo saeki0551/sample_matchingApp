@@ -25,17 +25,18 @@
 }
 
 .catchCopyBackground {
-  border-radius: 100em;
-  padding: 300px;
-  background-color:  yellow;
+  border-radius: 50%;
+  width: 700px;
+  height: 700px;
+  background-color:  orange;
   margin: 0 auto;
 }
 
 .catchCopy {
   position: relative;
-  top: 350px;
+  top: 400px;
   text-align: center;
-  color: dimgray;
+  color: white;
 }
 
 .sessionLink {
