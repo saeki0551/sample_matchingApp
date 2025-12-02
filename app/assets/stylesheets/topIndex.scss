@@ -56,38 +56,8 @@
 }
 
 
-.sessionLink {
-  margin-top: 100px;
-  text-align: center;
-}
-
-.sessionLink p {
-  margin: 50px 0;
-}
-
-.sessionLink .newUserLink {
-  border-radius: 3em;
-  padding: 20px;
-  background-color: orange;
-  color: white;
-  text-decoration: none;
-}
-
-.sessionLink .newUserLink:hover {
-  background-color: white;
-  color: orange;
-  text-decoration: none;
-}
-
-.sessionLink .loginLink {
-  color: dimgray;
-}
-
-.sessionLink .loginLink:hover {
-  color: indigo;
-}
-
 .step-warppar h2{
+  margin: 50px 0;
   color: orange;
 }
 
@@ -132,4 +102,35 @@
 
 .step-section p {
   color: dimgray;
+}
+
+.sessionLink {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.sessionLink p {
+  margin: 50px 0;
+}
+
+.sessionLink .newUserLink {
+  border-radius: 3em;
+  padding: 20px;
+  background-color: orange;
+  color: white;
+  text-decoration: none;
+}
+
+.sessionLink .newUserLink:hover {
+  background-color: white;
+  color: orange;
+  text-decoration: none;
+}
+
+.sessionLink .loginLink {
+  color: dimgray;
+}
+
+.sessionLink .loginLink:hover {
+  color: indigo;
 }
