@@ -1,6 +1,13 @@
+.main {
+  background-color: orange;
+  padding: 0 50px 50px 50px;
+}
+
 .container {
-  margin: 0 50px;
   line-height: 0em;
+  background-color: white;
+  border-radius: 5em;
+  padding: 0 50px;
   background-image:
 			radial-gradient(290px 300px , skyblue 20%, transparent 20%),
 			radial-gradient(800px 780px , skyblue 20%, transparent 20%),
