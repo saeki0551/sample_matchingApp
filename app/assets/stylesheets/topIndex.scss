@@ -77,22 +77,22 @@
   color: indigo;
 }
 
-.flow-explanation-warppar h2{
+.step-warppar h2{
   color: orange;
 }
 
-.flow-explanation-warppar .step{
+.step-warppar .step-title{
   border-bottom: 2px dashed orange;
   margin-bottom: 30px;
 }
 
 
-.flow-explanation {
+.step {
   text-align: center;
   margin: 0 30px;
 }
 
-.flow-explanation .image-blank {
+.step .image-blank {
   position: relative;
   margin: 0 auto;
   width: 150px;
@@ -102,7 +102,7 @@
   background: orange;
 }
 
-.flow-explanation img {
+.step img {
   position: absolute;
   top: 0;
   right: 0;
@@ -113,13 +113,13 @@
   height: auto;
 }
 
-.flow-explanation-section {
+.step-section {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
 }
 
-.flow-explanation-section p {
+.step-section p {
   color: dimgray;
 }
