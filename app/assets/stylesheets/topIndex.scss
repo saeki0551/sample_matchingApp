@@ -31,12 +31,12 @@
 			130px -150px;
 }
 
-.catchCopyBackground {
-  border-radius: 50%;
-  width: 700px;
-  height: 700px;
-  background-color:  orange;
-  margin: 0 auto;
+.site-name {
+  position: relative;
+  top: 350px;
+  text-align: center;
+  color: red;
+  font-family: 'BatangChe', monospace;
 }
 
 .catchCopy {
@@ -45,6 +45,16 @@
   text-align: center;
   color: white;
 }
+
+
+.catchCopyBackground {
+  border-radius: 50%;
+  width: 700px;
+  height: 700px;
+  background-color:  orange;
+  margin: 0 auto;
+}
+
 
 .sessionLink {
   margin-top: 100px;
