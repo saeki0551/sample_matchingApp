@@ -14,4 +14,13 @@ class User < ApplicationRecord
     return "Password は6文字以上12文字以内である必要があります。" unless self.password.length >= 6 && self.password.length <= 12
     return "Password と Password confirmation が一致していません。" unless self.password == self.password_confirmation 
   end
+  
+  def call(user_params)
+    @@user = User.new(user_params)
+  end
+
+  def call2
+    @@user
+  end
+
 end

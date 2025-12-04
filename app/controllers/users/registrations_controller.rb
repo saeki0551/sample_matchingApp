@@ -60,7 +60,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def create
-    user = User.new(create_user_params)
+    user = User.new
+    user = user.call2
+    binding.pry
     user_information = UserInformation.new(create_user_information_params)
 
     ActiveRecord::Base.transaction do
@@ -75,10 +77,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-    def create_user_params
-      params.require(:user).permit(:email, :name, :password, :password_confirmation)
-    end
 
     def create_user_information_params
       params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
