@@ -15,12 +15,12 @@ class User < ApplicationRecord
     return "Password と Password confirmation が一致していません。" unless self.password == self.password_confirmation 
   end
   
-  def call(user_params)
-    @@user = User.new(user_params)
+  def self.set(user)
+    @user = user
   end
 
-  def call2
-    @@user
+  def self.call
+    @user
   end
 
 end
