@@ -3,7 +3,7 @@ class UserInformationsController < ApplicationController
 
   def new
     user = User.new(user_params)
-    User.set(user)
+    User.set_user(user)
     if User.exists?(email: user.email) 
       return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"
     end 

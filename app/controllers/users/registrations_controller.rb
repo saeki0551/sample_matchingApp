@@ -60,7 +60,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def create
-    user = User.call
+    user = User.call_user
     user_information = UserInformation.new(create_user_information_params)
     ActiveRecord::Base.transaction do
       user.save!
