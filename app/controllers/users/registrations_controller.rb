@@ -61,7 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
   def create
     user = User.call_user
-    user_information = UserInformation.new(create_user_information_params)
+    user_information = UserInformation.new(user_information_params)
     ActiveRecord::Base.transaction do
       user.save!
       user_information.user_id = user.id
@@ -73,7 +73,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
-    def create_user_information_params
+    def user_information_params
       params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
     end
 
