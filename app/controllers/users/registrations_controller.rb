@@ -62,14 +62,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     user = User.call
     user_information = UserInformation.new(create_user_information_params)
-
     ActiveRecord::Base.transaction do
       user.save!
       user_information.user_id = user.id
       user_information.save!
-    rescue => $error
-      raise ActiveRecord::Rollback
-    end 
+    end
     sign_in(user)
     redirect_to users_path, notice: "アカウントの作成に成功しました。"
   end

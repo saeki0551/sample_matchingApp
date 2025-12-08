@@ -8,6 +8,13 @@ class User < ApplicationRecord
 
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
+
+  after_rollback :display_error_screen
+
+  def display_error_screen
+    Rails.logger.info
+    raise StandardError
+  end
   
   def check_password
     return "Password は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(self.password)
@@ -22,5 +29,7 @@ class User < ApplicationRecord
   def self.call
     @user
   end
+
+
 
 end
