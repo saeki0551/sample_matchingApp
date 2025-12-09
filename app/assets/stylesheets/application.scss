@@ -17,81 +17,63 @@
   position: fixed;
   width: 100%;
   margin-top: -100px;
+  ul {
+    display: flex;
+    background-color: orange;
+    padding: 5px 0;
+    li {
+      list-style: none;
+      align-content: center;
+      &:nth-child(n + 2) {
+        flex-grow: 1;
+      }
+      &:first-child {
+        margin-left: 70px;
+        background-color: white;
+        padding: 3px;
+        border-radius: 100%;
+      }
+      &:nth-child(2) {
+        margin-left: 150px;
+      }
+      &:last-child {
+        margin-right: 70px ;
+      }
+      .navigationLink {
+        text-decoration: none;
+        color: white;
+        &:hover {
+          color: indigo;
+        }
+      }
+      .sessionLink{
+        border: 1px solid white;
+        border-radius: 1em;
+        padding: 5px;
+        &:hover {
+          background-color: white;
+          color: indigo;
+        }
+      }
+      .logLink {
+        color: yellow;
+      }
+      .newUserLink{
+        background-color: skyblue;
+      }
+      .logoutLink {
+        color: yellow;
+      }
+    }
+  }
 }
 
-.navigation ul {
-  display: flex;
-  background-color: orange;
-  padding: 5px 0;
-}
 
-.navigation li {
-  list-style: none;
-  align-content: center;
-}
 
-.navigation li:nth-child(n + 2) {
-  flex-grow: 1;
-}
 
-.navigation li:first-child {
-  margin-left: 70px;
-  background-color: white;
-  padding: 3px;
-  border-radius: 100%;
-}
 
-.navigation li:nth-child(2) {
-  margin-left: 150px;
-}
 
-.navigation li:last-child {
-  margin-right: 70px ;
-}
 
-.navigationLink {
-  text-decoration: none;
-  color: white;
-}
 
-.navigationLink:hover {
-  color: indigo;
-}
 
-.sessionLink{
-  border: 1px solid white;
-  border-radius: 1em;
-  padding: 5px;
-}
 
-.sessionLink:hover {
-  background-color: white;
-}
-
-.loginLink {
-  color: yellow;
-}
-
-.loginLink:hover {
-  color: indigo;
-}
-
-.newUserLink{
-  background-color: skyblue;
-}
-
-.newUserLink:hover {
-  color: indigo;
-}
-
-.logoutLink {
-  color: yellow;
-}
-
-.cancelMembershipLink {
-  color: red;
-}
-
-.cancelMembershipLink:hover {
-  color: red;
-}
