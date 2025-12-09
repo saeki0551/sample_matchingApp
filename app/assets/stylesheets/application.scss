@@ -50,19 +50,15 @@
         border: 1px solid white;
         border-radius: 1em;
         padding: 5px;
+        color: yellow;
         &:hover {
           background-color: white;
           color: indigo;
         }
       }
-      .logLink {
-        color: yellow;
-      }
       .newUserLink{
         background-color: skyblue;
-      }
-      .logoutLink {
-        color: yellow;
+        color: white;
       }
     }
   }
