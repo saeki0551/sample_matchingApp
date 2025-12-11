@@ -28,99 +28,86 @@
       1100px 1300px;
     background-color: white;
     .site-name {
-    position: relative;
-    top: 350px;
-    text-align: center;
-    color: red;
-    font-family: 'BatangChe', monospace;
+      position: relative;
+      top: 350px;
+      text-align: center;
+      color: red;
+      font-family: 'BatangChe', monospace;
     }
     .catchCopy {
-    position: relative;
-    top: 400px;
-    text-align: center;
-    color: white;
+      position: relative;
+      top: 400px;
+      text-align: center;
+      color: white;
     }
-  }
-  .catchCopyBackground {
-  width: 700px;
-  height: 700px;
-  margin: 0 auto;
-  background-color:  orange;
-  border-radius: 50%;
-  }
-  
-  .step-warppar .step-title{
-  margin: 50px 0;
-  border-bottom: 2px dashed orange;
-  color: orange;
-  }
-  
-  
-  .step {
-  margin: 0 30px;
-  text-align: center;
-  }
-  
-  .step .img-background {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-  margin-bottom: 30px;
-  border-radius: 50%;  
-  background: orange;
-  }
-  
-  .step img {
-  position: absolute;
-  width: 100px;
-  height: auto;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  }
-  
-  .step-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
-  }
-  
-  .step-section p {
-  color: dimgray;
-  }
-  
-  .sessionLink {
-  padding: 50px 0;
-  text-align: center;
-  }
-  
-  .sessionLink p {
-  margin: 50px 0;
-  }
-  
-  .sessionLink .newUserLink {
-  padding: 20px;
-  border-radius: 3em;
-  text-decoration: none;
-  background-color: orange;
-  color: white;
-  }
-  
-  .sessionLink .newUserLink:hover {
-  text-decoration: none;
-  background-color: white;
-  color: orange;
-  }
-  
-  .sessionLink .loginLink {
-  color: dimgray;
-  }
-  
-  .sessionLink .loginLink:hover {
-  color: indigo;
+    .catchCopyBackground {
+      width: 700px;
+      height: 700px;
+      margin: 0 auto;
+      background-color:  orange;
+      border-radius: 50%;
+    }
+    .step-warppar .step-title{
+      margin: 50px 0;
+      border-bottom: 2px dashed orange;
+      color: orange;
+    }
+    .step-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 50px;
+      .step {
+        margin: 0 30px;
+        text-align: center;
+        p {
+          color: dimgray;
+        }
+        img {
+          position: absolute;
+          width: 100px;
+          height: auto;
+          margin: auto;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+        .img-background {
+          position: relative;
+          width: 150px;
+          height: 150px;
+          margin: 0 auto;
+          margin-bottom: 30px;
+          border-radius: 50%;  
+          background: orange;
+        }   
+      }
+    }
+    .sessionLink {
+      padding: 50px 0;
+      text-align: center;
+      p {
+        margin: 50px 0;
+      }
+      .newUserLink {
+        padding: 20px;
+        border-radius: 3em;
+        text-decoration: none;
+        background-color: orange;
+        color: white;
+        &:hover {
+          text-decoration: none;
+          background-color: white;
+          color: orange;
+        }
+      }
+      .loginLink {
+        color: dimgray;
+        &:hover {
+          color: indigo;
+        }
+      }
+    }    
   }
 }
