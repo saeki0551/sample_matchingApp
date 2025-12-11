@@ -1,73 +1,67 @@
 .main {
   padding: 50px;
   background-color: #ffa500;
-}
-
-.container {
-  padding: 0 50px;
-  line-height: 0em;
-  border-radius: 5em;
-  background-image:
-    radial-gradient(290px 300px , yellow 20%, transparent 20%),
-    radial-gradient(800px 780px , yellow 20%, transparent 20%),
-    radial-gradient(1000px 990px , yellow 20%, transparent 20%),
-    radial-gradient(400px 380px , yellow 20%, transparent 20%),
-    radial-gradient(750px 750px , yellow 20%, transparent 20%),
-    radial-gradient(100px 100px , yellow 20%, transparent 20%);
-  background-position: 
-    -300px -550px,
-    -200px 100px,
-    50px 510px,
-    -200px -550px,
-    -180px -250px,
-    130px -150px;
-  background-size: 
-    1230px 1280px,
-    810px 910px,
-    1470px 990px,
-    1200px 1700px,
-    1520px 1200px,
-    1100px 1300px;
-  background-color: white;
-}
-  
-.site-name {
-  position: relative;
-  top: 350px;
-  text-align: center;
-  color: red;
-  font-family: 'BatangChe', monospace;
-}
-
-.catchCopy {
-  position: relative;
-  top: 400px;
-  text-align: center;
-  color: white;
-}
-
-
-.catchCopyBackground {
+  .container {
+    padding: 0 50px;
+    line-height: 0em;
+    border-radius: 5em;
+    background-image:
+      radial-gradient(290px 300px , yellow 20%, transparent 20%),
+      radial-gradient(800px 780px , yellow 20%, transparent 20%),
+      radial-gradient(1000px 990px , yellow 20%, transparent 20%),
+      radial-gradient(400px 380px , yellow 20%, transparent 20%),
+      radial-gradient(750px 750px , yellow 20%, transparent 20%),
+      radial-gradient(100px 100px , yellow 20%, transparent 20%);
+    background-position: 
+      -300px -550px,
+      -200px 100px,
+      50px 510px,
+      -200px -550px,
+      -180px -250px,
+      130px -150px;
+    background-size: 
+      1230px 1280px,
+      810px 910px,
+      1470px 990px,
+      1200px 1700px,
+      1520px 1200px,
+      1100px 1300px;
+    background-color: white;
+    .site-name {
+    position: relative;
+    top: 350px;
+    text-align: center;
+    color: red;
+    font-family: 'BatangChe', monospace;
+    }
+    .catchCopy {
+    position: relative;
+    top: 400px;
+    text-align: center;
+    color: white;
+    }
+  }
+  .catchCopyBackground {
   width: 700px;
   height: 700px;
   margin: 0 auto;
   background-color:  orange;
   border-radius: 50%;
-}
-
-.step-warppar .step-title{
+  }
+  
+  .step-warppar .step-title{
   margin: 50px 0;
   border-bottom: 2px dashed orange;
   color: orange;
-}
-
-
-.step {
+  }
+  
+  
+  .step {
   margin: 0 30px;
   text-align: center;
-}
-
-.step .img-background {
+  }
+  
+  .step .img-background {
   position: relative;
   width: 150px;
   height: 150px;
@@ -75,9 +69,9 @@
   margin-bottom: 30px;
   border-radius: 50%;  
   background: orange;
-}
-
-.step img {
+  }
+  
+  .step img {
   position: absolute;
   width: 100px;
   height: auto;
@@ -86,46 +80,47 @@
   right: 0;
   bottom: 0;
   left: 0;
-}
-
-.step-section {
+  }
+  
+  .step-section {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
-}
-
-.step-section p {
+  }
+  
+  .step-section p {
   color: dimgray;
-}
-
-.sessionLink {
+  }
+  
+  .sessionLink {
   padding: 50px 0;
   text-align: center;
-}
-
-.sessionLink p {
+  }
+  
+  .sessionLink p {
   margin: 50px 0;
-}
-
-.sessionLink .newUserLink {
+  }
+  
+  .sessionLink .newUserLink {
   padding: 20px;
   border-radius: 3em;
   text-decoration: none;
   background-color: orange;
   color: white;
-}
-
-.sessionLink .newUserLink:hover {
+  }
+  
+  .sessionLink .newUserLink:hover {
   text-decoration: none;
   background-color: white;
   color: orange;
-}
-
-.sessionLink .loginLink {
+  }
+  
+  .sessionLink .loginLink {
   color: dimgray;
-}
-
-.sessionLink .loginLink:hover {
+  }
+  
+  .sessionLink .loginLink:hover {
   color: indigo;
+  }
 }
