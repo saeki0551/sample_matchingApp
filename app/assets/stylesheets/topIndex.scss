@@ -1,13 +1,12 @@
 .main {
-  background-color: orange;
   padding: 50px;
+  background-color: #ffa500;
 }
 
 .container {
-  line-height: 0em;
-  background-color: white;
-  border-radius: 5em;
   padding: 0 50px;
+  line-height: 0em;
+  border-radius: 5em;
   background-image:
     radial-gradient(290px 300px , yellow 20%, transparent 20%),
     radial-gradient(800px 780px , yellow 20%, transparent 20%),
@@ -15,13 +14,6 @@
     radial-gradient(400px 380px , yellow 20%, transparent 20%),
     radial-gradient(750px 750px , yellow 20%, transparent 20%),
     radial-gradient(100px 100px , yellow 20%, transparent 20%);
-  background-size: 
-    1230px 1280px,
-    810px 910px,
-    1470px 990px,
-    1200px 1700px,
-    1520px 1200px,
-    1100px 1300px;
   background-position: 
     -300px -550px,
     -200px 100px,
@@ -29,8 +21,16 @@
     -200px -550px,
     -180px -250px,
     130px -150px;
+  background-size: 
+    1230px 1280px,
+    810px 910px,
+    1470px 990px,
+    1200px 1700px,
+    1520px 1200px,
+    1100px 1300px;
+  background-color: white;
 }
-
+  
 .site-name {
   position: relative;
   top: 350px;
@@ -48,30 +48,30 @@
 
 
 .catchCopyBackground {
-  border-radius: 50%;
   width: 700px;
   height: 700px;
-  background-color:  orange;
   margin: 0 auto;
+  background-color:  orange;
+  border-radius: 50%;
 }
 
 .step-warppar .step-title{
-  color: orange;
-  border-bottom: 2px dashed orange;
   margin: 50px 0;
+  border-bottom: 2px dashed orange;
+  color: orange;
 }
 
 
 .step {
-  text-align: center;
   margin: 0 30px;
+  text-align: center;
 }
 
-.step .image-blank {
+.step .image-background {
   position: relative;
-  margin: 0 auto;
   width: 150px;
   height: 150px;
+  margin: 0 auto;
   margin-bottom: 30px;
   border-radius: 50%;  
   background: orange;
@@ -79,13 +79,13 @@
 
 .step img {
   position: absolute;
+  width: 100px;
+  height: auto;
+  margin: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  margin: auto;
-  width: 100px;
-  height: auto;
 }
 
 .step-section {
@@ -109,17 +109,17 @@
 }
 
 .sessionLink .newUserLink {
-  border-radius: 3em;
   padding: 20px;
+  border-radius: 3em;
+  text-decoration: none;
   background-color: orange;
   color: white;
-  text-decoration: none;
 }
 
 .sessionLink .newUserLink:hover {
+  text-decoration: none;
   background-color: white;
   color: orange;
-  text-decoration: none;
 }
 
 .sessionLink .loginLink {
