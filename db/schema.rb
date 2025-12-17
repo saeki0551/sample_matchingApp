@@ -47,8 +47,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_214828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.string "name", null: false
     t.integer "gender", default: 0, null: false
+    t.string "name", null: false
     t.index ["user_id"], name: "index_user_informations_on_user_id"
   end
 

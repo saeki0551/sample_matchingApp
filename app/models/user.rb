@@ -29,7 +29,4 @@ class User < ApplicationRecord
   def self.call_user
     @user
   end
-
-
-
 end

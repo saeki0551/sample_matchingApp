@@ -60,18 +60,29 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def create
-    user = User.call_user
-    user_information = UserInformation.new(user_information_params)
-    ActiveRecord::Base.transaction do
-      user.save!
-      user_information.user_id = user.id
-      user_information.save!
+    if params[:user].present?
+      user = User.new(user_params)
+      User.set_user(user)
+      redirect_to new_user_information_path
+    else
+      # user = User.call_user
+      user_information = UserInformation.new(user_information_params)
+      ActiveRecord::Base.transaction do
+        user = User.call_user
+        user.save!
+        user_information.user_id = user.id
+        user_information.save!
+      end
+      sign_in(user)
+      redirect_to users_path, notice: "アカウントの作成に成功しました。"
     end
-    sign_in(user)
-    redirect_to users_path, notice: "アカウントの作成に成功しました。"
   end
-
+    
   private
+
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation)
+    end
 
     def user_information_params
       params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
