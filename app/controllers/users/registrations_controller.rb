@@ -59,14 +59,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  
   def create
     if params[:user].present?
-      user = User.new(user_params)
-      User.set_user(user)
       redirect_to new_user_information_path
     else
-      # user = User.call_user
-      user_information = UserInformation.new(user_information_params)
+      binding.pry
       ActiveRecord::Base.transaction do
         user = User.call_user
         user.save!
@@ -79,14 +77,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
     
   private
-
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
-
-    def user_information_params
-      params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
-    end
 
     def after_sign_up_path_for(resource) 
       users_path #サインアップ遷移先のパス
