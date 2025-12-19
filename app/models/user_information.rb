@@ -1,5 +1,5 @@
 class UserInformation < ApplicationRecord
-  belongs_to :user
+  has_one :user, dependent: :destroy
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions

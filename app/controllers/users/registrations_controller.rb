@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -59,26 +59,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  
-  def create
+
+  def new
+    @user = User.new
+  end
+
+  def create 
     if params[:user].present?
-      redirect_to new_user_information_path
+      user = User.new(user_params)
+      session[:user] = user
+      return redirect_to new_user_information_path
     else
       binding.pry
       ActiveRecord::Base.transaction do
-        user = User.call_user
+        user = session[:user]
+        binding.pry
+        user_information = params[:user_information]
+        binding.pry
         user.save!
         user_information.user_id = user.id
         user_information.save!
       end
-      sign_in(user)
-      redirect_to users_path, notice: "アカウントの作成に成功しました。"
     end
+    sign_in(user)
+    redirect_to users_path, notice: "アカウントの作成に成功しました。"
   end
-    
+
   private
 
-    def after_sign_up_path_for(resource) 
-      users_path #サインアップ遷移先のパス
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation)
     end
 end

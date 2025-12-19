@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_one :user_information, dependent: :destroy  
+  belongs_to :user_information
+  accepts_nested_attributes_for :user_information, allow_destroy: true
 
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
@@ -21,4 +22,5 @@ class User < ApplicationRecord
     return "パスワード は6文字以上12文字以内である必要があります。" unless self.password.length >= 6 && self.password.length <= 12
     return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
   end
+
 end

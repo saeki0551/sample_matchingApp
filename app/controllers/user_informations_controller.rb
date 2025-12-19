@@ -7,7 +7,6 @@ class UserInformationsController < ApplicationController
 
   def create
     user_information = UserInformation.new(user_information_params)
-    redirect_to new_user_registration_path
   end
 
   private
