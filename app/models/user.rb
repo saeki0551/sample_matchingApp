@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   belongs_to :user_information
-  before_save :registration_user_information
+  after_create :registration_user_information
 
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
@@ -24,6 +24,9 @@ class User < ApplicationRecord
   end
 
   def registration_user_information
+    binding.pry
+    @user_information = UserInformation.new
+    @user_information.new
   end
 
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -65,22 +65,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create 
-    if params[:user].present?
-      user = User.new(user_params)
-      session[:user] = user
-      return redirect_to new_user_information_path
-    else
-      binding.pry
+      session[:user] = User.new(user_params)
+      session[:user].registration_user_information
       ActiveRecord::Base.transaction do
-        user = session[:user]
-        binding.pry
         user_information = params[:user_information]
-        binding.pry
-        user.save!
-        user_information.user_id = user.id
+        session[:user].save!
+        user_information.user_id = session[:user].id
         user_information.save!
       end
-    end
     sign_in(user)
     redirect_to users_path, notice: "アカウントの作成に成功しました。"
   end
