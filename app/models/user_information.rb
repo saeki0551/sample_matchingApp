@@ -1,5 +1,5 @@
 class UserInformation < ApplicationRecord
-  has_one :user, dependent: :destroy
+  belongs_to :user
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -17,4 +17,5 @@ class UserInformation < ApplicationRecord
         self.image.attach(io: File.open("app/assets/images/defaultUserIcon.png"), filename: "defaultUserIcon.png", content_type: "image/png")
       end
     end
+
 end

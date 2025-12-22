@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    sessions: 'users/sessions'
-  }, skip: [:registrations]
-  devise_scope :user do
-    get 'users/sign_up', to: 'users/registrations#new', as: :new_user_registration
-    post 'users/sign_up', to: 'users/registrations#create', as: :create_user_registration
+    sessions: 'users/sessions',
+    user_informations: 'users/users_informations'
+    }, skip: [:registrations]
+    devise_scope :user do
+      get 'users/sign_up', to: 'users/registrations#new', as: :new_user_registration
+      post 'users/sign_up', to: 'users/registrations#create', as: :create_user_registration
+      get 'users/user_informations/new', to: 'users/user_informations#new', as: :new_user_information
+      post 'user_informations/create', to: 'users/user_informations#create', as: :create_user_information
   end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,11 +23,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "tops#index"
+
   resources :users
-  post "users/create", to: "users#create", as: :create_new_user
+  
   get "users/:id/destroy", to: "users#destroy", as: :destroy_user
 
-  get "user_informations/new", to: "user_informations#new", as: :new_user_information
-  post "user_informations/create", to: "user_informations#create", as: :create_user_information
 
 end

@@ -4,8 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  belongs_to :user_information
-  after_create :registration_user_information
+  has_one :user_information, dependent: :destroy
 
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
@@ -23,10 +22,8 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
   end
 
-  def registration_user_information
-    binding.pry
-    @user_information = UserInformation.new
-    @user_information.new
-  end
-
+  # def registration_user_information
+  #   user_information = UserInformation.new
+  #   user_information.new_user_information
+  # end
 end

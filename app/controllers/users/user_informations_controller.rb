@@ -1,11 +1,13 @@
-class UserInformationsController < ApplicationController
+class Users::UserInformationsController < Users::RegistrationsController
   skip_before_action :authenticate_user!, only: [:new, :create]
 
-  def new   
+  def new
+    @user_information = UserInformation.new
   end
 
   def create
-    user_information = UserInformation.new(user_information_params)
+    @user_information = UserInformation.new(user_information_params)
+    super
   end
 
   private
