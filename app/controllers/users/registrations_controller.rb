@@ -67,10 +67,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create 
     if params[:user].present?
       session[:user] = user_params
-      redirect_to new_user_information_path
+      user = User.new(session[:user])
+      user.check_password
+      return redirect_to  new_user_path, alert: user.check_password if user.check_password.present?
+      
+      redirect_to new_user_information_path(user)
     else
       ActiveRecord::Base.transaction do
-        user = User.new(session[:user])
         user.save!
         @user_information.user_id = user.id
         @user_information.save!
