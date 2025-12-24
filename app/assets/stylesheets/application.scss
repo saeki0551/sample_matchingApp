@@ -9,4 +9,57 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- 
+ body {
+  margin-top: 100px;
+}
+
+.navigation {
+  position: fixed;
+  width: 100%;
+  margin-top: -100px;
+  ul {
+    display: flex;
+    background-color: orange;
+    padding: 5px 0;
+    li {
+      list-style: none;
+      align-content: center;
+      &:first-child {
+        margin-left: 70px;
+        background-color: white;
+        padding: 3px;
+        border-radius: 100%;
+      }
+      &:nth-child(n + 2) {
+        flex-grow: 1;
+      }
+      &:nth-child(2) {
+        margin-left: 150px;
+      }
+      &:last-child {
+        margin-right: 70px ;
+      }
+      .navigationLink {
+        text-decoration: none;
+        color: white;
+        &:hover {
+          color: indigo;
+        }
+      }
+      .sessionLink{
+        border: 1px solid white;
+        border-radius: 1em;
+        padding: 5px;
+        color: yellow;
+        &:hover {
+          background-color: white;
+          color: indigo;
+        }
+      }
+      .newUserLink{
+        background-color: skyblue;
+        color: white;
+      }
+    }
+  }
+}

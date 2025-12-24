@@ -23,14 +23,26 @@
   </head>
 
   <header>
-    <% if user_signed_in? %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <%= link_to "アカウント削除", destroy_user_path(current_user.id), data: { turbo_method: :delete }, onclick: "return confirm('本当にアカウントを削除してよろしいですか？');"%>
-    <% else %>
+    <div class="navigation">
+      <ul>
+        <li><%= image_tag "navigationIcon.png", size: "50x50" %><br></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "マッチングした相手", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "メッセージ", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "検索", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "マイページ", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink sessionLink" %></li>
+        <% else %>
+          <li><%= link_to "ホーム", root_path, class:"navigationLink" %></li>
+          <li><%= link_to "コラム", root_path, class:"navigationLink" %></li>
+          <li><%= link_to "料金", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "ログイン", new_user_session_path, class:"navigationLink sessionLink" %></li>
+          <li><%= link_to "アカウント作成", new_user_registration_path, class:"navigationLink sessionLink newUserLink" %></li>
+        <% end %>
+      </ul>
+    </div>
 
-    <% end %>
   </header>
-
   <body>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, class: name %>
