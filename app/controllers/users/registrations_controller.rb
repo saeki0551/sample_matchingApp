@@ -68,7 +68,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if params[:user].present?
       session[:user] = user_params
       user = User.new(user_params)
-      binding.pry
       if User.exists?(email: user.email) 
         return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"
       end 
@@ -79,7 +78,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       ActiveRecord::Base.transaction do
         user = User.new(session[:user])
-        binding.pry
         user.save!
         @user_information.user_id = user.id
         @user_information.save!
