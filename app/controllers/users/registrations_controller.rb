@@ -59,7 +59,37 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  def after_sign_up_path_for(resource)   
-    new_user_information_path #サインアップ遷移先のパス
+
+  def new
+    @user = User.new
   end
+
+  def create 
+    if params[:user].present?
+      session[:user] = user_params
+      user = User.new(user_params)
+      if User.exists?(email: user.email) 
+        return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"
+      end 
+      user.check_password
+      return redirect_to  new_user_path, alert: user.check_password if user.check_password.present?
+      
+      redirect_to new_user_information_path(user)
+    else
+      ActiveRecord::Base.transaction do
+        user = User.new(session[:user])
+        user.save!
+        @user_information.user_id = user.id
+        @user_information.save!
+        sign_in(user)
+      end
+      redirect_to users_path, notice: "アカウントの作成に成功しました。"
+    end
+  end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation)
+    end
 end
