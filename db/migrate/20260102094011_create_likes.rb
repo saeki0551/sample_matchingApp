@@ -3,7 +3,6 @@ class CreateLikes < ActiveRecord::Migration[8.0]
     create_table :likes do |t|
       t.references :user, foreign_key: true
       t.integer :liked_user_id, null: false
-      t.integer :liked_count, null: false, default: 0
       t.timestamps
     end
   end
