@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
     get "likes/create", to: "likes#create", as: :create_likes
     get "likes/destroy", to: "likes#destroy", as: :destroy_likes
+      resources :matchings, only: [:create]
+      get "matchings", to: "likes#user_matchings", as: :user_matchings
   end
 
   get "users/:id/destroy", to: "users#destroy", as: :destroy_user
