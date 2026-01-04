@@ -6,6 +6,8 @@ class User < ApplicationRecord
   
   has_one :user_information, dependent: :destroy
   has_many :like, dependent: :destroy
+  has_many :matchings
+  has_many :likes, through: :matchings
 
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
