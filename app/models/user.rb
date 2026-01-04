@@ -10,7 +10,6 @@ class User < ApplicationRecord
   validates :email, :password, :password_confirmation, presence: true
   validates :email, uniqueness: true 
 
-
   after_rollback :display_error_screen
 
   def display_error_screen
