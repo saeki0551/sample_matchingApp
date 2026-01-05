@@ -1,8 +1,13 @@
 class LikesController < ApplicationController
   def create
     like = Like.new(user_id: params[:user_id], liked_user_id: params[:liked_user_id])
+    liked = Like.where(user_id: params[:liked_user_id], liked_user_id: params[:user_id])
     if like.save
-      redirect_to users_path
+      if liked.present?
+        redirect_to user_path(id: like.liked_user_id),  notice: "マッチングしました。"
+      else
+        redirect_to users_path
+      end
     else
       redirect_to users_path, alert: "いいねができませんでした。"
     end
