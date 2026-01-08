@@ -26,23 +26,25 @@
       1520px 1200px,
       1100px 1300px;
     background-color: white;
-    .site-name {
-      position: relative;
-      top: 350px;
-      text-align: center;
-      color: red;
-      font-family: 'BatangChe', monospace;
+    .container-site-name-catchCopy {
+      // position: relative;
+      .site-name {
+        text-align: center;
+        color: red;
+        font-family: 'BatangChe', monospace;
+      }
+      .catchCopy {
+        text-align: center;
+        color: white;
+      }
     }
-    .catchCopy {
-      position: relative;
-      top: 400px;
-      text-align: center;
-      color: white;
-    }
-    .catchCopyBackground {
+    .container-site-name-catchCopy::before {
+      position: absolute;
+      content: "";
       width: 700px;
       height: 700px;
       margin: 0 auto;
+      top: 50px;
       background-color:  orange;
       border-radius: 50%;
     }
