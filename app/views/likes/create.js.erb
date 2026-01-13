@@ -1,1 +1,1 @@
-$("#like_already").html("<%= render "likes/create", like: @like %>");
+$("#like_already").html("<%= render partial: "likes/create", locals: {like: @like }, formats: :html %>");
