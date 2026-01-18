@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @likes = current_user.likes
+    @user = current_user
   end
 
   def new

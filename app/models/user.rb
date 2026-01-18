@@ -22,4 +22,8 @@ class User < ApplicationRecord
     return "パスワード は6文字以上12文字以内である必要があります。" unless self.password.length >= 6 && self.password.length <= 12
     return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
   end
+
+  def judge_liked(current_user_id, user_id)
+    Like.exists?(user_id: current_user_id, liked_user_id: user_id)
+  end
 end
