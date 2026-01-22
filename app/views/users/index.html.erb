@@ -9,12 +9,14 @@
     <li>生年月日：<%= user.user_information.birth_date %></li>
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
     <li>趣味：<%= user.user_information.hobby.name %></li>
-    <div class="like_already">
-      <% if @user.judge_liked(current_user.id, user.id) %>
-        <li><%= link_to "♥", user_destroy_likes_path(user_id: current_user.id, liked_user_id: user.id, format: :js) %></li>
-      <% else %>
-        <li><%= link_to "♡", user_create_likes_path(user_id: current_user.id, liked_user_id: user.id, format: :js) %></li>
-      <% end %>
-    </div>
+    <% if user.judge_liked(current_user.id, user.id) %>
+      <div class="like_buttons_<%= user.id %>">
+        <%= render partial: "likes/destroy",  locals: { user_id: user.id } %>
+      </div>
+    <% else %>
+      <div class="like_buttons_<%= user.id %>">
+        <%= render partial: "likes/create",  locals: { user_id: user.id } %>
+      </div>
+    <% end %>
   </ul>
 <% end %>

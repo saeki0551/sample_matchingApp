@@ -1,1 +1,2 @@
-$("#like_already").html("<%= render partial: "likes/create", locals: {like: @like }, formats: :html %>");
+$(".like_buttons_<%= @user.id %>").html("<%= j(render partial: "likes/destroy",  locals: { user_id: @like.liked_user_id }) %>");
+
