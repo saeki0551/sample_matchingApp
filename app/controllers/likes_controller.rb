@@ -1,6 +1,4 @@
 class LikesController < ApplicationController
-  protect_from_forgery except: :create
-
   def create
     @like = Like.new(user_id: params[:user_id], liked_user_id: params[:liked_user_id])
     @user = User.find_by(id: params[:liked_user_id])
