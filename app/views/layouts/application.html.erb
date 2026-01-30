@@ -36,7 +36,7 @@
                   destroy_user_path(current_user.id), 
                   # data: { turbo_method: :delete }, 
                   onclick: "return confirm('本当に退会しますか？※一度退会すると、データは引き継げません。');",
-                  class:"navigationLink sessionLink" %></li>
+                  class:"navigationLink sessionLink deleteLink" %></li>
         <% else %>
           <li><%= link_to "ホーム", root_path, class:"navigationLink" %></li>
           <li><%= link_to "コラム", root_path, class:"navigationLink" %></li>
