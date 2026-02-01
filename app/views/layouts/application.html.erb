@@ -33,7 +33,7 @@
           <li><%= link_to "マイページ", root_path,  class:"navigationLink" %></li>
           <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink sessionLink" %></li>
           <li><%= link_to "退会する", 
-                  cancel_membership_user_path(current_user.id), 
+                  destroy_user_path(current_user.id), 
                   # data: { turbo_method: :delete }, 
                   onclick: "return confirm('本当に退会しますか？※一度退会すると、データは引き継げません。');",
                   class:"navigationLink sessionLink deleteLink" %></li>

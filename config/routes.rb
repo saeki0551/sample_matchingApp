@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   root "tops#index"
 
   resources :users
-  
+
+  get "users/:id/destroy", to: "users#destroy", as: :destroy_user
   get "tops/cancel_membership", to: "tops#cancel_membership", as: :cancel_membership_user
+
 
 end

@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     if user.update(is_deleted: true, cancel_membership_time: DateTime.now)
       sign_out(user)
-      redirect_to controller: :tops, action: :cancel_membership
+      redirect_to cancel_membership_user_path
     else
       redirect_to users_path, alert: "予想外のエラー、退会に失敗しました。"
     end
