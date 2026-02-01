@@ -11,11 +11,13 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      redirect_to user_session_path, notice: "アカウントの削除が完了しました"
+    return redirect_to users_path, alert: "ユーザーidが一致しないため、退会ができません。"  unless user.id == current_user.id
+
+    if user.update(is_deleted: true, cancel_membership_time: DateTime.now)
+      sign_out(user)
+      redirect_to controller: :tops, action: :cancel_membership
     else
-      flash.now[:alert] = "アカウントの削除に失敗しました"
-      render :index
+      redirect_to users_path, alert: "予想外のエラー、退会に失敗しました。"
     end
   end
 end
