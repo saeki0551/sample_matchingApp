@@ -26,7 +26,7 @@ class Users::SessionsController < Devise::SessionsController
   # end
   def create
     user = User.order(updated_at: :desc).limit(1).find_by(email: params[:user][:email])
-    return redirect_to new_user_session_path, alert: "ログインできません。" if user.is_deleted
+    return redirect_to new_user_session_path, flash: { alert: "ログインできません。" } if user.is_deleted
     
     if sign_in(user)
       redirect_to users_path, notice: "ログインしました"
