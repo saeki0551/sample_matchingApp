@@ -10,7 +10,7 @@
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
     <li>趣味：<%= user.user_information.hobby.name %></li>
     <div class="like_buttons_<%= user.id %>">
-      <% if user.judge_liked(current_user.id, user.id) %>
+      <% if user.already_liked?(current_user.id, user.id) %>
           <%= render partial: "likes/destroy",  locals: { user_id: user.id } %>
       <% else %>
           <%= render partial: "likes/create",  locals: { user_id: user.id } %>
