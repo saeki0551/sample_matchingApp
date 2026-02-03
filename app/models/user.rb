@@ -11,6 +11,9 @@ class User < ApplicationRecord
 
   after_rollback :display_error_screen
 
+  ACCOUNT_STOP_TIME = 100
+
+
   def display_error_screen
     Rails.logger.info
     raise StandardError
@@ -26,13 +29,8 @@ class User < ApplicationRecord
     User.exists?(email: self.email, is_deleted: false) 
   end
 
-  def already_cancel_membership?
-    if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: self.email, is_deleted: true)
-      if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < ACCOUNT_STOP_TIME
-        return "新規登録できませんでした。ログインするか、#{ACCOUNT_STOP_TIME} 秒後に新規登録してください。" 
-      else
-        return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= ACCOUNT_STOP_TIME
-      end
-    end
+  def already_cancel_membership?(created_user)
+    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < ACCOUNT_STOP_TIME 
+    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= ACCOUNT_STOP_TIME
   end
 end

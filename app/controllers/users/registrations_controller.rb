@@ -75,11 +75,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user.already_sign_up?
       return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"} if user.already_sign_up?
 
-      if user.already_cancel_membership?
-        return redirect_to  new_user_path, flash: { alert: user.already_cancel_membership? }
-      elsif created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: user.email, is_deleted: true)
-        user.cancel_membership_count = created_user.cancel_membership_count + 1 
-        session[:user][:cancel_membership_count] = user.cancel_membership_count
+      if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: user.email, is_deleted: true)
+        if user.already_cancel_membership?(created_user)
+          return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。ログインするか、#{ACCOUNT_STOP_TIME} 秒後に新規登録してください。"  }
+        else
+          user.cancel_membership_count = created_user.cancel_membership_count + 1 
+          session[:user][:cancel_membership_count] = user.cancel_membership_count
+        end
       end
 
       redirect_to new_user_information_path(user)
