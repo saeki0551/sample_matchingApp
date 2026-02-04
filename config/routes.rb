@@ -26,11 +26,10 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :likes, only: [:create, :destroy]
-    get "likes/create", to: "likes#create", as: :create_likes
-    get "likes/destroy", to: "likes#destroy", as: :destroy_likes
+    post "likes/create", to: "likes#create", as: :create_likes
+    delete "likes/destroy", to: "likes#destroy", as: :destroy_likes
   end
 
   get "users/:id/destroy", to: "users#destroy", as: :destroy_user
-
 
 end
