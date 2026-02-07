@@ -1,1 +1,1 @@
-<li><%= link_to "♥", user_destroy_likes_path(user_id: current_user.id, liked_user_id: user_id), remote: true %></li>
+<li><%= link_to "♥", user_destroy_likes_path(user_id: user_id, liked_user_id: liked_user_id), data: { turbo_method: "delete" } %></li>
