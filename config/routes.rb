@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "tops#index"
 
-  get "users/cancel_membership", to: "users#cancel_membership"
+  get "users/cancel_membership", to: "users#cancel_membership", as: :cancel_membership_user
   resources :users
 
   get "users/:id/destroy", to: "users#destroy", as: :destroy_user

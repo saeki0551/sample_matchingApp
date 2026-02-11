@@ -26,8 +26,8 @@ class User < ApplicationRecord
     User.exists?(email: self.email, is_deleted: false) 
   end
 
-  def already_cancel_membership?(created_user)
-    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < ACCOUNT_STOP_TIME 
-    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= ACCOUNT_STOP_TIME
+  def already_cancel_membership?(created_user, account_stop_time)
+    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
+    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= account_stop_time
   end
 end
