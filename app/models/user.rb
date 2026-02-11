@@ -11,9 +11,6 @@ class User < ApplicationRecord
 
   after_rollback :display_error_screen
 
-  ACCOUNT_STOP_TIME = 100
-
-
   def display_error_screen
     Rails.logger.info
     raise StandardError

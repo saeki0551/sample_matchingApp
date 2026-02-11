@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+
   def destroy
     user = User.find(params[:id])
     return redirect_to users_path, alert: "ユーザーidが一致しないため、退会ができません。"  unless user.id == current_user.id
@@ -19,5 +20,9 @@ class UsersController < ApplicationController
     else
       redirect_to users_path, alert: "予想外のエラー、退会に失敗しました。"
     end
+  end
+
+  def cancel_membership
+    @account_stop_time = ACCOUNT_STOP_TIME
   end
 end
