@@ -3,13 +3,13 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions',
     user_informations: 'users/users_informations'
-    }, skip: [:registrations]
-    devise_scope :user do
-      get 'users/sign_up', to: 'users/registrations#new', as: :new_user_registration
-      post 'users/sign_up', to: 'users/registrations#create', as: :create_user_registration
-      get 'users/user_informations/new', to: 'users/user_informations#new', as: :new_user_information
-      post 'user_informations/create', to: 'users/user_informations#create', as: :create_user_information
-  end
+  }
+    # }, skip: [:registrations]
+    # devise_scope :user do
+    #   get 'users/sign_up', to: 'users/registrations#new', as: :new_user_registration
+    #   post 'users/sign_up', to: 'users/registrations#create', as: :create_user_registration
+    #   get 'users/user_informations/new', to: 'users/user_informations#new', as: :new_user_information
+    #   post 'user_informations/create', to: 'users/user_informations#create', as: :create_user_information
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
