@@ -2,11 +2,16 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable
 
   has_one :user_information, dependent: :destroy
 
   validates :email, :password, :password_confirmation, presence: true, on: [:crete]
+  VALID_PASSWORD_REGEX =/\A[a-zA-Z\d]+\w{6,12}\z/
+  validates :password,
+            format: { with: VALID_PASSWORD_REGEX,
+            message: "は半角6~12文字英数字である必要があります"}
+  validates :password, confirmation: { message: "パスワードが一致していません。" }
   validates_uniqueness_of :email, scope: :cancel_membership_count
 
   after_rollback :display_error_screen
