@@ -60,46 +60,48 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def new
-    @user = User.new
-  end
+  # def new
+  #   @user = User.new
+  # end
 
-  def create 
-    if params[:user].present?
-      user = User.new(user_params)  
-      session[:user] = user 
+  # def create 
+  #   if params[:user].present?
+  #     user = User.new(user_params)  
+  #     session[:user] = user 
            
-      user.check_password
-      return redirect_to  new_user_path, alert: user.check_password if user.check_password.present?
+  #     user.check_password
+  #     return redirect_to  new_user_path, alert: user.check_password if user.check_password.present?
       
-      user.already_sign_up?
-      return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"} if user.already_sign_up?
+  #     user.already_sign_up?
+  #     return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"} if user.already_sign_up?
 
-      if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: user.email, is_deleted: true)
-        if user.already_cancel_membership?(created_user, ACCOUNT_STOP_TIME)
-          return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。ログインするか、#{ACCOUNT_STOP_TIME} 秒後に新規登録してください。"  }
-        else
-          user.cancel_membership_count = created_user.cancel_membership_count + 1 
-          session[:user][:cancel_membership_count] = user.cancel_membership_count
-        end
-      end
+  #     if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: user.email, is_deleted: true)
+  #       if user.already_cancel_membership?(created_user, ACCOUNT_STOP_TIME)
+  #         return redirect_to  new_user_path, flash: { alert: "新規登録できませんでした。ログインするか、#{ACCOUNT_STOP_TIME} 秒後に新規登録してください。"  }
+  #       else
+  #         user.cancel_membership_count = created_user.cancel_membership_count + 1 
+  #         session[:user][:cancel_membership_count] = user.cancel_membership_count
+  #       end
+  #     end
 
-      redirect_to new_user_information_path(user)
-    else
-      ActiveRecord::Base.transaction do
-        user = User.new(session[:user])
-        user.save!
-        @user_information.user_id = user.id
-        @user_information.save!
-        sign_in(user)
-      end
-      redirect_to users_path, notice: "アカウントの作成に成功しました。"
-    end
-  end
+  #     binding.pry
 
-  private
+  #     redirect_to new_user_information_path(user)
+  #   else
+  #     ActiveRecord::Base.transaction do
+  #       user = User.new(session[:user])
+  #       user.save!
+  #       @user_information.user_id = user.id
+  #       @user_information.save!
+  #       sign_in(user)
+  #     end
+  #     redirect_to users_path, notice: "アカウントの作成に成功しました。"
+  #   end
+  # end
 
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
+  # private
+
+  #   def user_params
+  #     params.require(:user).permit(:email, :password, :password_confirmation)
+  #   end
 end
