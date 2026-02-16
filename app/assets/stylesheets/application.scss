@@ -40,14 +40,14 @@ header {
         &:last-child {
           margin-right: 70px ;
         }
-        .navigationLink {
+        .navigation-link {
           text-decoration: none;
           color: white;
           &:hover {
             color: indigo;
           }
         }
-        .sessionLink{
+        .session-link{
           border: 1px solid white;
           border-radius: 1em;
           padding: 5px;
@@ -57,7 +57,7 @@ header {
             color: indigo;
           }
         }
-        .newUserLink{
+        .new-user-link{
           background-color: skyblue;
           color: white;
         }

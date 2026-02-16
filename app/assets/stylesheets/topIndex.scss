@@ -1,4 +1,4 @@
-.container-site-name-catchCopy {
+.container-site-name-catch-copy {
   position: relative;
   z-index: 0;
   padding: 400px 0 300px 0;
@@ -7,12 +7,12 @@
     color: red;
     font-family: 'BatangChe', monospace;
   }
-  .catchCopy {
+  .catch-copy {
     text-align: center;
     color: white;
   }
 }
-.container-site-name-catchCopy::before {
+.container-site-name-catch-copy::before {
   position: absolute;
   z-index: -1;
   content: "";
