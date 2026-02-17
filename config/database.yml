@@ -82,6 +82,7 @@ production:
   primary: &primary_production
     <<: *default
     adapter: postgresql
+    hostname: <%= ENV['HOST_NAME'] %>
     url: <%= ENV['DATABASE_URL'] %>
     encoding: unicode
     pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
