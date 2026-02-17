@@ -27,27 +27,29 @@
       <ul>
         <li><%= image_tag "navigationIcon.png", size: "50x50" %><br></li>
         <% if user_signed_in? %>
-          <li><%= link_to "マッチングした相手", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "メッセージ", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "検索", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "マイページ", root_path,  class:"navigationLink" %></li>
+          <li><%= link_to "マッチングした相手", root_path,  class:"navigation-link" %></li>
+          <li><%= link_to "メッセージ", root_path,  class:"navigation-link" %></li>
+          <li><%= link_to "検索", root_path,  class:"navigation-link" %></li>
+          <li><%= link_to "マイページ", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigationLink sessionLink" %></li>
         <% else %>
-          <li><%= link_to "ホーム", root_path, class:"navigationLink" %></li>
-          <li><%= link_to "コラム", root_path, class:"navigationLink" %></li>
-          <li><%= link_to "料金", root_path,  class:"navigationLink" %></li>
-          <li><%= link_to "ログイン", new_user_session_path, class:"navigationLink sessionLink" %></li>
-          <li><%= link_to "アカウント作成", new_user_registration_path, class:"navigationLink sessionLink newUserLink" %></li>
+          <li><%= link_to "ホーム", root_path, class:"navigation-link" %></li>
+          <li><%= link_to "コラム", root_path, class:"navigation-link" %></li>
+          <li><%= link_to "料金", root_path,  class:"navigation-link" %></li>
+          <li><%= link_to "ログイン", new_user_session_path, class:"navigation-link session-link" %></li>
+          <li><%= link_to "アカウント作成", new_user_registration_path, class:"navigation-link session-link new-user-link" %></li>
         <% end %>
       </ul>
     </div>
-
   </header>
+  
   <body>
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, class: name %>
-    <% end %>
+    <main>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: name %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -1,53 +1,51 @@
 <%= stylesheet_link_tag "topIndex", media: "all" %>
 
-<div class="main">
-  <div class="container">
-    <div class="container-site-name-catchCopy">
-      <div class="site-name">
-        <h1>サンプルマッチングサイト</h1>
-      </div>
-      <div class="catchCopy">
-        <p>このサイトはあなたの趣味や住まい、年齢に合った、たくさんの人と交流できるサイトです。</p>
-        <p>いいねやメッセージを通して、交流を深めましょう！</p>
-      </div>
+<div class="container">
+  <div class="container-site-name-catch-copy">
+    <div class="site-name">
+      <h1>サンプルマッチングサイト</h1>
     </div>
+    <div class="catch-copy">
+      <p>このサイトはあなたの趣味や住まい、年齢に合った、たくさんの人と交流できるサイトです。</p>
+      <p>いいねやメッセージを通して、交流を深めましょう！</p>
+    </div>
+  </div>
 
-    <div class="step-title"><h2>ステップ</h2></div>
-    <div class="step-section">
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage1.png" %></p>
-        <p>①まずは自身のプロフィールを作成しましょう</p>
-      </div>
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage2.png" %></p>
-        <p>②作成したプロフィールは公開され、</p>
-        <p>多くの人に見てもらえます</p>
-      </div>  
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage3.png" %></p>
-        <p>③お互いにいいねをすることでマッチングし、</p>
-        <p>メッセージのやり取りができるようになります</p>
-      </div>  
+  <div class="step-title"><h2>ステップ</h2></div>
+  <div class="step-section">
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage1.png" %></p>
+      <p>①まずは自身のプロフィールを作成しましょう</p>
     </div>
-    <div class="step-section">
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage4.png" %></p>
-        <p>④メッセージを通して、交流を深めましょう！</p>
-      </div>  
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage5.png" %></p>
-        <p>⑤マッチングすることで、</p>
-        <p>多くの人とメッセージのやり取りができます</p>
-      </div>
-      <div class="step">
-        <p class="img-background"><%= image_tag "topStepImage6.png" %></p>
-        <p>⑥関係を深めてパートナーを作ることもできます！</p>
-      </div>
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage2.png" %></p>
+      <p>②作成したプロフィールは公開され、</p>
+      <p>多くの人に見てもらえます</p>
+    </div>  
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage3.png" %></p>
+      <p>③お互いにいいねをすることでマッチングし、</p>
+      <p>メッセージのやり取りができるようになります</p>
+    </div>  
+  </div>
+  <div class="step-section">
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage4.png" %></p>
+      <p>④メッセージを通して、交流を深めましょう！</p>
+    </div>  
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage5.png" %></p>
+      <p>⑤マッチングすることで、</p>
+      <p>多くの人とメッセージのやり取りができます</p>
     </div>
+    <div class="step">
+      <p class="img-background"><%= image_tag "topStepImage6.png" %></p>
+      <p>⑥関係を深めてパートナーを作ることもできます！</p>
+    </div>
+  </div>
 
-    <div class="sessionLink">
-      <p><%= link_to "アカウントを作成してはじめる", new_user_registration_path, class:"newUserLink" %></p>
-      <p><%= link_to "アカウントをお持ちの方はこちら", new_user_session_path, class:"loginLink" %></p>
-    </div>
+  <div class="session-link">
+    <p><%= link_to "アカウントを作成してはじめる", new_user_registration_path, class:"new-user-link" %></p>
+    <p><%= link_to "アカウントをお持ちの方はこちら", new_user_session_path, class:"login-link" %></p>
   </div>
 </div>
