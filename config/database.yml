@@ -82,11 +82,10 @@ production:
   primary: &primary_production
     <<: *default
     adapter: postgresql
-    hostname: <%= ENV['HOST_NAME'] %>
     url: <%= ENV['DATABASE_URL'] %>
     encoding: unicode
     pool:  <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    database: sample_matching_app_db_3
+    database: sample_matching_app_db_3_9ac3
     username: sample_matching_app_db_user
     password: <%= ENV['DB_PASSWORD'] %> # .envで設定
   cache:
