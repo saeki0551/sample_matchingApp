@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    user_informations: 'users/user_informations',
-    }, skip: [:user_informations]
-    devise_scope :user do
-      get 'users/user_informations/new', to: 'users/user_informations#new', as: :new_user_information
-      post 'users/user_informations/create', to: 'users/user_informations#create', as: :create_user_information
-    end
+    sessions: 'users/sessions'
+  }
     
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
     
@@ -24,9 +19,11 @@ Rails.application.routes.draw do
     
     get "users/cancel_membership", to: "users#cancel_membership", as: :cancel_membership_user
     resources :users
-
+    
     get "users/:id/destroy", to: "users#destroy", as: :destroy_user
     
+    get 'user_informations/new', to: 'user_informations#new', as: :new_user_information
+    post 'user_informations/create', to: 'user_informations#create', as: :create_user_information
     
   end
   

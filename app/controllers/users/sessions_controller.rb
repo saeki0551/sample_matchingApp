@@ -28,7 +28,10 @@ class Users::SessionsController < Devise::SessionsController
     user = User.order(updated_at: :desc).limit(1).find_by(email: params[:user][:email])
     return redirect_to new_user_session_path, flash: { alert: "ログインできません。" } if user.is_deleted
     
-    if sign_in(user)
+    if user.user_information.blank?
+      sign_in(user)
+      redirect_to new_user_information_path
+    elsif sign_in(user)
       redirect_to users_path, notice: "ログインしました"
     else
       redirect_to new_user_session_path, alert: "予想外のエラー、ログインに失敗しました。" 

@@ -1,25 +1,13 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
-
-  # def create
-  #   binding.pry
-  # end
-
+class Users::RegistrationsController < Devise::RegistrationsController  
   # def create 
-  #   if params[:user].present?
-  #     session[:user] = user_params
-  #     redirect_to new_user_information_path
-  #   else
-  #     ActiveRecord::Base.transaction do
-  #       user = User.new(session[:user])
-  #       binding.pry
-  #       user.save!
-  #       @user_information.user_id = user.id
-  #       @user_information.save!
-  #       sign_in(user)
+  #   ActiveRecord::Base.transaction do
+  #     if params[:user].present?
+  #       super
   #     end
-  #     redirect_to users_path, notice: "アカウントの作成に成功しました。"
+  #     user_information.user_id = @user.id
+  #     user_information.save!
   #   end
   # end
 
