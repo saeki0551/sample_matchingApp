@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
   private 
 
     def after_sign_in_path_for(resource)
-      new_user_information_path
+      if user_signed_in? 
+        users_path
+      else
+        new_user_information_path
+      end
     end
 
     def after_sign_out_path_for(resource)
