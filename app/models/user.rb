@@ -21,9 +21,15 @@ class User < ApplicationRecord
     raise StandardError
   end
   
-  # def already_sign_up?
-  #   User.exists?(email: self.email, is_deleted: false) 
-  # end
+  def self.already_sign_up?(user_email)
+    User.exists?(email: user_email.values, is_deleted: false) 
+  end
+
+  def check_password
+    return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(self.password)
+    return "パスワード は6文字以上12文字以内である必要があります。" unless self.password.length >= 6 && self.password.length <= 12
+    return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
+  end
 
   def already_cancel_membership?(created_user, account_stop_time)
     return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
