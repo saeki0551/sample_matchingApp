@@ -6,12 +6,13 @@ class User < ApplicationRecord
 
   has_one :user_information, dependent: :destroy
 
-  validates :email, :password, :password_confirmation, presence: true, on: [:crete]
-  VALID_PASSWORD_REGEX =/\A[a-zA-Z\d]+\w{6,12}\z/
-  validates :password,
-            format: { with: VALID_PASSWORD_REGEX,
-            message: "は半角6~12文字英数字である必要があります"}
-  validates :password, confirmation: { message: "パスワードが一致していません。" }
+  # validates :email, :password, :password_confirmation, presence: true, on: [:crete]
+  # VALID_PASSWORD_REGEX =/\A[a-zA-Z\d]+\w{6,12}\z/
+  # validates :password,
+  #           format: { with: VALID_PASSWORD_REGEX,
+  #           message: "は半角6~12文字英数字である必要があります"}
+  # validates :password, confirmation: { message: "パスワードが一致していません。" }
+
   validates_uniqueness_of :email, scope: :cancel_membership_count
 
   after_rollback :display_error_screen
@@ -21,14 +22,14 @@ class User < ApplicationRecord
     raise StandardError
   end
   
-  def self.already_sign_up?(user_email)
-    User.exists?(email: user_email.values, is_deleted: false) 
+  def self.already_sign_up?(email)
+    User.exists?(email: email.values, is_deleted: false) 
   end
 
-  def check_password
-    return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(self.password)
-    return "パスワード は6文字以上12文字以内である必要があります。" unless self.password.length >= 6 && self.password.length <= 12
-    return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
+  def self.check_password(password)
+    return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(password.values[0])
+    return "パスワード は6文字以上12文字以内である必要があります。" unless password.values[0].length >= 6 && password.values[0].length <= 12
+    return "パスワード と パスワード確認 が一致していません。" unless password.values[0] == password.values[1]
   end
 
   def already_cancel_membership?(created_user, account_stop_time)
