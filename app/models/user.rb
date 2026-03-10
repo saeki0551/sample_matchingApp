@@ -26,8 +26,8 @@ class User < ApplicationRecord
   end
 
   def self.time_over_cancel_membership?(created_user, account_stop_time)
-    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
-    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= account_stop_time
+    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= account_stop_time
+    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
   end
 
 end
