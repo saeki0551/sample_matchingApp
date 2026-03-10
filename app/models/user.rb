@@ -25,7 +25,7 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless password.values[0] == password.values[1]
   end
 
-  def self.already_cancel_membership?(created_user, account_stop_time)
+  def self.time_over_cancel_membership?(created_user, account_stop_time)
     return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
     return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= account_stop_time
   end

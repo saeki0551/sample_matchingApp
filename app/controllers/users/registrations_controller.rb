@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
 
       if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: session[:user][:email], is_deleted: true)
-        if User.already_cancel_membership?(created_user, ACCOUNT_STOP_TIME)
+        if User.time_over_cancel_membership?(created_user, ACCOUNT_STOP_TIME)
           return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。一度、時間をおいて新規登録またはログインして下さい。"}
         else
           session[:user][:cancel_membership_count] = created_user.cancel_membership_count + 1
