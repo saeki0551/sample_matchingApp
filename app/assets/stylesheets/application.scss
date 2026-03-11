@@ -1,72 +1,106 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+* This is a manifest file that'll be compiled into application.css.
+*
+* With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+* application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+* cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+* depending on specificity.
+*
+* Consider organizing styles into separate files for maintainability.
+*/
 
- body {
-  margin-top: 100px;
-}
-
-.navigation {
+header {
   position: fixed;
+  z-index: 1;
   width: 100%;
-  margin-top: -100px;
-  ul {
-    display: flex;
-    background-color: orange;
-    padding: 5px 0;
-    li {
-      list-style: none;
-      align-content: center;
-      &:first-child {
-        margin-left: 70px;
-        background-color: white;
-        padding: 3px;
-        border-radius: 100%;
-      }
-      &:nth-child(n + 2) {
-        flex-grow: 1;
-      }
-      &:nth-child(2) {
-        margin-left: 150px;
-      }
-      &:last-child {
-        margin-right: 70px ;
-      }
-      .navigationLink {
-        text-decoration: none;
-        color: white;
-        &:hover {
-          color: indigo;
-        }
-      }
-      .sessionLink{
-        border: 1px solid white;
-        border-radius: 1em;
-        padding: 5px;
-        color: yellow;
-        &:hover {
+  top: -16px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  .navigation {
+    ul {
+      display: flex;
+      background-color: orange;
+      border-bottom: solid 1px white;
+      padding: 5px 0;
+      li {
+        list-style: none;
+        align-content: center;
+        &:first-child {
+          margin-left: 70px;
           background-color: white;
-          color: indigo;
+          padding: 3px;
+          border-radius: 100%;
         }
-      }
-      .deleteLink{
-        color: red;
-        &:hover {
-          background-color: white;
+        &:nth-child(n + 2) {
+          flex-grow: 1;
+        }
+        &:nth-child(2) {
+          margin-left: 150px;
+        }
+        &:last-child {
+          margin-right: 70px ;
+        }
+        .navigation-link {
+          text-decoration: none;
+          color: white;
+          &:hover {
+            color: indigo;
+          }
+        }
+        .session-link{
+          border: 1px solid white;
+          border-radius: 1em;
+          padding: 5px;
+          color: yellow;
+          &:hover {
+            background-color: white;
+            color: indigo;
+          }
+        }
+        .delete-link{
           color: red;
+          &:hover {
+            background-color: white;
+            color: red;
+          }
         }
-      }
-      .newUserLink{
-        background-color: skyblue;
-        color: white;
+        .new-user-link{
+          background-color: skyblue;
+          color: white;
+        }
       }
     }
+  }
+}
+
+body {
+  padding: 100px 50px 50px 50px;
+  background-color: orange;
+  main {
+    padding: 50px;
+    min-height: 420px;
+    border-radius: 5em;
+    background-color: white;
+    background-image:
+    radial-gradient(290px 300px , yellow 20%, transparent 20%),
+    radial-gradient(800px 780px , yellow 20%, transparent 20%),
+    radial-gradient(1000px 990px , yellow 20%, transparent 20%),
+    radial-gradient(400px 380px , yellow 20%, transparent 20%),
+    radial-gradient(750px 750px , yellow 20%, transparent 20%),
+    radial-gradient(100px 100px , yellow 20%, transparent 20%);
+    background-position: 
+      -300px -550px,
+      -200px 100px,
+      50px 510px,
+      -200px -550px,
+      -180px -250px,
+      130px -150px;
+    background-size: 
+      1230px 1280px,
+      810px 910px,
+      1470px 990px,
+      1200px 1700px,
+      1520px 1200px,
+      1100px 1300px;
   }
 }
