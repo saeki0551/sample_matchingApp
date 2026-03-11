@@ -60,10 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_225045) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_deleted", default: false, null: false
-    t.integer "cancel_membership_count", default: 0, null: false
-    t.datetime "cancel_membership_time"
-    t.index ["email", "cancel_membership_count"], name: "index_users_on_email_and_cancel_membership_count", unique: true
+    t.datetime "deleted_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
