@@ -9,5 +9,12 @@
     <li>生年月日：<%= user.user_information.birth_date %></li>
     <li>都道府県：<%= user.user_information.prefecture.name %></li>
     <li>趣味：<%= user.user_information.hobby.name %></li>
+    <div id="<%= dom_id(user) %>">
+      <% if user.already_liked?(current_user.id, user.id) %>
+          <%= render partial: "likes/destroy",  locals: { user_id: current_user.id, liked_user_id: user.id } %>
+      <% else %>
+          <%= render partial: "likes/create",  locals: { user_id: current_user.id, liked_user_id: user.id } %>
+      <% end %>
+    </div>
   </ul>
 <% end %>
