@@ -14,7 +14,6 @@ class UsersController < ApplicationController
     return redirect_to users_path, alert: "ユーザーidが一致しないため、退会ができません。"  unless user.id == current_user.id
 
     if user.update(deleted_at: DateTime.now)
-      binding.pry
       sign_out(user)
       redirect_to cancel_membership_user_path
     else
