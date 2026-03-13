@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_one :user_information, dependent: :destroy
 
-  validates_uniqueness_of :email, scope: :cancel_membership_count
+  # validates_uniqueness_of :email, scope: :cancel_membership_count
 
   after_rollback :display_error_screen
 
@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
   
   def self.already_sign_up?(email)
-    User.exists?(email: email.values, is_deleted: false) 
+    User.exists?(email: email.values, deleted_at: false) 
   end
 
   def self.check_password(password)
@@ -25,9 +25,8 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless password.values[0] == password.values[1]
   end
 
-  def self.time_over_cancel_membership?(created_user, account_stop_time)
-    return true if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time >= account_stop_time
-    return false if created_user.is_deleted && Time.zone.now - created_user.cancel_membership_time < account_stop_time
+  def self.in_time_cancel_membership?(deleted_at, account_stop_time)
+    return true if deleted_at && Time.zone.now - deleted_at < account_stop_time
   end
 
 end

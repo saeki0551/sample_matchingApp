@@ -12,11 +12,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if User.check_password(password: session[:user][:password], password_confirmation: session[:user][:password_confirmation])
         return redirect_to new_user_registration_path, flash: {alert: User.check_password(password: session[:user][:password], password_confirmation: session[:user][:password_confirmation])}
       end
-
-      if created_user = User.order(updated_at: :desc).limit(1).select(:is_deleted, :cancel_membership_count, :cancel_membership_time).find_by(email: session[:user][:email], is_deleted: true)
-        if User.time_over_cancel_membership?(created_user, ACCOUNT_STOP_TIME)
-          session[:user][:cancel_membership_count] = created_user.cancel_membership_count + 1
-        else
+      
+      if created_user = User.order(updated_at: :desc).limit(1).where(email: session[:user][:email]).where.not(deleted_at: nil)
+        if User.in_time_cancel_membership?(created_user[0].deleted_at, ACCOUNT_STOP_TIME)
           return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。一度、時間をおいて新規登録またはログインして下さい。"}
         end
       end
