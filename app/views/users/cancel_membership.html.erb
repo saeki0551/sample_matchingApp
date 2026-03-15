@@ -1,6 +1,11 @@
 <h1>退会しました。</h1>
-<p><%= @account_stop_time %> 秒後に再登録できます。</p>
+<p id="message">
+  <time id="seconds"><%= @account_stop_time %></time>
+  後に再度、新規登録できます。
+</p>
 <p>再度、新規登録してもデータは引き継がれません。</p>
 <p>ご利用ありがとうございました。</p>
 
 <li><%= link_to "ホームに戻る", root_path %></li>
+
+<%= javascript_include_tag 'countdown.js' %>
