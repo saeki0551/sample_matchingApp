@@ -15,13 +15,14 @@ class UsersController < ApplicationController
 
     if user.update(deleted_at: DateTime.now)
       sign_out(user)
-      redirect_to cancel_membership_user_path
+      redirect_to cancel_membership_user_path(user)
     else
       redirect_to users_path, alert: "予想外のエラー、退会に失敗しました。"
     end
   end
 
   def cancel_membership
+    @user = User.find(params[:id])
     @account_stop_time = ACCOUNT_STOP_TIME
   end
 end
