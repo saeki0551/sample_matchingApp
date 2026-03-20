@@ -1,24 +1,14 @@
 main{
-	position: relative;
-}
-
-.container{
-	position: absolute;
-	top: 25%;
-  left: 0%;
-  right: 0%;
-  margin: 0 500px;
+  display: flex;
+  justify-content: center;
 }
 
 h2 {
-	color: skyblue;
+	color: deepskyblue;
 	text-align: center;
 }
 
-.field{
-}
-
-.field .field{
+.field .input-field{
 	width: 400px;
 	height: 20px;
 	margin-bottom: 25px;
@@ -38,9 +28,11 @@ h2 {
 	width: 100px;
 	height: 40px;
 	margin: 30px 0;
-	// background-color: greenyellow;
-	// border: none;
-	// border-radius: 5%;
+	color: white;
+	background-color: orange;
+	border: none;
+	border-radius: 5%;
+    cursor: pointer;
 }
 
 .links-field{
