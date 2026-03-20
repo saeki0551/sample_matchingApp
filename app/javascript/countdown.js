@@ -12,33 +12,51 @@ window.onload = function(){
 	targetTime.setMinutes(targetTime.getMinutes() + targetMinitues);
 	targetTime.setSeconds(targetTime.getSeconds() + targetSeconds);
 	let endTime = targetTime.getTime();
-	console.log(endTime)
 
 	let user_data = {
 		email: email,
 		endTime: endTime
 	}
 	
-	function sort_user(user_data) {
+	function users(user_data) {
 		return user_data.email === email;
 	}
 
 	const serializedArray2 = localStorage.getItem('myArray');
 	const array = JSON.parse(serializedArray2);
-	console.log(array[0]);
-	if (array.find(sort_user)){
-	 var target_user_data = array.find(sort_user);
-	 console.log(target_user_data);
-	 endTime = target_user_data.endTime;
-	 console.log(endTime);
-   }
+
+	if (array.find(users)) {
+		var target_user_data = array.find(users);
+		endTime = target_user_data.endTime;
+	} else {
+		const user_data_array = [];
+		user_data_array.push(user_data);
+		const serializedArray = JSON.stringify(user_data_array);
+		localStorage.setItem('myArray', serializedArray);
+	}
+	
+	function updateCountDown(){
+		const now = new Date().getTime();
+		const distance = endTime - now;
+
+		const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
+		const seconds = Math.floor(distance % (1000 * 60) / 1000);
+
+		countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
+
+		if(distance < 0){
+			clearInterval(interval);
+			message.textContent = "再度、新規登録できます。";
+		}
+	}
+	const interval = setInterval(updateCountDown, 1000);
+	updateCountDown();
+}
+
+
+
 	
 
-	// const user_data_array = [];
-	// user_data_array.push(user_data);
-
-	// const serializedArray = JSON.stringify(user_data_array);
-	// localStorage.setItem('myArray', serializedArray);
 
 
 
@@ -55,23 +73,3 @@ window.onload = function(){
 // 	 }
 // 	 user_data_array.push(user_data)
 //  }
-
-
-
-	// function updateCountDown(){
-	// 	const now = new Date().getTime();
-	// 	const distance = target_user_data.endTime - now;
-
-	// 	const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
-	// 	const seconds = Math.floor(distance % (1000 * 60) / 1000);
-
-	// 	countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
-	
-	// 	if(distance < 0){
-	// 		clearInterval(interval);
-	// 		message.textContent = "再度、新規登録できます。";
-	// 	}
-	// }
-	// const interval = setInterval(updateCountDown, 1000);
-	// updateCountDown();
-}
