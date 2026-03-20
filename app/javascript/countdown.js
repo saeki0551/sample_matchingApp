@@ -12,33 +12,41 @@ window.onload = function(){
 	targetTime.setMinutes(targetTime.getMinutes() + targetMinitues);
 	targetTime.setSeconds(targetTime.getSeconds() + targetSeconds);
 	let endTime = targetTime.getTime();
-
 	console.log(endTime)
 
-	 const user_data_array = [];
-	 let user_data = {
-		 email: email,
-		 endTime: endTime
-	 }
-	 user_data_array.push(user_data);
-
-	 const serializedArray = JSON.stringify(user_data_array);
-	 localStorage.setItem('myArray', serializedArray);
+	let user_data = {
+		email: email,
+		endTime: endTime
+	}
+	
+	function sort_user(user_data) {
+		return user_data.email === email;
+	}
 
 	const serializedArray2 = localStorage.getItem('myArray');
 	const array = JSON.parse(serializedArray2);
 	console.log(array[0]);
+	if (array.find(sort_user)){
+	 var target_user_data = array.find(sort_user);
+	 console.log(target_user_data);
+	 endTime = target_user_data.endTime;
+	 console.log(endTime);
+   }
+	
+
+	// const user_data_array = [];
+	// user_data_array.push(user_data);
+
+	// const serializedArray = JSON.stringify(user_data_array);
+	// localStorage.setItem('myArray', serializedArray);
 
 
 
-	// function sort_user(user_data) {
-	// 	return user_data.email === email;
-	// }
 
 
-//  if (user_data_array.find(sort_user)){
-// 		var target_user_data = user_data_array.find(sort_user);
-// 		endTime = target_user_data.endTime
+
+
+
 //  } else {
 // 	 const user_data_array = [];
 // 	 let user_data = {
