@@ -1,0 +1,48 @@
+main{
+	position: relative;
+}
+
+.container{
+	position: absolute;
+	top: 25%;
+  left: 0%;
+  right: 0%;
+  margin: 0 500px;
+}
+
+h2 {
+	color: skyblue;
+	text-align: center;
+}
+
+.field{
+}
+
+.field .field{
+	width: 400px;
+	height: 20px;
+	margin-bottom: 25px;
+	border: 2px solid gray;
+	border-radius: 5px;
+}
+
+.check-box-field{
+	text-align: center;
+}
+
+.actions-field {
+	text-align: center;
+}
+
+.actions-field .login-button{
+	width: 100px;
+	height: 40px;
+	margin: 30px 0;
+	// background-color: greenyellow;
+	// border: none;
+	// border-radius: 5%;
+}
+
+.links-field{
+	text-align: center;
+}
