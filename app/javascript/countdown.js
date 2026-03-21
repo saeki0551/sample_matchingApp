@@ -52,24 +52,3 @@ window.onload = function(){
 	const interval = setInterval(updateCountDown, 1000);
 	updateCountDown();
 }
-
-
-
-	
-
-
-
-
-
-
-
-
-
-//  } else {
-// 	 const user_data_array = [];
-// 	 let user_data = {
-// 		 email: email,
-// 		 endTime: endTime
-// 	 }
-// 	 user_data_array.push(user_data)
-//  }
