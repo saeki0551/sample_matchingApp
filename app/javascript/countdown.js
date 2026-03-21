@@ -1,9 +1,9 @@
 window.onload = function(){
-  const countDown = document.getElementById("seconds");
-  const message = document.getElementById("message");
-  const email = document.getElementById("email").textContent;
+	const countDown = document.getElementById("seconds");
+	const message = document.getElementById("message");
+	const email = document.getElementById("email").textContent;
 
-  let targetTime = countDown.textContent;
+	let targetTime = countDown.textContent;
 	targetTime = parseInt(targetTime);
 	targetMinitues = Math.floor(targetTime / 60);
 	targetSeconds = targetTime % 60;
@@ -17,7 +17,7 @@ window.onload = function(){
 		email: email,
 		endTime: endTime
 	}
-	
+
 	function users(user_data) {
 		return user_data.email === email;
 	}
@@ -34,7 +34,7 @@ window.onload = function(){
 		const serializedArray = JSON.stringify(user_data_array);
 		localStorage.setItem('myArray', serializedArray);
 	}
-	
+
 	function updateCountDown(){
 		const now = new Date().getTime();
 		const distance = endTime - now;
