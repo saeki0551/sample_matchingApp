@@ -1,6 +1,6 @@
 window.onload = function(){
 	const countDown = document.getElementById("seconds");
-	const message = document.getElementById("message");
+  const message = document.getElementById("message");
 	const email = document.getElementById("email").textContent;
 
 	let targetTime = countDown.textContent;
@@ -25,7 +25,7 @@ window.onload = function(){
 	const serializedArray2 = localStorage.getItem('myArray');
 	const array = JSON.parse(serializedArray2);
 
-	if (array.find(users)) {
+	if (!array) {
 		var target_user_data = array.find(users);
 		endTime = target_user_data.endTime;
 	} else {
