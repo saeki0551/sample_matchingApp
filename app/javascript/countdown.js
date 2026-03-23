@@ -1,6 +1,6 @@
 window.onload = function(){
-	const countDown = document.getElementById("seconds");
-  const message = document.getElementById("message");
+    const countDown = document.getElementById("seconds");
+    const message = document.getElementById("message");
 	const email = document.getElementById("email").textContent;
 
 	let targetTime = countDown.textContent;
@@ -25,9 +25,16 @@ window.onload = function(){
 	const serializedArray2 = localStorage.getItem('myArray');
 	const array = JSON.parse(serializedArray2);
 
-	if (!array) {
-		var target_user_data = array.find(users);
-		endTime = target_user_data.endTime;
+	if (array){
+		if (array.find(users)) {
+			var target_user_data = array.find(users);
+			endTime = target_user_data.endTime;
+		} else {
+			const user_data_array = [];
+			user_data_array.push(user_data);
+			const serializedArray = JSON.stringify(user_data_array);
+			localStorage.setItem('myArray', serializedArray);
+		}
 	} else {
 		const user_data_array = [];
 		user_data_array.push(user_data);
