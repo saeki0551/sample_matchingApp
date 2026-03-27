@@ -4,7 +4,7 @@ class LikesController < ApplicationController
     @like = Like.new(user_id: params[:user_id], liked_user_id: params[:liked_user_id])
     @like.save
     respond_to do |format|
-      format.turbo_stream 
+      format.turbo_stream
     end
   end
 
