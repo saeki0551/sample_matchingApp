@@ -1,1 +1,3 @@
-<li><%= link_to "♥", user_destroy_likes_path(user_id: user_id, liked_user_id: liked_user_id), data: { turbo_method: "delete" } %></li>
+<div id="like">
+  <li><%= link_to "♥", user_like_path(current_user.id, id: like_id), data: { turbo_method: "delete" } %></li>
+</div>

@@ -1,1 +1,3 @@
-<li><%= link_to "♡", user_create_likes_path(user_id: user_id, liked_user_id: liked_user_id), data: { turbo_method: "post" } %></li>
+<div id="like">
+  <li><%= link_to "♡", user_likes_path(current_user.id), data: { turbo_method: "post" } %></li>
+</div>

@@ -1,5 +1,4 @@
-<%= turbo_stream.update dom_id(@user) do %>
-  <%= render partial: "likes/destroy", locals: { user_id: @like.user_id, liked_user_id: @like.liked_user_id }%>
+<%= turbo_stream.replace "like" do %>
+  <%= render partial: "destroy", locals: { like_id: @like.id } %>
 <% end %>
-
 
