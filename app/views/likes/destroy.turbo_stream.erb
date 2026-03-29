@@ -1,1 +1,3 @@
-<%= turbo_stream.replace "like", partial: "likes/create", locals: { user_id: current_user.id, liked_user_id: @like.liked_user_id } %>
+<%= turbo_stream.replace dom_id(@like) do %>
+  <%= render partial: "create", locals: { user_id: @like.user_id } %>
+<% end %>

@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   def create
-    @like = Like.new(user_id: current_user.id)
+    @like = Like.new(user_id: params[:user_id])
     @like.save
   end
 
