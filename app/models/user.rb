@@ -26,7 +26,6 @@ class User < ApplicationRecord
   def already_liked?
     if self.likes.exists?(user_id: self.id)
       return self.likes.find_by(user_id: self.id)
-    else
     end
   end
 end
