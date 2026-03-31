@@ -23,9 +23,9 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless self.password == self.password_confirmation 
   end
 
-  def already_liked?
-    if self.likes.exists?(user_id: self.id)
-      return self.likes.find_by(user_id: self.id)
+  def already_liked?(current_user_id)
+    if self.likes.exists?(current_user_id: current_user_id, user_id: self.id)
+      return self.likes.find_by(current_user_id: current_user_id, user_id: self.id)
     end
   end
 end
