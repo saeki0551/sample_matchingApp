@@ -24,8 +24,7 @@ class User < ApplicationRecord
   end
 
   def already_liked?(current_user_id)
-    if self.likes.exists?(current_user_id: current_user_id, user_id: self.id)
-      return self.likes.find_by(current_user_id: current_user_id, user_id: self.id)
-    end
+    likes.exists?(current_user_id: current_user_id.values, user_id: self.id)
+    # binding.pry
   end
 end
