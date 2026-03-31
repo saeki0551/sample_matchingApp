@@ -7,7 +7,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find_by(user_id: params[:user_id], id: params[:id])
+    @like = Like.find_by(id: params[:id])
     unless @like.destroy
       redirect_to users_path, alert: "いいねが削除できませんでした。"
     end
