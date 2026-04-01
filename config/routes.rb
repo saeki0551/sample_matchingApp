@@ -24,9 +24,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "tops#index"
 
-  resources :users
-  
-  get "users/:id/destroy", to: "users#destroy", as: :destroy_user
+  resources :users do
+    resources :likes, only: [:create, :destroy]
+  end
 
+  get "users/:id/destroy", to: "users#destroy", as: :destroy_user
 
 end
