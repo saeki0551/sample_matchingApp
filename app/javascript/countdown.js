@@ -1,7 +1,9 @@
 window.onload = function(){
-    const countDown = document.getElementById("seconds");
-    const message = document.getElementById("message");
+	// ２回目にアカウントを作って退会したときのカウントダウンが実装できていない
+  const countDown = document.getElementById("seconds");
+  const message = document.getElementById("message");
 	const email = document.getElementById("email").textContent;
+	const deleted_at = document.getElementById("deleted_at").textContent;
 
 	let targetTime = countDown.textContent;
 	targetTime = parseInt(targetTime);
@@ -15,11 +17,12 @@ window.onload = function(){
 
 	let user_data = {
 		email: email,
+		deleted_at: deleted_at,
 		endTime: endTime
 	}
 
 	function users(user_data) {
-		return user_data.email === email;
+		return user_data.email === email && user_data.deleted_at === deleted_at;
 	}
 
 	const serializedArray2 = localStorage.getItem('myArray');

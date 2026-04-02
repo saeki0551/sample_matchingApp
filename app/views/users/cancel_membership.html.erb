@@ -1,11 +1,14 @@
 <h1>退会しました。</h1>
-<p id="email">
-  <%= @user.email %>
-</p>
+
+<p id="email">メールアドレス：<%= @user.email %></p>
+<p id="deleted_at">退会した時間：<%= @user.deleted_at %></p>
 <p id="message">
-  <time id="seconds"><%= @account_stop_time %></time>
+  <time id="seconds">
+    <%= @account_stop_time %>
+  </time>
   後に再度、新規登録できます。
 </p>
+
 <p>再度、新規登録してもデータは引き継がれません。</p>
 <p>ご利用ありがとうございました。</p>
 
