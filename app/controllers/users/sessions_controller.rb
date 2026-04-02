@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     self.resource = warden.authenticate!(auth_options)
     binding.pry
-    if Time.zone.now - self.resource.deleted_at < ACCOUNT_STOP_TIME
+    if self.resource.deleted_at
       # アカウント停止時間ないなのにログインできてしまう
       sign_out(self.resource)
       return redirect_to new_user_session_path, flash: { alert: "（退会中のため？）ログインできませんでした。" }
