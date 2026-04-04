@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :cancel_membership]
+  before_action :ensure_user, only: [:destroy]
 
   def index
     @users = User.all
@@ -22,7 +23,14 @@ class UsersController < ApplicationController
   end
 
   def cancel_membership
-    @user = User.find(params[:id])
     @account_stop_time = ACCOUNT_STOP_TIME
+    @user = User.find(params[:id])
+    return redirect_to new_user_session_path, alert: "ユーザーidが一致していません。"  unless @user.id == session[:ensure_user_id]
   end
+
+  private
+    
+    def ensure_user
+      session[:ensure_user_id] = current_user.id
+    end
 end
