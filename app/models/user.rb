@@ -11,11 +11,12 @@ class User < ApplicationRecord
     raise StandardError
   end
   
-  def self.already_sign_up?(email)
-    User.exists?(email: email.values, deleted_at: false) 
+  def already_sign_up?(email)
+    User.exists?(email: email.values) 
+    # binding.pry
   end
 
-  def self.check_password(password)
+  def check_password(password)
     return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(password.values[0])
     return "パスワード は6文字以上12文字以内である必要があります。" unless password.values[0].length >= 6 && password.values[0].length <= 12
     return "パスワード と パスワード確認 が一致していません。" unless password.values[0] == password.values[1]
