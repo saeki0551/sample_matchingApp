@@ -19,8 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。一度、時間をおいて新規登録またはログインして下さい。"}
         end
       end
-      
-      session[:user] = resource
+      session[:user] = build_resource(sign_up_params)
       redirect_to new_user_information_path
     else
       ActiveRecord::Base.transaction do
