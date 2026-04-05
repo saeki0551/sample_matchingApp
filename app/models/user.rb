@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_one :user_information, dependent: :destroy
 
+  validates_uniqueness_of :email, scope: :deleted_at
+
   after_rollback :display_error_screen
 
   def display_error_screen

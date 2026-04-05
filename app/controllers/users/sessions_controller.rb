@@ -11,6 +11,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
+    パスワードなしでもログインできてしまう
     resource = User.order(updated_at: :desc).find_by(email: params[:user][:email])
     if resource.deleted_at
       sign_out(resource)
