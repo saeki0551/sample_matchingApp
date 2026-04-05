@@ -2,6 +2,7 @@
 class Users::SessionsController < Devise::SessionsController
   def create
     resource = warden.authenticate!(auth_options)
+    # 一度退会したらログインできなくなってしまう
     if resource.deleted_at
       sign_out(resource)
       return redirect_to new_user_session_path, flash: { alert: "（退会中のため？）ログインできませんでした。" }
