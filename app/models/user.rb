@@ -12,8 +12,7 @@ class User < ApplicationRecord
   end
   
   def already_sign_up?(email)
-    User.exists?(email: email.values) 
-    # binding.pry
+    User.exists?(email: email.values, deleted_at: nil) 
   end
 
   def check_password(password)
