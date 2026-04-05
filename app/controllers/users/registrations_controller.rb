@@ -1,95 +1,42 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+class Users::RegistrationsController < Devise::RegistrationsController  
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
-  # POST /resource
-  # def create
-  #   super
-  # end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource
-  # def update
-  #   super
-  # end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  def new
-    @user = User.new
-  end
-
-  def create 
+  def create
     if params[:user].present?
-      session[:user] = user_params
-      user = User.new(user_params)
-      if User.exists?(email: user.email) 
-        return redirect_to  new_user_path, alert: "新規登録できませんでした。再度、新規登録またはログインしてください。"
-      end 
-      user.check_password
-      return redirect_to  new_user_path, alert: user.check_password if user.check_password.present?
+      build_resource(sign_up_params)
+      if resource.already_sign_up?(email: sign_up_params[:email])
+        return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。再度、新規登録またはログインして下さい。"}
+      end
       
-      redirect_to new_user_information_path(user)
+      if resource.check_password(password: sign_up_params[:password], password_confirmation: sign_up_params[:password_confirmation])
+        return redirect_to new_user_registration_path, flash: {alert: resource.check_password(password: sign_up_params[:password], password_confirmation: sign_up_params[:password_confirmation])}
+      end
+      
+      created_user = User.order(deleted_at: :desc).limit(1).where(email: sign_up_params[:email]).where.not(deleted_at: nil)
+      if created_user.present?
+        if User.in_time_cancel_membership?(created_user[0].deleted_at, ACCOUNT_STOP_TIME)
+          return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。一度、時間をおいて新規登録またはログインして下さい。"}
+        end
+      end
+      session[:sign_up_params] = sign_up_params
+      redirect_to new_user_information_path
     else
       ActiveRecord::Base.transaction do
-        user = User.new(session[:user])
-        user.save!
-        @user_information.user_id = user.id
-        @user_information.save!
-        sign_in(user)
+        build_resource(session[:sign_up_params])
+        resource.save
+        user_information = @user.build_user_information(user_information_params)
+        user_information.save!
       end
-      redirect_to users_path, notice: "アカウントの作成に成功しました。"
+      set_flash_message! :notice, :signed_up
+      sign_up(resource_name, resource)
+      respond_with resource, location: after_sign_up_path_for(resource)
     end
   end
 
   private
 
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+    def user_information_params
+      params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
     end
 end
