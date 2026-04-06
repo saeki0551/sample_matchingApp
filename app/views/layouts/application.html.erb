@@ -31,7 +31,7 @@
           <li><%= link_to "メッセージ", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "検索", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "マイページ", root_path,  class:"navigation-link" %></li>
-          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"navigation-link session-link" %></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, class:"navigation-link session-link" %></li>
           <li><%= link_to "退会する", 
                   destroy_user_path(current_user.id), 
                   method: :delete,
