@@ -26,20 +26,6 @@ class User < ApplicationRecord
   def self.in_time_cancel_membership?(deleted_at, account_stop_time)
     return true if deleted_at && Time.zone.now - deleted_at < account_stop_time
   end
-  
-
-  # def verify_password(password)
-    # binding.pry
-  #   if authenticate(User.order(id: :desc).select(:password).where(email: params[:user][:email], deleted_at: nil))
-  #     binding.pry
-  #     # 認証成功の場合、追加処理を行うことができます
-  #     true
-  #   else
-  #     binding.pry
-  #     # 認証失敗の場合の処理
-  #     false
-  #   # end
-  # end
 
   def get_latest_user(sign_in_params)
     user = User.order(id: :desc).find_by(email: sign_in_params[:sign_in_params][:email])
