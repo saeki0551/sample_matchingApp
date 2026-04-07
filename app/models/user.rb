@@ -28,6 +28,6 @@ class User < ApplicationRecord
   end
 
   def get_latest_user(sign_in_params)
-    user = User.order(id: :desc).find_by(email: sign_in_params[:sign_in_params][:email])
+    User.order(id: :desc).find_by(email: sign_in_params[:email])
   end
 end
