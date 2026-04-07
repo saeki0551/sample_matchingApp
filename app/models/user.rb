@@ -1,13 +1,13 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable
-
+  :recoverable, :rememberable
+  
   has_one :user_information, dependent: :destroy
 
   validates_uniqueness_of :email, scope: :deleted_at
-
+  
   after_rollback :display_error_screen
-
+  
   def display_error_screen
     Rails.logger.info
     raise StandardError
@@ -16,15 +16,32 @@ class User < ApplicationRecord
   def already_sign_up?(email)
     User.exists?(email: email.values, deleted_at: nil) 
   end
-
+  
   def check_password(password)
     return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(password.values[0])
     return "パスワード は6文字以上12文字以内である必要があります。" unless password.values[0].length >= 6 && password.values[0].length <= 12
     return "パスワード と パスワード確認 が一致していません。" unless password.values[0] == password.values[1]
   end
-
+  
   def self.in_time_cancel_membership?(deleted_at, account_stop_time)
     return true if deleted_at && Time.zone.now - deleted_at < account_stop_time
   end
+  
 
+  # def verify_password(password)
+    # binding.pry
+  #   if authenticate(User.order(id: :desc).select(:password).where(email: params[:user][:email], deleted_at: nil))
+  #     binding.pry
+  #     # 認証成功の場合、追加処理を行うことができます
+  #     true
+  #   else
+  #     binding.pry
+  #     # 認証失敗の場合の処理
+  #     false
+  #   # end
+  # end
+
+  def get_latest_user(sign_in_params)
+    user = User.order(id: :desc).find_by(email: sign_in_params[:sign_in_params][:email])
+  end
 end
