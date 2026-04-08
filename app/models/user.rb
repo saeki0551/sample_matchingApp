@@ -23,6 +23,10 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless password[:password] == password[:password_confirmation]
   end
   
+  def sort_created_user(email)
+    User.order(deleted_at: :desc).find_by(email: email.values)
+  end
+
   def in_time_cancel_membership?(account_stop_time)
     Time.zone.now - self.deleted_at < account_stop_time[:account_stop_time] 
   end

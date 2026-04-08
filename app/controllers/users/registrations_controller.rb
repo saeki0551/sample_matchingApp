@@ -13,12 +13,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         return redirect_to new_user_registration_path, flash: {alert: resource.check_password(password: sign_up_params[:password], password_confirmation: sign_up_params[:password_confirmation])}
       end
       
-      created_user = User.order(deleted_at: :desc).where.not(deleted_at: nil).find_by(email: sign_up_params[:email])
-      if created_user.present?
-        if created_user.in_time_cancel_membership?(account_stop_time: ACCOUNT_STOP_TIME)
+      if resource.sort_created_user(email: sign_up_params[:email])
+        if resource.sort_created_user(email: sign_up_params[:email]).in_time_cancel_membership?(account_stop_time: ACCOUNT_STOP_TIME)
           return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。一度、時間をおいて新規登録またはログインして下さい。"}
         end
       end
+
       session[:sign_up_params] = sign_up_params
       redirect_to new_user_information_path
     else
