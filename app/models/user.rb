@@ -23,8 +23,8 @@ class User < ApplicationRecord
     return "パスワード と パスワード確認 が一致していません。" unless password[:password] == password[:password_confirmation]
   end
   
-  def self.in_time_cancel_membership?(deleted_at, account_stop_time)
-    return true if deleted_at && Time.zone.now - deleted_at < account_stop_time
+  def in_time_cancel_membership?(account_stop_time)
+    Time.zone.now - self.deleted_at < account_stop_time[:account_stop_time] 
   end
 
   def get_latest_user(sign_in_params)
