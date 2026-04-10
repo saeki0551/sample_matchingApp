@@ -5,7 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     if params[:user].present?
       build_resource(sign_up_params)
-      if resource.already_sign_up?(email: sign_up_params[:email])
+      
+      unless resource.valid?
         return redirect_to new_user_registration_path, flash: {alert: "新規登録できません。再度、新規登録またはログインして下さい。"}
       end
       

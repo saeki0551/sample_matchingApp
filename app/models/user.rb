@@ -5,10 +5,6 @@ class User < ApplicationRecord
   has_one :user_information, dependent: :destroy
 
   validates_uniqueness_of :email, scope: :deleted_at
-
-  def already_sign_up?(email)
-    User.exists?(email: email.values, deleted_at: nil) 
-  end
   
   def check_password(**password)
     return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(password[:password])
