@@ -5,14 +5,7 @@ class User < ApplicationRecord
   has_one :user_information, dependent: :destroy
 
   validates_uniqueness_of :email, scope: :deleted_at
-  
-  after_rollback :display_error_screen
-  
-  def display_error_screen
-    Rails.logger.info
-    raise StandardError
-  end
-  
+
   def already_sign_up?(email)
     User.exists?(email: email.values, deleted_at: nil) 
   end

@@ -22,11 +22,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
       session[:sign_up_params] = sign_up_params
       redirect_to new_user_information_path
     else
-      ActiveRecord::Base.transaction do
-        build_resource(session[:sign_up_params])
-        resource.save
-        user_information = @user.build_user_information(user_information_params)
-        user_information.save!
+      begin
+        ActiveRecord::Base.transaction do
+          build_resource(session[:sign_up_params])
+          resource.save
+          user_information = @user.build_user_information(user_information_params)
+          user_information.save!
+        end
+      rescue => e
+        return redirect_to new_user_registration_path, flash: {alert: "#{e} 新規登録できません。再度、新規登録またはログインして下さい。"}
       end
       set_flash_message! :notice, :signed_up
       sign_up(resource_name, resource)
