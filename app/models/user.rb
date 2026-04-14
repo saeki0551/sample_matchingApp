@@ -7,9 +7,9 @@ class User < ApplicationRecord
   validates_uniqueness_of :email, scope: :deleted_at
   
   def check_password(**password)
-    return "パスワード は英数字である必要があります。" unless /\A[a-zA-Z\d]+\z/.match(password[:password])
-    return "パスワード は6文字以上12文字以内である必要があります。" unless password[:password].length >= 6 && password[:password].length <= 12
-    return "パスワード と パスワード確認 が一致していません。" unless password[:password] == password[:password_confirmation]
+    return 'パスワード は英数字である必要があります。' unless /\A[a-zA-Z\d]+\z/.match(password[:password])
+    return 'パスワード は6文字以上12文字以内である必要があります。' unless password[:password].length >= 6 && password[:password].length <= 12
+    return 'パスワード と パスワード確認 が一致していません。' unless password[:password] == password[:password_confirmation]
   end
   
   def sort_created_user(email)

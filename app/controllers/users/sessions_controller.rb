@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
     resource = resource.get_latest_user(sign_in_params)
     if resource && resource.valid_password?(sign_in_params[:password])
       if resource.deleted_at.present?
-        return redirect_to new_user_session_path, flash: { alert: '（退会中のため？）ログインできませんでした。' }
+        return redirect_to new_user_session_path, flash: { alert: 'ログインできません。再度、新規登録またはログインして下さい。' }
       end
       set_flash_message!(:notice, :signed_in)
       sign_in(resource_name, resource)
