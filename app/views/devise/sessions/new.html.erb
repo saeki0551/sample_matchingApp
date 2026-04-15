@@ -14,18 +14,18 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="check-box-field">
+      <div class="check-box-field center-element">
         <%= f.check_box :remember_me %>
         <%= f.label :ログイン情報保持 %>
       </div>
     <% end %>
 
-    <div class="actions-field">
+    <div class="actions-field center-element">
       <%= f.submit "ログイン", class: "login-button" %>
     </div>
   <% end %>
 
-  <div class="links-field">
+  <div class="links-field center-element">
   <%= render "devise/shared/links" %>
   </div>
 </div>

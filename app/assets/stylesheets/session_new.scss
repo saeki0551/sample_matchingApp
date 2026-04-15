@@ -1,14 +1,14 @@
-main{
+main {
   display: flex;
   justify-content: center;
 }
 
 h2 {
-	color: deepskyblue;
-	text-align: center;
+  color: deepskyblue;
+  text-align: center;
 }
 
-.field .input-field{
+.field .input-field {
 	width: 400px;
 	height: 20px;
 	margin-bottom: 25px;
@@ -16,15 +16,7 @@ h2 {
 	border-radius: 5px;
 }
 
-.check-box-field{
-	text-align: center;
-}
-
-.actions-field {
-	text-align: center;
-}
-
-.actions-field .login-button{
+.actions-field .login-button {
 	width: 100px;
 	height: 40px;
 	margin: 30px 0;
@@ -35,6 +27,6 @@ h2 {
     cursor: pointer;
 }
 
-.links-field{
-	text-align: center;
+.center-element {
+  text-align: center;
 }
