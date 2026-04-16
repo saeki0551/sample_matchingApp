@@ -27,6 +27,12 @@ h2 {
     cursor: pointer;
 }
 
+.actions-field .login-button:hover {
+  color: orange;
+  background-color: white;
+  border:1px solid orange;
+}
+
 .center-element {
   text-align: center;
 }
