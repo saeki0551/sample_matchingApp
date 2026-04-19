@@ -24,6 +24,6 @@ class User < ApplicationRecord
   end
 
   def liked_user?(liked_user_id)
-    likes.exists?(user_id: self.id, liked_user_id: liked_user_id[:liked_user_id])
+    likes.exists?(liked_user_id)
   end
 end
