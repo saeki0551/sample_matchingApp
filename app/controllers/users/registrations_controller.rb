@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController  
 
   def create
-    if params[:user].present?
+    if sign_up_params.present?
       build_resource(sign_up_params)
       
       unless resource.valid?
@@ -27,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         ActiveRecord::Base.transaction do
           build_resource(session[:sign_up_params])
           resource.save
-          # user_information = @user.build_user_information(user_information_params)
+          user_information = @user.build_user_information(user_information_params)
           user_information.save!
         end
       rescue => e
@@ -41,6 +41,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+    def sign_up_params
+      devise_parameter_sanitizer.sanitize(:sign_up)
+    end
 
     def user_information_params
       params.require(:user_information).permit(:image, :name, :age, :birth_date, :gender, :prefecture_id, :hobby_id)
