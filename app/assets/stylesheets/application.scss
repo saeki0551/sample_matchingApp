@@ -57,6 +57,13 @@ header {
             color: indigo;
           }
         }
+        .delete-link{
+          color: red;
+          &:hover {
+            background-color: white;
+            color: red;
+          }
+        }
         .new-user-link{
           background-color: skyblue;
           color: white;
