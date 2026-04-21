@@ -61,3 +61,4 @@ window.onload = function(){
 	const interval = setInterval(updateCountDown, 1000);
 	updateCountDown();
 }
+
