@@ -2,7 +2,7 @@ window.onload = function(){
   const countDown = document.getElementById("seconds");
   const message = document.getElementById("message");
   const email = document.getElementById("email").textContent;
-	const deleted_at = document.getElementById("deleted_at").textContent;
+  const deleted_at = document.getElementById("deleted_at").textContent;
 
 	let targetTime = countDown.textContent;
 	targetTime = parseInt(targetTime);
@@ -51,7 +51,7 @@ window.onload = function(){
 		const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
 		const seconds = Math.floor(distance % (1000 * 60) / 1000);
 
-		countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
+countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
 
 		if(distance < 0){
 			clearInterval(interval);
@@ -60,5 +60,4 @@ window.onload = function(){
 	}
 	const interval = setInterval(updateCountDown, 1000);
 	updateCountDown();
-}
-あ
+	}
