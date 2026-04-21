@@ -63,13 +63,13 @@
     } 
   }
 }
-.sessionLink {
+.session-link {
   padding: 50px 0;
   text-align: center;
   p {
     margin: 50px 0;
   }
-  .newUserLink {
+  .new-user-link {
     padding: 20px;
     border-radius: 3em;
     text-decoration: none;
@@ -81,7 +81,7 @@
       color: orange;
     }
   }
-  .loginLink {
+  .login-link {
     color: dimgray;
     &:hover {
       color: indigo;
