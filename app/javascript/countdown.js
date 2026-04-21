@@ -4,60 +4,60 @@ window.onload = function(){
   const email = document.getElementById("email").textContent;
   const deleted_at = document.getElementById("deleted_at").textContent;
 
-	let targetTime = countDown.textContent;
-	targetTime = parseInt(targetTime);
-	targetMinitues = Math.floor(targetTime / 60);
-	targetSeconds = targetTime % 60;
+  let targetTime = countDown.textContent;
+  targetTime = parseInt(targetTime);
+  targetMinitues = Math.floor(targetTime / 60);
+  targetSeconds = targetTime % 60;
 
-	targetTime = new Date();
-	targetTime.setMinutes(targetTime.getMinutes() + targetMinitues);
-	targetTime.setSeconds(targetTime.getSeconds() + targetSeconds);
-	let endTime = targetTime.getTime();
+  targetTime = new Date();
+  targetTime.setMinutes(targetTime.getMinutes() + targetMinitues);
+  targetTime.setSeconds(targetTime.getSeconds() + targetSeconds);
+  let endTime = targetTime.getTime();
 
-	let user_data = {
-		email: email,
-		deleted_at: deleted_at,
-		endTime: endTime
-	}
+  let user_data = {
+    email: email,
+    deleted_at: deleted_at,
+    endTime: endTime
+  }
 
-	function users(user_data) {
-		return user_data.email === email && user_data.deleted_at === deleted_at;
-	}
+  function users(user_data) {
+	  return user_data.email === email && user_data.deleted_at === deleted_at;
+  }
 
-	const serializedArray2 = localStorage.getItem('myArray');
-	const array = JSON.parse(serializedArray2);
+  const serializedArray2 = localStorage.getItem('myArray');
+  const array = JSON.parse(serializedArray2);
 
-	if (array){
-		if (array.find(users)) {
-			var target_user_data = array.find(users);
-			endTime = target_user_data.endTime;
-		} else {
-			const user_data_array = [];
-			user_data_array.push(user_data);
-			const serializedArray = JSON.stringify(user_data_array);
-			localStorage.setItem('myArray', serializedArray);
-		}
-	} else {
-		const user_data_array = [];
-		user_data_array.push(user_data);
-		const serializedArray = JSON.stringify(user_data_array);
-		localStorage.setItem('myArray', serializedArray);
-	}
+  if (array){
+    if (array.find(users)) {
+      var target_user_data = array.find(users);
+      endTime = target_user_data.endTime;
+    } else {
+      const user_data_array = [];
+      user_data_array.push(user_data);
+      const serializedArray = JSON.stringify(user_data_array);
+      localStorage.setItem('myArray', serializedArray);
+    }
+  } else {
+    const user_data_array = [];
+    user_data_array.push(user_data);
+    const serializedArray = JSON.stringify(user_data_array);
+    localStorage.setItem('myArray', serializedArray);
+  }
 
-	function updateCountDown(){
-		const now = new Date().getTime();
-		const distance = endTime - now;
+  function updateCountDown(){
+    const now = new Date().getTime();
+    const distance = endTime - now;
 
-		const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
-		const seconds = Math.floor(distance % (1000 * 60) / 1000);
+    const minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
+    const seconds = Math.floor(distance % (1000 * 60) / 1000);
 
-countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
+    countDown.textContent = `${String(minutes)}分 ${String(seconds)}秒`;
 
-		if(distance < 0){
-			clearInterval(interval);
-			message.textContent = "再度、新規登録できます。";
-		}
-	}
-	const interval = setInterval(updateCountDown, 1000);
-	updateCountDown();
-	}
+    if(distance < 0){
+      clearInterval(interval);
+      message.textContent = "再度、新規登録できます。";
+    }
+  }
+  const interval = setInterval(updateCountDown, 1000);
+  updateCountDown();
+}
