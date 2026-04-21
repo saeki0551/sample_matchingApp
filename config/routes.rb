@@ -8,8 +8,10 @@ Rails.application.routes.draw do
     post 'users', to: 'users/registrations#create', as: :create_user_registration
   end
   root "tops#index"
-  
-  resources :users
+
+  resources :users do
+    resources :likes, only: [:create, :destroy]
+  end
   
   delete "users/:id/destroy", to: "users#destroy", as: :destroy_user
   get "users/:id/cancel_membership", to: "users#cancel_membership", as: :cancel_membership_user

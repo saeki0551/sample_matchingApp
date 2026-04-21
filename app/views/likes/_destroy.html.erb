@@ -1,0 +1,3 @@
+<div id="user_<%= like.liked_user_id %>">
+  <li><%= link_to '♥', user_like_path(user_id: like.user_id, id: like.id), data: { turbo_method: 'delete' } %></li>
+</div>

@@ -3,6 +3,7 @@ class User < ApplicationRecord
   :recoverable, :rememberable
   
   has_one :user_information, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates_uniqueness_of :email, scope: :deleted_at
   
@@ -22,5 +23,9 @@ class User < ApplicationRecord
 
   def get_latest_user(sign_in_params)
     User.order(id: :desc).find_by(email: sign_in_params[:email])
+  end
+
+  def liked_user?(liked_user_id)
+    likes.exists?(liked_user_id)
   end
 end
