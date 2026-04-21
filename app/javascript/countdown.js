@@ -1,4 +1,5 @@
 window.onload = function(){
+	あ
   const countDown = document.getElementById("seconds");
   const message = document.getElementById("message");
   const email = document.getElementById("email").textContent;
