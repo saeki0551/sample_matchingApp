@@ -1,5 +1,4 @@
 window.onload = function(){
-	// ２回目にアカウントを作って退会したときのカウントダウンが実装できていない
   const countDown = document.getElementById("seconds");
   const message = document.getElementById("message");
 	const email = document.getElementById("email").textContent;
