@@ -27,7 +27,7 @@
       <ul>
         <li><%= image_tag "navigationIcon.png", size: "50x50" %><br></li>
         <% if user_signed_in? %>
-          <li><%= link_to "マッチングした相手", root_path,  class:"navigation-link" %></li>
+          <li><%= link_to "マッチングした相手一覧", matching_users_path,  class:"navigation-link" %></li>
           <li><%= link_to "メッセージ", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "検索", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "マイページ", root_path,  class:"navigation-link" %></li>
