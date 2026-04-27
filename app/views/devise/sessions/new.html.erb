@@ -8,19 +8,12 @@
     <%= f.label :パスワード： %></br>
     <%= f.password_field :password, autocomplete: "current-password", class: "input-field" %></br>
 
-    <div class="center-element">
-      <% if devise_mapping.rememberable? %>
-        <%= f.check_box :remember_me %>
-        <%= f.label :ログイン情報保持 %>
-      <% end %>
-    </div>
+    <% if devise_mapping.rememberable? %>
+      <%= f.check_box :remember_me %>
+      <%= f.label :ログイン情報保持 %></br>
+    <% end %>
 
-    <div class="center-element">
-      <%= f.submit "ログイン", class: "login-button" %>
-    </div>
+    <%= f.submit "ログイン", class: "login-button" %>
   <% end %>
-
-  <div class="center-element">
-    <%= render "devise/shared/links" %>
-  </div>
+  <%= render "devise/shared/links" %>
 </div>
