@@ -1,5 +1,6 @@
-.container {
-  text-align: center;
+main {
+  display: flex;
+  justify-content: center;
   h2 {
     text-align: center;
     color: deepskyblue;
@@ -26,4 +27,7 @@
       border:1px solid orange;
     }
   }
+	.center-element {
+		text-align: center;
+	}
 }
