@@ -8,7 +8,7 @@ h2 {
   text-align: center;
 }
 
-.field .input-field {
+.input-field {
 	width: 400px;
 	height: 20px;
 	margin-bottom: 25px;
@@ -16,7 +16,7 @@ h2 {
 	border-radius: 5px;
 }
 
-.actions-field .login-button {
+.login-button {
 	width: 100px;
 	height: 40px;
 	margin: 30px 0;
@@ -27,7 +27,7 @@ h2 {
     cursor: pointer;
 }
 
-.actions-field .login-button:hover {
+.login-button:hover {
   color: orange;
   background-color: white;
   border:1px solid orange;
