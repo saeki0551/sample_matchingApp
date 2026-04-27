@@ -1,38 +1,33 @@
 main {
   display: flex;
   justify-content: center;
-}
-
-h2 {
-  color: deepskyblue;
-  text-align: center;
-}
-
-.input-field {
-	width: 400px;
-	height: 20px;
-	margin-bottom: 25px;
-	border: 2px solid gray;
-	border-radius: 5px;
-}
-
-.login-button {
-	width: 100px;
-	height: 40px;
-	margin: 30px 0;
-	color: white;
-	background-color: orange;
-	border: none;
-	border-radius: 5%;
-    cursor: pointer;
-}
-
-.login-button:hover {
-  color: orange;
-  background-color: white;
-  border:1px solid orange;
-}
-
-.center-element {
-  text-align: center;
+	h2 {
+		text-align: center;
+		color: deepskyblue;
+	}
+	.input-field {
+		width: 400px;
+		height: 20px;
+		margin-bottom: 25px;
+		border: 2px solid gray;
+		border-radius: 5px;
+	}
+	.login-button {
+		width: 100px;
+		height: 40px;
+		margin: 30px 0;
+		color: white;
+		background-color: orange;
+		border: none;
+		border-radius: 5%;
+		cursor: pointer;
+		&:hover {
+			color: orange;
+			background-color: white;
+			border:1px solid orange;
+		}
+	}
+	.center-element {
+		text-align: center;
+	}
 }
