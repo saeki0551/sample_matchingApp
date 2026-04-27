@@ -1,6 +1,6 @@
-<h2>マッチングした相手一覧ページ</h2>
-<% @likes.each do |like| %>
-  <% matched_like = like.sort_matching_users %>
+<h2>マッチング相手一覧ページ</h2>
+<% @current_user_likes.each do |current_user_like| %>
+  <% matched_like = current_user_like.sort_matching_user %>
   <%= image_tag matched_like.user.user_information.image, size: "50x50" %></br>
   <ul>
     <li>メールアドレス：<%= matched_like.user.email %></li>
