@@ -5,7 +5,7 @@ class LikesController < ApplicationController
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
     matching_like = @like.sort_matching_user
-    if matching_like.present?
+    if matching_like
       redirect_to matching_users_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
     end
   end
