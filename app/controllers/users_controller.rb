@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def matching_users
-    @current_user_likes = current_user.likes.all
+    @current_user_likes = current_user.likes
   end
 
   private
