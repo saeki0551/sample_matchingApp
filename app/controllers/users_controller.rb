@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :cancel_membership, :matching_users]
+  skip_before_action :authenticate_user!, only: [:new, :cancel_membership]
 
   def index
     @users = User.all
@@ -26,10 +26,6 @@ class UsersController < ApplicationController
     @account_stop_time = ACCOUNT_STOP_TIME
     @user = User.find(user_params[:id])
     return redirect_to new_user_session_path, alert: 'ユーザーidが一致していません。'  unless @user.id == session[:ensure_user_id]
-  end
-
-  def matching_users
-    @current_user_likes = current_user.likes
   end
 
   private

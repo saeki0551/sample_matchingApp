@@ -4,7 +4,7 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    matching_like = @like.sort_matching_user
+    matching_like = Like.find_by(user_id: @like.liked_user_id, liked_user_id: current_user.id)
     if matching_like
       redirect_to matching_users_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
     end
@@ -15,6 +15,10 @@ class LikesController < ApplicationController
     unless @like.destroy
       redirect_to users_path, alert: 'いいねが削除できませんでした。'
     end
+  end
+
+  def matching_users
+    @likes = Like.where(liked_user_id: current_user.id)  
   end
 
   private
