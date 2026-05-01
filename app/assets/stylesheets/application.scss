@@ -76,6 +76,14 @@ header {
 body {
   padding: 100px 50px 50px 50px;
   background-color: orange;
+  .alert-message {
+    border-bottom: solid red;
+    color: red;
+  }
+  .notice-message {
+    border-bottom: solid;
+    color: blue;
+  }
   main {
     padding: 50px;
     min-height: 420px;
