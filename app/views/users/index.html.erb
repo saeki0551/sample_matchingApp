@@ -1,16 +1,10 @@
 <%= stylesheet_link_tag "users_index", media: "all" %>
 <% @users.each do |user| %>
   <div class="user">
-    <%= image_tag user.user_information.image, size: "50x50" %></br>
+    <%= image_tag user.user_information.image, size: "50x50", class: "user-image" %></br>
     <ul>
-      <li><%= user.id %></li>
-      <li><%= user.user_information.user_id %></li>
-      <li>メールアドレス：<%= user.email %></li>
-      <li>名前：<%= user.user_information.name %></li>
       <li>年齢：<%= user.user_information.age %></li>
-      <li>生年月日：<%= user.user_information.birth_date %></li>
       <li>都道府県：<%= user.user_information.prefecture.name %></li>
-      <li>趣味：<%= user.user_information.hobby.name %></li>
       <% if current_user.liked_user?(liked_user_id: user.id) %>
         <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
       <% else %>
