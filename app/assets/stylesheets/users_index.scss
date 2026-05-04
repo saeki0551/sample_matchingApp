@@ -11,6 +11,8 @@ main {
 }
 
 .user-image {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+  margin: 25px 0 0 25px;
+  object-fit: cover;
 }
