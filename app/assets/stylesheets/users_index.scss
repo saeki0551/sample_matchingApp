@@ -10,10 +10,6 @@ main {
   border-radius: 3em;
 }
 
-.user li {
-  list-style: none;
-}
-
 .user-image img {
   width: 200px;
   height: 200px;
@@ -21,8 +17,23 @@ main {
   object-fit: cover;
 }
 
-.user-like {
-  top: -35px;
-  left: 175px;
+.user li {
+  list-style: none;
+}
+
+.user-like li {
+  top: -60px;
+  left: 165px;
+  font-size: 30px;
   position: relative;
+}
+
+.user-like li a {
+  text-decoration: none;
+  padding: 10px 15px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.user-like .destroy {
 }
