@@ -7,13 +7,15 @@ main {
   width: 250px;
   margin: 20px;
   background-color: skyblue;
-  border-radius: 3em;
+  border-radius: 25%;
+  margin-bottom: 120px; 
 }
 
 .user-image img {
   width: 200px;
   height: 200px;
   margin: 25px 0 0 25px;
+  border-radius: 75%;
   object-fit: cover;
 }
 
@@ -26,6 +28,7 @@ main {
   left: 165px;
   font-size: 30px;
   position: relative;
+  margin-bottom: -50px;
 }
 
 .user-like li a {
@@ -36,5 +39,11 @@ main {
   border-radius: 50%;
 }
 
-.user-like .destroy {
+.user-data ul{
+  display: flex;
+  justify-content: center;
+}
+
+.user-data li {
+  margin-right: 25px;
 }

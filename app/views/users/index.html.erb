@@ -11,9 +11,11 @@
         <% end %>
       </div>
     </div>
-    <ul>
-      <li>年齢：<%= user.user_information.age %></li>
-      <li>都道府県：<%= user.user_information.prefecture.name %></li>
-    </ul>
+    <div class="user-data">
+      <ul>
+        <li><%= user.user_information.age %>歳</li>
+        <li><%= user.user_information.prefecture.name %></li>
+      </ul>
+    </div>
   </div>
 <% end %>
