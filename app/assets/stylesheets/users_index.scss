@@ -10,9 +10,15 @@ main {
   border-radius: 3em;
 }
 
-.user-image {
+.user-image img {
   width: 200px;
   height: 200px;
   margin: 25px 0 0 25px;
   object-fit: cover;
+}
+
+.user-like {
+  top: -35px;
+  left: 175px;
+  position: relative;
 }
