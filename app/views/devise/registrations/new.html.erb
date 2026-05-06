@@ -1,29 +1,28 @@
 <%= stylesheet_link_tag "registrations_new", media: "all" %>
-<h2>新規登録</h2>
-
-<%= form_with model: @user, url: create_user_registration_path, local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %>
-    <% if @minimum_password_length %>
+<div class="container">
+  <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <% end %><br />
+  
+  <h2>新規登録</h2>
+  <%= form_with model: @user, url: create_user_registration_path, local: true do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード確認" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <%= f.label :メールアドレス： %></br>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-field" %></br>
 
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
+    <%= f.label :パスワード： %></br>
+    <%= f.password_field :password, autocomplete: "current-password", class: "input-field" %></br>
 
-<%= render "devise/shared/links" %>
+      <%= f.label :パスワード確認： %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-field" %>
+
+    <div class="center-element">
+      <%= f.submit "新規登録", class: "registration-button" %>
+    </div>
+  <% end %>
+
+  <div class="center-element">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
