@@ -1,9 +1,10 @@
 <%= stylesheet_link_tag "registrations_new", media: "all" %>
+
+<% if @minimum_password_length %>
+<em>(<%= @minimum_password_length %> characters minimum)</em>
+<% end %><br />
+
 <div class="container">
-  <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-  <% end %><br />
-  
   <h2>新規登録</h2>
   <%= form_with model: @user, url: create_user_registration_path, local: true do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -14,8 +15,8 @@
     <%= f.label :パスワード： %></br>
     <%= f.password_field :password, autocomplete: "current-password", class: "input-field" %></br>
 
-      <%= f.label :パスワード確認： %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-field" %>
+    <%= f.label :パスワード確認： %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-field" %>
 
     <div class="center-element">
       <%= f.submit "新規登録", class: "registration-button" %>
