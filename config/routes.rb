@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   post 'user_informations/create', to: 'user_informations#create', as: :create_user_information
 
   get 'likes/matching_users', to: 'likes#matching_users', as: :matching_users
+
+  get 'chats/new', to: 'chats#new', as: :new_chat
 end
   

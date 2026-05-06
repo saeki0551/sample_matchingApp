@@ -14,5 +14,6 @@
     <% else %>
       <%= render partial: 'likes/create', locals: { user_id: user.id }%>
     <% end %>
+    <li><%= link_to 'メッセージ', new_chat_path %></li>
   </ul>
 <% end %>
