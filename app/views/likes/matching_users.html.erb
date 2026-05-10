@@ -10,5 +10,6 @@
       <li>都道府県：<%= like.user.user_information.prefecture.name %></li>
       <li>趣味：<%= like.user.user_information.hobby.name %></li>
     </ul>
+    <p><%= link_to 'メッセージ', new_user_chat_path(current_user.id) %></p>
   <% end %>
 <% end %>
