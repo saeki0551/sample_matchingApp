@@ -1,16 +1,12 @@
 class ChatsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
-  
-  def new
-    @chat = Chat.new
-  end
-  
+  skip_before_action :authenticate_user!, only: [:create]
+
   def create
-    @chat = Chat.new
+    chat = Chat.new(user_id: user_params[:user_id])
+    chat.save
   end
 
   def user_params
-    binding.pry
-    params.require(:user).permit(:id)
+    params.permit(:user_id)
   end
 end
