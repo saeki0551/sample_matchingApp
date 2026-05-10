@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_06_205802) do
 
   create_table "chats", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.integer "chatting_user_id", null: false
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
