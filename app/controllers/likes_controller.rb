@@ -4,7 +4,7 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    matching_like = Like.find_by(user_id: @like.liked_user_id, liked_user_id: current_user.id)
+    matching_like = Like.find_by(user_id: @like.liked_user_id, liked_user_id: @like.user_id)
     if matching_like
       redirect_to matching_users_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
     end
