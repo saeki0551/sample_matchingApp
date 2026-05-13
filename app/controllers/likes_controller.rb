@@ -6,7 +6,7 @@ class LikesController < ApplicationController
     end
     matching_like = Like.find_by(user_id: @like.liked_user_id, liked_user_id: @like.user_id)
     if matching_like
-      redirect_to matching_users_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
+      redirect_to user_matching_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
     end
   end
 
@@ -18,12 +18,16 @@ class LikesController < ApplicationController
   end
 
   def matching_users
-    @likes = Like.where(liked_user_id: current_user.id)  
+    @likes = Like.where(liked_user_id: user_params[:user_id])  
   end
 
   private
 
     def like_params
       params.permit(:id, :user_id)
+    end
+
+    def user_params
+      params.permit(:user_id)
     end
 end
