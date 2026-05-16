@@ -49,11 +49,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_06_205802) do
   end
 
   create_table "chats", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "text"
+    t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -94,7 +92,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_06_205802) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
-  add_foreign_key "chats", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "user_informations", "users"
 end
