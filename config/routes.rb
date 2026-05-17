@@ -11,7 +11,8 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :likes, only: [:create, :destroy]
-    resources :chats, only: [:new, :create]
+    resources :chats, only: [:new, :create, :show]
+    get 'chat_users/search', to: 'chat_users#search', as: :search_chat
   end
   
   delete "users/:id/destroy", to: "users#destroy", as: :destroy_user
