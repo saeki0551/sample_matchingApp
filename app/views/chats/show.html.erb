@@ -1,0 +1,4 @@
+<p><%= @chat.message %></p>
+<% @chat.users.each do |user| %>
+  <p><%= user.user_information.name %></p>
+<% end %>

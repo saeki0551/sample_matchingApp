@@ -6,14 +6,12 @@ class ChatsController < ApplicationController
   end
 
   def create
-    chat = Chat.new(chat_params)
+    chat = Chat.new(params[:id])
     chat.save
   end
 
   def show
-    binding.pry
-    @chat = Chat.find(user_params)
-    new_user_chat_path(current_user.id)
+    @chat = Chat.find(chat_user_params[:id])
   end
 
   def user_params
@@ -22,5 +20,9 @@ class ChatsController < ApplicationController
 
   def chat_params
     params.require(:chat).permit(:message).merge(user_ids: [current_user.id])
+  end
+
+  def chat_user_params
+    params.permit(:id)
   end
 end
