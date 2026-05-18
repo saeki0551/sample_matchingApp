@@ -1,0 +1,10 @@
+<%= form_with(model:[current_user, @chat]) do |f| %>
+  <li>自分：<%= current_user.user_information.name %></li>
+  <li>相手：<%= @chat_user.user_information.name %></li>
+  <p>
+    <%= f.hidden_field :user_id, value: @chat_user.id %>
+    <%= f.label :message, 'メッセージ'%>
+    <%= f.text_field :message %>
+  </p>
+  <%= f.submit '投稿する' %>
+<% end %>
