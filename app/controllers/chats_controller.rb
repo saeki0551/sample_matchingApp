@@ -3,11 +3,11 @@ class ChatsController < ApplicationController
 
   def new
     @chat = Chat.new
-    @chat_user = User.find(user_params[:user_id])
+    @chat_user_id = chat_user_params
   end
 
   def create
-    chat = Chat.new(chat_params)
+    chat = Chat.new(user_ids: [current_user.id, user_params[:user_id]])
     chat.save
   end
 
@@ -24,6 +24,7 @@ class ChatsController < ApplicationController
   end
 
   def chat_user_params
-    params.permit(:id)
+    binding.pry
+    params.require(:chat_user).permit(:id)
   end
 end
