@@ -28,4 +28,9 @@ class User < ApplicationRecord
   def liked_user?(liked_user_id)
     likes.exists?(liked_user_id)
   end
+
+  def get_partner_like(**user_id)
+    partner = User.find(user_id[:user_id])
+    partner.likes.find_by(liked_user_id: user_id[:liked_user_id])
+  end
 end
