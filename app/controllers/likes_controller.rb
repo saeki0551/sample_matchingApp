@@ -4,9 +4,9 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    matching_like = @like.user.get_partner_like(user_id: @like.user_id, liked_user_id: @like.liked_user_id)
-    if matching_like && 
-      redirect_to user_matching_path, notice: "#{matching_like.user.user_information.name}さんとマッチングしました。"
+    if session[:matching_likes]
+      redirect_to user_matching_path, notice: "#{session[:matching_likes].user.user_information.name}さんとマッチングしました。"
+      session[:matching_likes] = nil
     end
   end
 
