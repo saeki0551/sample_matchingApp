@@ -4,9 +4,8 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    if session[:matching_likes]
-      redirect_to user_matching_path, notice: "#{session[:matching_likes].user.user_information.name}さんとマッチングしました。"
-      session[:matching_likes] = nil
+    if  like_params[:matching_judgement]
+      redirect_to user_matching_path
     end
   end
 
@@ -24,7 +23,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:id, :user_id)
+      params.permit(:id, :user_id, :matching_judgement)
     end
 
     def user_params
