@@ -1,12 +1,14 @@
-class User < ApplicationRecord
+class User < ApplicationRecord  
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable
   
   has_one :user_information, dependent: :destroy
-  has_many :likes, dependent: :destroy
+  has_many :like_user_relations
+  has_many :likes, through: :like_user_relations
 
   validates_uniqueness_of :email, scope: :deleted_at
   
+
   def check_password(**password)
     return 'パスワード は英数字である必要があります。' unless /\A[a-zA-Z\d]+\z/.match(password[:password])
     return 'パスワード は6文字以上12文字以内である必要があります。' unless password[:password].length >= 6 && password[:password].length <= 12
@@ -27,9 +29,5 @@ class User < ApplicationRecord
 
   def liked_user?(liked_user_id)
     likes.exists?(liked_user_id)
-  end
-
-  def matching_user(liked_user_id)
-    likes.find_by(liked_user_id)
   end
 end

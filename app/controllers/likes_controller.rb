@@ -1,11 +1,8 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(liked_user_id: like_params[:user_id])
+    @like = current_user.likes.new(like_params)  
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
-    end
-    if  like_params[:matching_judgement]
-      redirect_to user_matching_path
     end
   end
 
@@ -23,7 +20,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:id, :user_id, :matching_judgement)
+      params.permit(:id, :user_id).merge(user_id: current_user.id, liked_user_id: params[:user_id], user_ids: [current_user.id, params[:user_id]])
     end
 
     def user_params
