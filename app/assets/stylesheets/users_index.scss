@@ -1,0 +1,43 @@
+main {
+  display: flex;
+  flex-wrap: wrap;
+  .user {
+    width: 220px;
+    margin: 20px;
+    background-color: skyblue;
+    border-radius: 25%;
+    margin-bottom: 120px; 
+    li {
+      list-style: none;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+      margin: 25px 0 0 10px;
+      border-radius: 75%;
+      object-fit: cover;
+    }
+    .user-like li {
+      width: 40px;
+      top: -60px;
+      left: 155px;
+      font-size: 30px;
+      position: relative;
+      margin-bottom: -50px;
+      a {
+        text-decoration: none;
+        padding: 10px 15px;
+        color: hotpink;
+        background-color: white;
+        border-radius: 50%;
+      }
+    }
+    .user-data ul{
+      display: flex;
+      justify-content: center;
+      li {
+        margin-right: 25px;
+      }
+    }
+  }
+}

@@ -27,6 +27,7 @@
       <ul>
         <li><%= image_tag "navigationIcon.png", size: "50x50" %><br></li>
         <% if user_signed_in? %>
+          <li><%= link_to "ユーザー一覧", users_path,  class:"navigation-link" %></li>
           <li><%= link_to "マッチングした相手", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "メッセージ", root_path,  class:"navigation-link" %></li>
           <li><%= link_to "検索", root_path,  class:"navigation-link" %></li>
@@ -49,11 +50,14 @@
   </header>
   
   <body>
-    <main>
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, class: name %>
+    <% flash.each do |name, msg| %>
+      <% if name == "alert" %>
+        <span class="alert-message"><%= content_tag :div, msg %></span>
+      <% else %>
+        <span class="notice-message"><%= content_tag :div, msg %></span>
       <% end %>
-
+    <% end %>
+    <main>
       <%= yield %>
     </main>
   </body>
