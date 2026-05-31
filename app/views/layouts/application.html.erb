@@ -49,11 +49,14 @@
   </header>
   
   <body>
-    <main>
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, class: name %>
+    <% flash.each do |name, msg| %>
+      <% if name == "alert" %>
+        <span class="alert-message"><%= content_tag :div, msg %></span>
+      <% else %>
+        <span class="notice-message"><%= content_tag :div, msg %></span>
       <% end %>
-
+    <% end %>
+    <main>
       <%= yield %>
     </main>
   </body>
