@@ -4,6 +4,10 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
+    matching_user = @like.users.find(@like.liked_user_id)
+    if matching_user.liked_user?(liked_user_id: @like.user_id)
+      redirect_to user_path(matching_user), notice: 'マッチングしました。'
+    end
   end
 
   def destroy
