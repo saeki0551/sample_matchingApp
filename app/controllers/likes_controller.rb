@@ -4,7 +4,12 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    matching_user = @like.users.find(@like.liked_user_id)
+    begin
+      matching_user = @like.users.find(@like.liked_user_id)
+    rescue => e
+      logger.error(e.message)
+      return redirect_to users_path, flash: {alert: "いいねするユーザーが見つかりません。"}
+    end
     if matching_user.liked_user?(liked_user_id: @like.user_id)
       redirect_to user_path(matching_user), notice: 'マッチングしました。'
     end
