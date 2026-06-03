@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(like_params)  
+    @like = current_user.likes.new(like_params)
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end

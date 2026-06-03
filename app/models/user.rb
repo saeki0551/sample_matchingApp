@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :likes, through: :like_user_relations
 
   validates_uniqueness_of :email, scope: :deleted_at
-  
 
   def check_password(**password)
     return 'パスワード は英数字である必要があります。' unless /\A[a-zA-Z\d]+\z/.match(password[:password])
