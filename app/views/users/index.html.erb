@@ -3,13 +3,6 @@
   <% unless user == current_user %>
     <div class="user">
       <li id="user-img"><%= image_tag user.user_information.image %></li>
-      <li id="detail-user-information"><%= render partial: 'show', locals: { user: user } %></li>
-      <script>
-        const detail_user_information = document.getElementById('detail-user-information')
-        document.getElementById('user-img').addEventListener('click', function() {
-          detail_user_information.style.display = 'block';
-        });
-      </script>
       <div class="user-like">
         <% if current_user.liked_user?(liked_user_id: user.id) %>
           <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
@@ -23,6 +16,13 @@
           <li><%= user.user_information.prefecture.name %></li>
         </ul>
       </div>
+      <div id="detail-user-information"><%= render partial: 'show', locals: { user: user } %></div>
+      <script>
+        const detail_user_information = document.getElementById('detail-user-information')
+        document.getElementById('user-img').addEventListener('click', function() {
+          detail_user_information.style.display = 'block';
+        });
+      </script>
     </div>
   <% end %>
 <% end %>

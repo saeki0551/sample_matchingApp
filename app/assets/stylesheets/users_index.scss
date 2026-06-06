@@ -16,6 +16,7 @@ main {
       margin: 25px 0 0 10px;
       border-radius: 75%;
       object-fit: cover;
+      cursor: pointer;
     }
     .user-like li {
       width: 40px;
@@ -38,6 +39,9 @@ main {
       li {
         margin-right: 25px;
       }
+    }
+    #detail-user-information {
+      display: none;
     }
   }
 }
