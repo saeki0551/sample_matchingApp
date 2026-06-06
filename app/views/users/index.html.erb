@@ -16,9 +16,14 @@
           <li><%= user.user_information.prefecture.name %></li>
         </ul>
       </div>
-      <div id="detail-user-information"><%= render partial: 'show', locals: { user: user } %></div>
+      <div id="detail-user-information">
+        <div id="<%= user.id %>"><%= render partial: 'show', locals: { user: user } %></div>
+      </div>
       <script>
-        const detail_user_information = document.getElementById('detail-user-information')
+        var detail_user_information = document.getElementById('detail-user-information')
+        var detail_user_information_id = document.getElementById("<%= user.id %>")
+        console.log(detail_user_information)
+        console.log(detail_user_information_id)
         document.getElementById('user-img').addEventListener('click', function() {
           detail_user_information.style.display = 'block';
         });
