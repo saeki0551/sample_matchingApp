@@ -2,7 +2,7 @@
 <% @users.each do |user| %>
   <% unless user == current_user %>
     <div class="user">
-      <li id="user-img"><%= image_tag user.user_information.image %></li>
+      <li id="user-img_<%= user.id %>"><%= image_tag user.user_information.image %></li>
       <div class="user-like">
         <% if current_user.liked_user?(liked_user_id: user.id) %>
           <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
@@ -16,16 +16,13 @@
           <li><%= user.user_information.prefecture.name %></li>
         </ul>
       </div>
-      <div id="detail-user-information">
-        <div id="<%= user.id %>"><%= render partial: 'show', locals: { user: user } %></div>
-      </div>
+      <div id="detail-user-information_<%= user.id %>"><%= render partial: 'show', locals: { user: user } %></div>
       <script>
-        var detail_user_information = document.getElementById('detail-user-information')
-        var detail_user_information_id = document.getElementById("<%= user.id %>")
-        console.log(detail_user_information)
-        console.log(detail_user_information_id)
-        document.getElementById('user-img').addEventListener('click', function() {
-          detail_user_information.style.display = 'block';
+        var detail_user_information_id = document.getElementById("detail-user-information_<%= user.id %>")
+        var user_img_id = document.getElementById("user-img_<%= user.id %>")
+        detail_user_information_id.style.display = 'none'
+        user_img_id.addEventListener('click', function() {
+          console.log(this);
         });
       </script>
     </div>
