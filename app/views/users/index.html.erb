@@ -18,7 +18,9 @@
       </div>
       <div id="detail-user-information_<%= user.id %>"><%= render partial: 'show', locals: { user: user } %></div>
       <script>
-        var users = [];
+        if (users == null) {
+          var users = [];
+        }
         var detail_user_information = document.getElementById("detail-user-information_<%= user.id %>")
         users.push(detail_user_information.id);
         var user_img = document.getElementById("user-img_<%= user.id %>")
@@ -26,7 +28,10 @@
         user_img.addEventListener('click', function() {
           var user_img_id = this.id.replace(/[^0-9]/g, '');
           console.log(user_img_id);
-          console.log(users.find(user => user.includes(user_img_id)));
+          var detail_user_information_id = users.find(user => user.includes(user_img_id));
+          detail_user_information_id = document.getElementById(detail_user_information_id);
+          console.log(detail_user_information_id);
+          detail_user_information_id.style.display = 'block'
         });
       </script>
     </div>
