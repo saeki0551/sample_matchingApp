@@ -25,18 +25,20 @@
         users.push(detail_user_information.id);
         var user_img = document.getElementById("user-img_<%= user.id %>");
         detail_user_information.style.display = 'none';
-        document.addEventListener('click', function(e) {
-          var user_img_id = user_img.id.replace(/[^0-9]/g, '');
-          if(e.target.closest('#user-img_<%= user.id %>')) {
-            console.log(user_img_id);
-            var detail_user_information_id = users.find(user => user.includes(user_img_id));
-            detail_user_information_id = document.getElementById(detail_user_information_id);
-            console.log(detail_user_information_id);
-            detail_user_information_id.style.display = 'block';
-          } else {
-            detail_user_information_id = document.getElementById("detail-user-information_<%= user.id %>");
-            detail_user_information_id.style.display = 'none';
-          }
+         user_img.addEventListener('click', function() {
+          var user_img_id = this.id.replace(/[^0-9]/g, '');
+          document.addEventListener('click', function(e) {
+            if(e.target.closest('#user-img_<%= user.id %>')) {
+              console.log(user_img_id)
+              var detail_user_information_id = users.find(user => user.includes(user_img_id));
+              detail_user_information_id = document.getElementById(detail_user_information_id);
+              console.log(detail_user_information_id);
+              detail_user_information_id.style.display = 'block';
+            } else {
+              detail_user_information_id = document.getElementById("detail-user-information_<%= user.id %>");
+              detail_user_information_id.style.display = 'none';
+            }
+          });
         });
       </script>
     </div>
