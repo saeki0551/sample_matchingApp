@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_15_082527) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_14_042546) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -42,18 +42,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_15_082527) do
   create_table "like_user_relations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "like_id"
-    t.index ["like_id"], name: "index_like_user_relations_on_like_id"
-    t.index ["user_id"], name: "index_like_user_relations_on_user_id"
-  end
-
-  create_table "likeds", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "likes_user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_likeds_on_user_id"
+    t.integer "likes_user_id"
+    t.integer "liked_user_id"
+    t.index ["liked_user_id"], name: "index_like_user_relations_on_liked_user_id"
+    t.index ["likes_user_id"], name: "index_like_user_relations_on_likes_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -86,14 +78,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_15_082527) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["email", "deleted_at"], name: "index_users_on_email_and_deleted_at", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "like_user_relations", "likes"
-  add_foreign_key "like_user_relations", "users"
-  add_foreign_key "likeds", "users"
+  add_foreign_key "like_user_relations", "liked_users"
+  add_foreign_key "like_user_relations", "likes_users"
   add_foreign_key "likes", "users"
   add_foreign_key "user_informations", "users"
 end
