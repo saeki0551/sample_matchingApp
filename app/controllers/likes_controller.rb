@@ -5,12 +5,12 @@ class LikesController < ApplicationController
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
     begin
-      matching_user = @like.users.find(@like.liked_user_id)
+      matching_user = @like.users.find(@like.user_id)
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: "いいねするユーザーが見つかりません。"}
     end
-    if matching_user.liked_user?(liked_user_id: @like.user_id)
+    if matching_user.liked_user?(user_id: like_params[:user_ids][0])
       redirect_to user_path(matching_user), notice: 'マッチングしました。'
     end
   end
@@ -29,7 +29,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:id, :user_id).merge(user_id: current_user.id, liked_user_id: params[:user_id], user_ids: [current_user.id, params[:user_id]])
+      params.permit(:id, :user_id).merge(user_ids: [current_user.id, params[:user_id]])
     end
 
     def user_params
