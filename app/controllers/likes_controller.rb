@@ -4,16 +4,7 @@ class LikesController < ApplicationController
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
-    binding.pry
-    begin
-      matching_user = @like.users.find(@like.user_id)
-    rescue => e
-      logger.error(e.message)
-      return redirect_to users_path, flash: {alert: "いいねするユーザーが見つかりません。"}
-    end
-    if matching_user.liked_user?(user_id: like_params[:user_ids][0])
-      redirect_to user_path(matching_user), notice: 'マッチングしました。'
-    end
+
   end
 
   def destroy
@@ -30,7 +21,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:user_id)
+      params.permit(:id, :user_id)
     end
 
     def user_params
