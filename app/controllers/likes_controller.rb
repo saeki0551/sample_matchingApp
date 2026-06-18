@@ -1,9 +1,10 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(like_params)
+    @like = current_user.likes.new(liked_user_id: like_params[:user_id])
     unless @like.save
       redirect_to users_path, alert: 'いいねができませんでした。'
     end
+    binding.pry
     begin
       matching_user = @like.users.find(@like.user_id)
     rescue => e
@@ -29,7 +30,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:id, :user_id).merge(user_ids: [current_user.id, params[:user_id]])
+      params.permit(:user_id)
     end
 
     def user_params

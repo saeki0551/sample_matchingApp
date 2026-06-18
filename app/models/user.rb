@@ -3,8 +3,8 @@ class User < ApplicationRecord
   :recoverable, :rememberable
   
   has_one :user_information, dependent: :destroy
-  has_many :like_user_relations
-  has_many :likes, through: :like_user_relations
+  has_many :likes, dependent: :destroy
+  has_many :liked_users, class_name: 'Like', foreign_key: 'liked_user_id'
 
   validates_uniqueness_of :email, scope: :deleted_at
 
