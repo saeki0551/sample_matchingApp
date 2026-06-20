@@ -6,7 +6,7 @@ class LikesController < ApplicationController
       matching_like = current_user.liked_users.find_by(user_id: like_params[:user_id])
     rescue => e
       logger.error(e.message)
-      return redirect_to users_path, flash: {alert: "いいねできません、もしくは相手のユーザーの取得に失敗しました。"}
+      return redirect_to users_path, flash: {alert: 'いいねできません、もしくは相手のユーザーの取得に失敗しました。'}
     end
     if matching_like
       redirect_to user_path(matching_like.user), notice: 'マッチングしました。'
