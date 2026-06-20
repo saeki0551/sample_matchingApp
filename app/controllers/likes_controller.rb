@@ -16,13 +16,13 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find(like_params[:id])
+    @like = Like.find(params[:id])
     begin
       @like.destroy!
-      flash[:notice] = 'いいねを削除しました。'
-      render template: 'users/index'
+      redirect_to user_path(@like.liked_user_id), notice: 'いいねを削除しました。'
     rescue => e
       logger.error(e.message)
+      binding.pry
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
     end
   end
@@ -34,7 +34,7 @@ class LikesController < ApplicationController
   private
 
     def like_params
-      params.permit(:id, :user_id)
+      params.permit(:user_id)
     end
 
     def user_params
