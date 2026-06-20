@@ -20,6 +20,7 @@ class LikesController < ApplicationController
     begin
       @like.destroy!
       flash[:notice] = 'いいねを削除しました。'
+      render template: 'users/index'
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
