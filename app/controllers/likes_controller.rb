@@ -17,8 +17,12 @@ class LikesController < ApplicationController
 
   def destroy
     @like = Like.find(like_params[:id])
-    unless @like.destroy
-      redirect_to users_path, alert: 'いいねが削除できませんでした。'
+    begin
+      @like.destroy!
+      flash[:notice] = 'いいねを削除しました。'
+    rescue => e
+      logger.error(e.message)
+      return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
     end
   end
 
