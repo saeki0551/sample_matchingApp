@@ -2,7 +2,11 @@
 <% @users.each do |user| %>
   <% unless user == current_user %>
     <div id="user">
-      <li id="user-img_<%= user.id %>"><%= image_tag user.user_information.image %></li>
+      <li>
+        <%= link_to user_path(user.id), remote: true do %>
+          <%= image_tag user.user_information.image %>
+        <% end %>
+      </li>
       <div class="user-like">
         <% if current_user.liked_user?(liked_user_id: user.id) %>
           <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
@@ -16,8 +20,6 @@
           <li><%= user.user_information.prefecture.name %></li>
         </ul>
       </div>
-      <div id="detail-user-information_<%= user.id %>"><%= render partial: 'show', locals: { user: user } %></div>
     </div>
   <% end %>
 <% end %>
-<%= javascript_include_tag 'show-detail-user-information.js' %>
