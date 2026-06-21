@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :likes, only: [:create, :destroy]
-      get 'matching_users', to: 'likes#matching_users', as: :matching
+    get 'matching_users', to: 'likes#matching_users', as: :matching
   end
   
   delete "users/:id/destroy", to: "users#destroy", as: :destroy_user
