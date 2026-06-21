@@ -28,6 +28,10 @@ class UsersController < ApplicationController
     return redirect_to new_user_session_path, alert: 'ユーザーidが一致していません。'  unless @user.id == session[:ensure_user_id]
   end
 
+  def matching_users
+    @likeds = current_user.liked_users
+  end
+
   private
 
     def user_params

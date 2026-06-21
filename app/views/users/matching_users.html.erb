@@ -1,0 +1,14 @@
+<h2>マッチング相手一覧ページ</h2>
+<% @likeds.each do |liked| %>
+  <% if current_user.likes.find_by(liked_user_id: liked.user_id) %>
+    <%= image_tag liked.user.user_information.image, size: "50x50" %></br>
+    <ul>
+      <li>メールアドレス：<%= liked.user.email %></li>
+      <li>名前：<%= link_to "#{ liked.user.user_information.name }", user_path(liked.user) %></li>
+      <li>年齢：<%= liked.user.user_information.age %></li>
+      <li>生年月日：<%= liked.user.user_information.birth_date %></li>
+      <li>都道府県：<%= liked.user.user_information.prefecture.name %></li>
+      <li>趣味：<%= liked.user.user_information.hobby.name %></li>
+    </ul>
+  <% end %>
+<% end %>

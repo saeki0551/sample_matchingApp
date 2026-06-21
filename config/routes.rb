@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   root "tops#index"
 
   resources :users do
+    get 'matching_users', to: 'users#matching_users', as: :matching
     resources :likes, only: [:create, :destroy]
-    get 'matching_users', to: 'likes#matching_users', as: :matching
   end
   
   delete "users/:id/destroy", to: "users#destroy", as: :destroy_user

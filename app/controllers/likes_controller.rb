@@ -27,10 +27,6 @@ class LikesController < ApplicationController
     end
   end
 
-  def matching_users
-    @likes = Like.where(liked_user_id: user_params[:user_id])  
-  end
-
   private
 
     def like_user_id_params
@@ -39,9 +35,5 @@ class LikesController < ApplicationController
 
     def like_id_params
       params.permit(:id)
-    end
-
-    def user_params
-      params.permit(:user_id)
     end
 end
