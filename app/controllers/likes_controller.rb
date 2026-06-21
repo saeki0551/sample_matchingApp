@@ -1,9 +1,9 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(liked_user_id: like_params[:user_id])
+    @like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
     begin
       @like.save!
-      matching_like = current_user.liked_users.find_by(user_id: like_params[:user_id])
+      matching_like = current_user.liked_users.find_by(user_id: like_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねできません、もしくは相手のユーザーの取得に失敗しました。'}
@@ -16,7 +16,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find(params[:id])
+    @like = Like.find(like_id_params[:id])
     begin
       @like.destroy!
       redirect_to user_path(@like.liked_user_id), notice: 'いいねを削除しました。'
@@ -33,8 +33,12 @@ class LikesController < ApplicationController
 
   private
 
-    def like_params
+    def like_user_id_params
       params.permit(:user_id)
+    end
+
+    def like_id_params
+      params.permit(:id)
     end
 
     def user_params
