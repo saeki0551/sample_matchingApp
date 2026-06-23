@@ -3,7 +3,7 @@
   <% unless user == current_user %>
     <div id="user">
       <li>
-        <%= link_to user_path(user.id), data: { turbo_stream: true } do %>
+        <%= link_to show_user_information_path(user.id), data: { turbo_stream: true } do %>
           <%= image_tag user.user_information.image %>
         <% end %>
       </li>

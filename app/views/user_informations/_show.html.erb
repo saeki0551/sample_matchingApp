@@ -1,6 +1,9 @@
 <%= stylesheet_link_tag "users_show", media: "all" %>
-<div class="detail-user">
-    <%= image_tag user.user_information.image , size: "50x50", class: "zoom" %></br>
+<div id="detail-user">
+  <div id="remove">
+    <%= link_to '×', remove_user_information_path(user.id), data: { turbo_method: 'delete' } %>
+  </div>
+  <%= image_tag user.user_information.image , size: "50x50", class: "zoom" %></br>
   <ul>
     <li><%= user.id %></li>
     <li><%= user.user_information.user_id %></li>
