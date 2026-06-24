@@ -22,7 +22,6 @@ class LikesController < ApplicationController
       redirect_to user_path(@like.liked_user_id), notice: 'いいねを削除しました。'
     rescue => e
       logger.error(e.message)
-      binding.pry
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
     end
   end
