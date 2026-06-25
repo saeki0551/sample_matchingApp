@@ -5,6 +5,5 @@ class CreateLikes < ActiveRecord::Migration[8.0]
       t.references :liked_user, null: false
       t.timestamps
     end
-    add_foreign_key :likes, :users, column: :liked_user_id
   end
 end
