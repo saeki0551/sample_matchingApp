@@ -16,9 +16,9 @@
   </ul>
   <div class="user-like">
     <% if current_user.liked_user?(liked_user_id: user.id) %>
-      <%= render partial: 'likes/destroy-detail', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
+      <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
     <% else %>
-      <%= render partial: 'likes/create-detail', locals: { user_id: user.id }%>
+      <%= render partial: 'likes/create', locals: { user_id: user.id }%>
     <% end %>
   </div>
   <li><%= link_to "メッセージを送る", root_path %></li>
