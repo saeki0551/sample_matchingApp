@@ -1,0 +1,16 @@
+#detail-user {
+  width: 800px;
+  height: 550px;
+  position:  absolute;
+  top: 100px;
+  left: 300px;
+  background-color: darkgrey;
+  z-index: 1;
+  img {
+    width: 200px;
+    height: 200px;
+    margin: 25px 0 0 10px;
+    border-radius: 75%;
+    object-fit: cover;
+  }
+}
