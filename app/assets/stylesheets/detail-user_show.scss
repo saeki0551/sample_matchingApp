@@ -1,21 +1,21 @@
 #detail-user {
+  width: 100%;
   height: 550px;
-  position:  absolute;
-  top: 108px;
   z-index: 1;
-  // display: flex;
-  // justify-content: center;
-  margin: 0 auto;
+  position:  absolute;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 108px;
   &:before {
-    width: 1425px;
-    height: 700px;
-    // display: block;
+    width: 350px;
+    height: 550px;
     top: 0;
-    left: -30%;
+    left: 40%;
     position: absolute;
     content: '';
-    background-color: darkgrey;
-    opacity: 0;
+    background-color: skyblue;
+    // opacity: 0;
     z-index: -1;
   }
   user {
