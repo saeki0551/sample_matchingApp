@@ -1,16 +1,31 @@
 #detail-user {
-  width: 800px;
   height: 550px;
   position:  absolute;
-  top: 100px;
-  left: 300px;
-  background-color: darkgrey;
+  top: 108px;
   z-index: 1;
-  img {
-    width: 200px;
-    height: 200px;
-    margin: 25px 0 0 10px;
-    border-radius: 75%;
-    object-fit: cover;
+  // display: flex;
+  // justify-content: center;
+  margin: 0 auto;
+  &:before {
+    width: 1425px;
+    height: 700px;
+    // display: block;
+    top: 0;
+    left: -30%;
+    position: absolute;
+    content: '';
+    background-color: darkgrey;
+    opacity: 0;
+    z-index: -1;
+  }
+  user {
+    top: 50%;
+    img {
+      width: 200px;
+      height: 200px;
+      margin: 25px 0 0 10px;
+      border-radius: 75%;
+      object-fit: cover;
+    }
   }
 }
