@@ -1,31 +1,24 @@
-#detail-user {
+.detail-user-wrap {
   width: 100%;
   height: 550px;
-  z-index: 1;
-  position:  absolute;
-  position: fixed;
-  display: flex;
-  justify-content: center;
   top: 108px;
-  &:before {
+  left: 0%;
+  position: fixed;
+  #detail-user {
     width: 350px;
     height: 550px;
-    top: 0;
-    left: 40%;
-    position: absolute;
-    content: '';
+    margin: 0 auto;
     background-color: skyblue;
-    // opacity: 0;
-    z-index: -1;
-  }
-  user {
-    top: 50%;
-    img {
-      width: 200px;
-      height: 200px;
-      margin: 25px 0 0 10px;
-      border-radius: 75%;
-      object-fit: cover;
+    border: 1px solid black;
+    user {
+      top: 50%;
+      img {
+        width: 200px;
+        height: 200px;
+        margin: 25px 0 0 10px;
+        border-radius: 75%;
+        object-fit: cover;
+      }
     }
   }
 }
