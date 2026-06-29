@@ -20,17 +20,15 @@ main {
     }
     .user-like li {
       width: 40px;
-      top: -60px;
-      left: 155px;
       font-size: 30px;
-      position: relative;
-      margin-bottom: -50px;
+      margin: -10px 0 -50px 170px;
       a {
         text-decoration: none;
         padding: 10px 15px;
         color: hotpink;
         background-color: white;
         border-radius: 50%;
+        border: 1px solid hotpink;
       }
     }
     .user-data ul{
