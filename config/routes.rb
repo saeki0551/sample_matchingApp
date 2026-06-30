@@ -14,11 +14,10 @@ Rails.application.routes.draw do
   end
   
   delete "users/:id/destroy", to: "users#destroy", as: :destroy_user
+  delete 'users/:id/remove', to: 'users#remove', as: :remove_user
   get "users/:id/cancel_membership", to: "users#cancel_membership", as: :cancel_membership_user
   
   get 'user_informations/new', to: 'user_informations#new', as: :new_user_information
   post 'user_informations/create', to: 'user_informations#create', as: :create_user_information
-  get 'user_informations/:id/show', to: 'user_informations#show', as: :show_user_information
-  delete 'user_informations/:id/remove', to: 'user_informations#remove', as: :remove_user_information
 end
   
