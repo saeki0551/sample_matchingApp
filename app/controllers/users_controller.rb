@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    @user = User.find(user_params[:id])
+  end
+
   def destroy
     user = User.find(params[:id])
     return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'  unless user.id == current_user.id
@@ -27,11 +31,7 @@ class UsersController < ApplicationController
     @user = User.find(user_params[:id])
     return redirect_to new_user_session_path, alert: 'ユーザーidが一致していません。'  unless @user.id == session[:ensure_user_id]
   end
-
-  def show
-    @user = User.find(user_params[:id])
-  end
-
+  
   private
 
     def user_params
