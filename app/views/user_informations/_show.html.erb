@@ -7,10 +7,8 @@
     <div class="user">
       <%= image_tag user.user_information.image , size: "50x50", class: "zoom" %></br>
       <ul>
-        <li><%= user.id %></li>
-        <li><%= user.user_information.user_id %></li>
         <li>メールアドレス：<%= user.email %></li>
-        <li>名前：<%= link_to "#{ user.user_information.name }", user_path(user) %></li>
+        <li>名前：<%= user.user_information.name %></li>
         <li>年齢：<%= user.user_information.age %></li>
         <li>生年月日：<%= user.user_information.birth_date %></li>
         <li>都道府県：<%= user.user_information.prefecture.name %></li>
@@ -23,7 +21,9 @@
           <%= render partial: 'likes/create', locals: { user_id: user.id }%>
         <% end %>
       </div>
-      <li><%= link_to "メッセージを送る", root_path %></li>
+      <div class="message">
+        <li><%= link_to "✉", root_path %></li>
+      </div>
     </div>
   </div>
 </div>
