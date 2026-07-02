@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
   def create
-    like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
     begin
+      like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
       like.save!
     rescue => e
       logger.error(e.message)
