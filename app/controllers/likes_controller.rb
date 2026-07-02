@@ -1,8 +1,8 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
+    like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
     begin
-      @like.save!
+      like.save!
       matching_like = current_user.liked_users.find_by(user_id: like_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
@@ -11,15 +11,15 @@ class LikesController < ApplicationController
     if matching_like
       redirect_to user_path(matching_like.user), notice: 'マッチングしました。'
     else
-      redirect_to user_path(@like.liked_user_id), notice: 'いいねしました。'
+      redirect_to user_path(like.liked_user_id), notice: 'いいねしました。'
     end
   end
 
   def destroy
-    @like = Like.find(like_id_params[:id])
+    like = Like.find(like_id_params[:id])
     begin
-      @like.destroy!
-      redirect_to user_path(@like.liked_user_id), notice: 'いいねを削除しました。'
+      like.destroy!
+      redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
