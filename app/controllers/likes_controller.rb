@@ -3,13 +3,12 @@ class LikesController < ApplicationController
     like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
     begin
       like.save!
-      matching_like = current_user.liked_users.find_by(user_id: like_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねできません、もしくは相手のユーザーの取得に失敗しました。'}
     end
-    if matching_like
-      redirect_to user_path(matching_like.user), notice: 'マッチングしました。'
+    if current_user.liked_users.exists?(user_id: like_user_id_params[:user_id])
+      redirect_to user_path(like.liked_user_id), notice: 'マッチングしました。'
     else
       redirect_to user_path(like.liked_user_id), notice: 'いいねしました。'
     end
