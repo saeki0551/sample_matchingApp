@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def in_time_cancel_membership?(account_stop_time)
-    Time.zone.now - self.deleted_at < account_stop_time[:account_stop_time] 
+    Time.zone.now - self.deleted_at < account_stop_time[:account_stop_time]
   end
 
   def get_latest_user(sign_in_params)
