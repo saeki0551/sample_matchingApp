@@ -13,6 +13,9 @@ class UsersController < ApplicationController
     @user = User.find(user_params[:id])
   end
 
+  def remove
+  end
+
   def destroy
     user = User.find(params[:id])
     return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'  unless user.id == current_user.id
