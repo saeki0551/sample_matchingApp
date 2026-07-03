@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable
-  
+
   has_one :user_information, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_users, class_name: 'Like', foreign_key: 'liked_user_id', dependent: :destroy
@@ -13,7 +13,7 @@ class User < ApplicationRecord
     return 'パスワード は6文字以上12文字以内である必要があります。' unless password[:password].length >= 6 && password[:password].length <= 12
     return 'パスワード と パスワード確認 が一致していません。' unless password[:password] == password[:password_confirmation]
   end
-  
+
   def sort_created_user(email)
     User.order(deleted_at: :desc).find_by(email: email.values)
   end
