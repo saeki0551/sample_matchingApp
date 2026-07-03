@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
   root "tops#index"
   
-  get 'users/matching_users', to: 'users#matching_users', as: :matching_users 
+  get 'users/matching_users', to: 'users#matching_users', as: :matching_users
   
   resources :users do
     resources :likes, only: [:create, :destroy]
