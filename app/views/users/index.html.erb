@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "users_index", media: "all" %>
 <% @users.each do |user| %>
   <% unless user == current_user %>
-    <div id="user">
+    <div class="user">
       <li>
         <%= link_to user_path(user.id), data: { turbo_stream: true } do %>
           <%= image_tag user.user_information.image %>
