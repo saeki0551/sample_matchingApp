@@ -17,19 +17,6 @@ main {
       border-radius: 75%;
       object-fit: cover;
     }
-    .user-like li {
-      width: 40px;
-      font-size: 30px;
-      margin: -45px 0 0px 155px;
-      a {
-        text-decoration: none;
-        padding: 10px 15px;
-        color: hotpink;
-        background-color: white;
-        border-radius: 50%;
-        border: 1px solid hotpink;
-      }
-    }
     .user-data ul{
       display: flex;
       justify-content: center;

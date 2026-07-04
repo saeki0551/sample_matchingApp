@@ -3,7 +3,7 @@
   height: 100%;
   top: 108px;
   left: 0%;
-  position: fixed;
+  // position: fixed;
   .detail-user {
     width: 350px;
     height: 500px;
@@ -21,8 +21,18 @@
       img {
         pointer-events: none;
       }
-      .user-like {
-        margin-left: 50px;
+      .user-like li {
+        width: 40px;
+        font-size: 30px;
+        margin: -45px 0 0px 180px;
+        a {
+          text-decoration: none;
+          padding: 10px 15px;
+          color: hotpink;
+          background-color: white;
+          border-radius: 50%;
+          border: 1px solid hotpink;
+        }
       }
       .message {
         width: 40px;
