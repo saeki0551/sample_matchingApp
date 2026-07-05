@@ -10,7 +10,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(user_params[:id])
+    begin
+      @user = User.find(user_params[:id])
+      if @user.deleted_at
+        raise ActiveRecord::RecordNotFound
+      end
+    rescue => e
+      logger.error(e.message)
+      return redirect_to users_path, flash: {alert: '存在しないユーザーです。'}
+    end
   end
 
   def remove
