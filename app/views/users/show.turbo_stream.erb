@@ -1,1 +1,1 @@
-<%= turbo_stream.append_all ".user", partial: "show", locals: {user: @user, like: @like} %>
+<%= turbo_stream.append "user_#{@user.id}", partial: "show", locals: { user: @user } %>
