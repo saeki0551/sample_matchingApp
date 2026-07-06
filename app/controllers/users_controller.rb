@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :cancel_membership]
 
   def index
-    @users = User.all
+    @users = User.where(deleted_at: nil)
   end
 
   def new
