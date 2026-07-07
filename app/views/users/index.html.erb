@@ -2,11 +2,9 @@
 <% @users.each do |user| %>
   <% unless user == current_user %>
     <div id="user_<%= user.id %>" class="user">
-      <li>
-        <%= link_to user_path(user.id), data: { turbo_stream: true } do %>
+      <li><%= link_to user_path(user.id), data: { turbo_stream: true } do %>
           <%= image_tag user.user_information.image %>
-        <% end %>
-      </li>
+        <% end %></li>
       <div class="user-data">
         <ul>
           <li><%= user.user_information.age %>歳</li>
