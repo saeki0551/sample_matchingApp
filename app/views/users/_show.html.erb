@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "detail-user_show", media: "all" %>
-<div class="detail-user-wrap">
-  <div class="detail-user"> 
+<div id="detail-user-wrap">
+  <div id="detail-user"> 
     <div id="remove">
       <%= link_to '×', remove_user_path(user.id), data: { turbo_method: 'delete' } %>
     </div>
