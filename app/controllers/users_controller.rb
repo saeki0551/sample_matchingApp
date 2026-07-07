@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.find(user_params[:id])
     return redirect_to new_user_session_path, alert: 'ユーザーidが一致していません。'  unless @user.id == session[:ensure_user_id]
   end
-  
+
   private
 
     def user_params
