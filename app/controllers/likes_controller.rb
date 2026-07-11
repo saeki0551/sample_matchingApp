@@ -16,7 +16,7 @@ class LikesController < ApplicationController
 
   def destroy
     begin
-      like = Like.find(like_id_params[:id])
+      like = Like.find(params[:id])
       like.destroy!
       redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
     rescue => e
@@ -29,9 +29,5 @@ class LikesController < ApplicationController
 
     def like_user_id_params
       params.permit(:user_id)
-    end
-
-    def like_id_params
-      params.permit(:id)
     end
 end
