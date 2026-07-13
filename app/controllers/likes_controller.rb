@@ -1,8 +1,7 @@
 class LikesController < ApplicationController
   def create
     begin
-      like = current_user.likes.new(liked_user_id: like_user_id_params[:user_id])
-      like.save!
+      like = current_user.likes.create!(liked_user_id: like_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねできませんでした。'}
