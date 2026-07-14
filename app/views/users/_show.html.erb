@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "detail-user_show", media: "all" %>
 <div id="detail-user-wrap">
   <div id="detail-user"> 
-    <div id="remove"><%= link_to '×', remove_user_path(user.id), data: { turbo_method: 'delete' } %></div>
+    <li id="remove"><%= link_to '×', remove_user_path(user.id), data: { turbo_method: 'delete' } %></li>
     <div class="user">
       <%= image_tag user.user_information.image, size: "50x50", class: "zoom" %></br>
       <ul>
@@ -19,9 +19,7 @@
           <%= render partial: 'likes/create', locals: { user_id: user.id }%>
         <% end %>
       </div>
-      <div class="message">
-        <li><%= link_to "✉", root_path %></li>
-      </div>
+      <li class="message"><%= link_to "✉", root_path %></li>
     </div>
   </div>
 </div>
