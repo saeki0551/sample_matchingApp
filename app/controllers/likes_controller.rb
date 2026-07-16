@@ -17,11 +17,11 @@ class LikesController < ApplicationController
     begin
       like = Like.find(params[:id])
       like.destroy!
-      redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
     end
+    redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
   end
 
   private
