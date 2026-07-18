@@ -15,7 +15,7 @@ class LikesController < ApplicationController
 
   def destroy
     begin
-      like = Like.find(params[:id])
+      like = current_user.likes.find(params[:id])
       like.destroy!
     rescue => e
       logger.error(e.message)
