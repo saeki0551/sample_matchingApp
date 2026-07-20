@@ -13,36 +13,23 @@ targetTime.setMinutes(targetTime.getMinutes() + targetMinitues);
 targetTime.setSeconds(targetTime.getSeconds() + targetSeconds);
 var endTime = targetTime.getTime();
 
-console.log(endTime);
-
 var user_data = {
   email: email,
   deleted_at: deleted_at,
   endTime: endTime
 }
 
-const serializedArray = localStorage.getItem('myArray');
-const array = JSON.parse(serializedArray);
+var serializedArray = localStorage.getItem('myArray');
+var array = JSON.parse(serializedArray);
 
 function users(user_data) {
   return user_data.email === email && user_data.deleted_at === deleted_at;
 }
 
-if (array){
-  if (array.find(users)) {
-    console.log("true array.find");
-    var target_user_data = array.find(users);
-    console.log(target_user_data.endTime);
-    var endTime = target_user_data.endTime;
-  } else {
-    console.log("false array.find");
-    const user_data_array = [];
-    user_data_array.push(user_data);
-    const serializedArray = JSON.stringify(user_data_array);
-    localStorage.setItem('myArray', serializedArray);
-  }
+if (array.find(users)) {
+  var target_user_data = array.find(users);
+  var endTime = target_user_data.endTime;
 } else {
-  console.log("false array");
   const user_data_array = [];
   user_data_array.push(user_data);
   const serializedArray = JSON.stringify(user_data_array);
@@ -63,5 +50,5 @@ function updateCountDown(){
     message.textContent = "再度、新規登録できます。";
   }
 }
-const interval = setInterval(updateCountDown, 1000);
+var interval = setInterval(updateCountDown, 1000);
 updateCountDown();
