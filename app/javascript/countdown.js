@@ -19,21 +19,16 @@ var user_data = {
   endTime: endTime
 }
 
-var serializedArray = localStorage.getItem('myArray');
-var array = JSON.parse(serializedArray);
+var already_user = JSON.parse(localStorage.getItem('myArray'));
 
-function users(user_data) {
-  return user_data.email === email && user_data.deleted_at === deleted_at;
-}
-
-if (array.find(users)) {
-  var target_user_data = array.find(users);
-  var endTime = target_user_data.endTime;
+if (already_user) {
+  if(already_user.email === email && already_user.deleted_at === deleted_at) {
+    var endTime = already_user.endTime;
+  } else {
+    localStorage.setItem('myArray', JSON.stringify(user_data));
+  } 
 } else {
-  const user_data_array = [];
-  user_data_array.push(user_data);
-  const serializedArray = JSON.stringify(user_data_array);
-  localStorage.setItem('myArray', serializedArray);
+  localStorage.setItem('myArray', JSON.stringify(user_data));
 }
 
 function updateCountDown(){
