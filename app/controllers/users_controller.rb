@@ -9,6 +9,21 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    begin
+      @user = User.find(user_params[:id])
+      if @user.deleted_at
+        raise ActiveRecord::RecordNotFound
+      end
+    rescue => e
+      logger.error(e.message)
+      return redirect_to users_path, flash: {alert: '存在しないユーザーです。'}
+    end
+  end
+
+  def remove
+  end
+
   def destroy
     user = User.find(params[:id])
     return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'  unless user.id == current_user.id

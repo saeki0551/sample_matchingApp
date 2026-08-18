@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy]
   end
   
-  delete "users/:id/destroy", to: "users#destroy", as: :destroy_user
+  delete "users/destroy", to: "users#destroy", as: :destroy_user
+  delete 'users/:id/remove', to: 'users#remove', as: :remove_user
   get "users/:id/cancel_membership", to: "users#cancel_membership", as: :cancel_membership_user
   
   get 'user_informations/new', to: 'user_informations#new', as: :new_user_information

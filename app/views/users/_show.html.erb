@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "detail_user_show", media: "all" %>
+<div id="detail-user-wrap">
+  <div id="detail-user"> 
+    <li id="remove"><%= link_to '×', remove_user_path(user.id), data: { turbo_method: 'delete' } %></li>
+    <%= image_tag user.user_information.image, size: "50x50", class: "zoom" %></br>
+    <ul>
+      <li>メールアドレス：<%= user.email %></li>
+      <li>名前：<%= user.user_information.name %></li>
+      <li>年齢：<%= user.user_information.age %></li>
+      <li>生年月日：<%= user.user_information.birth_date %></li>
+      <li>都道府県：<%= user.user_information.prefecture.name %></li>
+      <li>趣味：<%= user.user_information.hobby.name %></li>
+    </ul>
+    <div class="user-like">
+      <% if current_user.liked_user?(liked_user_id: user.id) %>
+        <%= render partial: 'likes/destroy', locals: { like: current_user.likes.find_by(liked_user_id: user.id) } %>
+      <% else %>
+        <%= render partial: 'likes/create', locals: { user_id: user.id }%>
+      <% end %>
+    </div>
+    <li class="message"><%= link_to "✉", root_path %></li>
+  </div>
+</div>
