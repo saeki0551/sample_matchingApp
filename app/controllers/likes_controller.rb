@@ -5,6 +5,7 @@ class LikesController < ApplicationController
     rescue => e
       logger.error(e.message)
       return redirect_to users_path, flash: {alert: 'いいねできませんでした。'}
+      # エラー処理分ける
     end
     if current_user.liked_users.exists?(user_id: like_user_id_params[:user_id])
       redirect_to user_path(like.liked_user_id), notice: 'マッチングしました。'
@@ -19,6 +20,7 @@ class LikesController < ApplicationController
       like.destroy!
     rescue => e
       logger.error(e.message)
+      # エラー処理分ける
       return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
     end
     redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
