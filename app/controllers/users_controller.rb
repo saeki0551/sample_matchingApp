@@ -28,6 +28,16 @@ class UsersController < ApplicationController
     return redirect_to new_user_session_path, alert: 'ユーザーidが一致していません。'  unless @user.id == session[:ensure_user_id]
   end
 
+  def matching_users
+    @matching_users = []
+    @likeds = current_user.liked_users
+    @likeds.each do |liked| 
+      if current_user.likes.find_by(liked_user_id: liked.user_id)
+        @matching_users.push(liked.user)
+      end
+    end
+  end
+
   private
 
     def user_params
