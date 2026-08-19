@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_225045) do
     t.integer "liked_user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["liked_user_id"], name: "index_likes_on_liked_user_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -76,5 +77,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_225045) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "likes", "users"
+  add_foreign_key "likes", "users", column: "liked_user_id"
   add_foreign_key "user_informations", "users"
 end
