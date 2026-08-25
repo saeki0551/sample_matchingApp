@@ -4,8 +4,15 @@ class LikesController < ApplicationController
       like = current_user.likes.create!(liked_user_id: like_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
-      return redirect_to users_path, flash: {alert: 'いいねできませんでした。'}
-      # エラー処理分ける
+      if e.class == ActiveRecord::RecordInvalid
+        return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
+      elsif e.class == NoMethodError
+        return redirect_to users_path, flash: {alert: 'ソースコードに異常があるため、いいねできませんでした。'}
+      elsif e.class == ActiveModel::UnknownAttributeError
+        return redirect_to users_path, flash: {alert: 'カラムに異常があるため、いいねできませんでした。'}
+      else
+        return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねできませんでした。'}
+      end
     end
     if current_user.liked_users.exists?(user_id: like_user_id_params[:user_id])
       redirect_to user_path(like.liked_user_id), notice: 'マッチングしました。'
