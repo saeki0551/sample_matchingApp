@@ -6,10 +6,8 @@ class LikesController < ApplicationController
       logger.error(e.message)
       if e.class == ActiveRecord::RecordInvalid
         return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
-      elsif e.class == NoMethodError
-        return redirect_to users_path, flash: {alert: 'ソースコードに異常があるため、いいねできませんでした。'}
-      elsif e.class == ActiveModel::UnknownAttributeError
-        return redirect_to users_path, flash: {alert: 'カラムに異常があるため、いいねできませんでした。'}
+      elsif e.class == NoMethodError || e.class == ActiveModel::UnknownAttributeError
+        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、いいねできませんでした。'}
       else
         return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねできませんでした。'}
       end
