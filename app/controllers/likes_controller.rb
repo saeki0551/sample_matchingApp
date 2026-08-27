@@ -1,12 +1,12 @@
 class LikesController < ApplicationController
   def create
     begin
-      like = current_user.likes.create!(liked_user_id: like_user_id_params[:user_id])
+      like = current_user.likes.create!(liked_user_id: lie_user_id_params[:user_id])
     rescue => e
       logger.error(e.message)
       if e.class == ActiveRecord::RecordInvalid
         return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
-      elsif e.class == NoMethodError || e.class == ActiveModel::UnknownAttributeError
+      elsif e.class == NoMethodError || e.class == ActiveModel::UnknownAttributeError || e.class == NameError
         return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、いいねできませんでした。'}
       else
         return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねできませんでした。'}
