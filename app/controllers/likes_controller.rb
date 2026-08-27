@@ -25,8 +25,13 @@ class LikesController < ApplicationController
       like.destroy!
     rescue => e
       logger.error(e.message)
-      # エラー処理分ける
-      return redirect_to users_path, flash: {alert: 'いいねが削除できませんでした。'}
+      if e.class == ActiveRecord::RecordNotFound
+        return redirect_to users_path, flash: {alert: 'いいねを削除する相手が存在しません。'}
+      elsif e.class == NoMethodError
+        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、いいねを削除できませんでした。'}
+      else
+        return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねを削除できませんでした。'}
+      end
     end
     redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
   end
