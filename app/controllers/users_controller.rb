@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   def matching_users
     @matching_users = []
     @likeds = current_user.liked_users
-    @likeds.each do |liked| 
+    @likeds.each do |liked|
       if current_user.likes.find_by(liked_user_id: liked.user_id)
         @matching_users.push(liked.user)
       end
