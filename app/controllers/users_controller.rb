@@ -11,13 +11,19 @@ class UsersController < ApplicationController
 
   def show
     begin
-      @user = User.find(user_params[:id])
+      @user = User.find(params[:id])
       if @user.deleted_at
         raise ActiveRecord::RecordNotFound
       end
     rescue => e
       logger.error(e.message)
-      return redirect_to users_path, flash: {alert: '存在しないユーザーです。'}
+      if e.class == ActiveRecord::RecordNotFound
+        return redirect_to users_path, flash: {alert: '存在しないユーザーのため、ユーザーの詳細画面が開けませんでした。'}
+      elsif e.class == NoMethodError || e.class == NameError
+        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、ユーザーの詳細画面が開けませんでした。'}
+      else
+        return redirect_to users_path, flash: {alert: '想定外のエラーのため、ユーザーの詳細画面が開けませんでした。'}
+      end
     end
   end
 
