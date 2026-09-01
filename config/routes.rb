@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     post 'users', to: 'users/registrations#create', as: :create_user_registration
   end
   root "tops#index"
-  
+
   delete 'users/remove', to: 'users#remove', as: :remove_user
 
   resources :users do
