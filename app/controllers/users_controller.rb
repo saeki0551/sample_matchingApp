@@ -9,6 +9,27 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def show
+    begin
+      @user = User.find(params[:id])
+      if @user.deleted_at
+        raise ActiveRecord::RecordNotFound
+      end
+    rescue => e
+      logger.error(e.message)
+      if e.class == ActiveRecord::RecordNotFound
+        return redirect_to users_path, flash: {alert: '存在しないユーザーのため、ユーザーの詳細画面が開けませんでした。'}
+      elsif e.class == NoMethodError || e.class == NameError
+        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、ユーザーの詳細画面が開けませんでした。'}
+      else
+        return redirect_to users_path, flash: {alert: '想定外のエラーのため、ユーザーの詳細画面が開けませんでした。'}
+      end
+    end
+  end
+
+  def remove
+  end
+
   def destroy
     user = User.find(params[:id])
     return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'  unless user.id == current_user.id
