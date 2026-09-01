@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "detail_user_show", media: "all" %>
 <div id="detail-user-wrap">
   <div id="detail-user"> 
-    <li id="remove"><%= link_to '×', remove_user_path(user.id), data: { turbo_method: 'delete' } %></li>
+    <li id="remove"><%= link_to '×', remove_user_path, data: { turbo_method: 'delete' } %></li>
     <%= image_tag user.user_information.image, size: "50x50", class: "zoom" %></br>
     <ul>
       <li>メールアドレス：<%= user.email %></li>
