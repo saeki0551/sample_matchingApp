@@ -1,0 +1,12 @@
+<h2>マッチング相手一覧ページ</h2>
+<% @matching_users.each do |matching_user| %>
+  <%= image_tag matching_user.user_information.image, size: "50x50" %></br>
+  <ul>
+    <li>メールアドレス：<%= matching_user.email %></li>
+    <li>名前：<%= matching_user.user_information.name %></li>
+    <li>年齢：<%= matching_user.user_information.age %></li>
+    <li>生年月日：<%= matching_user.user_information.birth_date %></li>
+    <li>都道府県：<%= matching_user.user_information.prefecture.name %></li>
+    <li>趣味：<%= matching_user.user_information.hobby.name %></li>
+  </ul>
+<% end %>
