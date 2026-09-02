@@ -1,7 +1,6 @@
 class LikesController < ApplicationController
   def create
     begin
-      binding.pry
       like = current_user.likes.create!(liked_user_id: params[:user_id])
     rescue => e
       logger.error(e.message)
@@ -13,7 +12,7 @@ class LikesController < ApplicationController
         return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねできませんでした。'}
       end
     end
-    if current_user.liked_users.exists?(user_id: like.user_id)
+    if current_user.liked_users.exists?(user_id: like.liked_user_id)
       redirect_to user_path(like.liked_user_id), notice: 'マッチングしました。'
     else
       redirect_to user_path(like.liked_user_id), notice: 'いいねしました。'
