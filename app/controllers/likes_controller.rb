@@ -2,7 +2,8 @@ class LikesController < ApplicationController
   def create
     begin
       like = current_user.likes.create!(liked_user_id: params[:user_id])
-    rescue ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid => e
+      logger.error e
       return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
     if current_user.liked_users.exists?(user_id: like.liked_user_id)
