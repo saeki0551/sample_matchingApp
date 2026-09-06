@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
 
   ACCOUNT_STOP_TIME = 100
 
+  rescue_from NoMethodError, with: :render500
+
+  def render500(error = nil)
+    Rails.logger.error("❌#{error.message}")
+    redirect_to system_error_path
+  end
+
   private 
 
     def after_sign_in_path_for(resource)
