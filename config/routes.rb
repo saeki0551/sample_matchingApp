@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   get 'user_informations/new', to: 'user_informations#new', as: :new_user_information
   post 'user_informations/create', to: 'user_informations#create', as: :create_user_information
+
+  get 'errors/system', to: 'errors#system', as: :system_error
 end
