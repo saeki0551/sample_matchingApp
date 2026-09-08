@@ -17,15 +17,9 @@ class LikesController < ApplicationController
     begin
       like = current_user.likes.find(params[:id])
       like.destroy!
-    rescue => e
-      logger.error(e.message)
-      if e.class == ActiveRecord::RecordNotFound
-        return redirect_to users_path, flash: {alert: 'いいねを削除する相手が存在しません。'}
-      elsif e.class == NoMethodError || e.class == NameError
-        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、いいねを削除できませんでした。'}
-      else
-        return redirect_to users_path, flash: {alert: '想定外のエラーのため、いいねを削除できませんでした。'}
-      end
+    rescue ActiveRecord::RecordInvalid => e
+      logger.error e
+      return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
     redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
   end
