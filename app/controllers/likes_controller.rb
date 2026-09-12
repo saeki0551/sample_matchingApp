@@ -17,7 +17,7 @@ class LikesController < ApplicationController
     begin
       like = current_user.likes.find(params[:id])
       like.destroy!
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordNotFound => e
       logger.error e
       return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
