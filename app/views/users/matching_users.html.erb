@@ -1,6 +1,6 @@
 <h2>マッチング相手一覧ページ</h2>
 <% @matching_users.each do |matching_user| %>
-  <%= image_tag matching_user.user_information.image, size: "50x50" %></br>
+  <%= image_tag matching_user.user_information.image, size: "50x50" %>
   <ul>
     <li>メールアドレス：<%= matching_user.email %></li>
     <li>名前：<%= matching_user.user_information.name %></li>
