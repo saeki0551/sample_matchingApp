@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @matching_users = []
     likeds = current_user.liked_users
     likeds.each do |liked|
-      if current_user.likes.find_by(liked_user_id: liked.user_id)
+      if current_user.liked_user?(liked_user_id: liked.user_id)
         @matching_users.push(liked.user)
       end
     end
