@@ -4,7 +4,11 @@ class LikesController < ApplicationController
       like = current_user.likes.create!(liked_user_id: params[:user_id])
     rescue ActiveRecord::RecordInvalid => e
       logger.error e
-      return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
+      if e.message == 'Validation failed: User has already been taken'
+        return redirect_to users_path, flash: {alert: '既にいいねしています'}
+      else
+        return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
+      end
     end
     if current_user.liked_users.exists?(user_id: like.liked_user_id)
       redirect_to user_path(like.liked_user_id), notice: 'マッチングしました。'
@@ -19,6 +23,7 @@ class LikesController < ApplicationController
       like.destroy!
     rescue ActiveRecord::RecordNotFound => e
       logger.error e
+      binding.pry
       return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
     redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
