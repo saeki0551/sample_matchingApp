@@ -23,7 +23,6 @@ class LikesController < ApplicationController
       like.destroy!
     rescue ActiveRecord::RecordNotFound => e
       logger.error e
-      binding.pry
       return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
     redirect_to user_path(like.liked_user_id), notice: 'いいねを削除しました。'
