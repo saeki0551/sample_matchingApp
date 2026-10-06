@@ -30,9 +30,9 @@ class UsersController < ApplicationController
 
   def matching_users
     @matching_users = []
-    users = User.joins(:likes).uniq
+    users = User.includes(:likes)
     users.each do |user|
-      if current_user.liked_by?(user_id: user.id)
+      if current_user.liked_user?(liked_user_id: user.id) && current_user.liked_by?(user_id: user.id)
         @matching_users.push(user)
       end
     end

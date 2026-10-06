@@ -29,7 +29,7 @@ class User < ApplicationRecord
   def liked_user?(liked_user_id)
     likes.exists?(liked_user_id)
   end
-
+  
   def liked_by?(user_id)
     liked_users.exists?(user_id)
   end
