@@ -1,3 +1,10 @@
 <%= turbo_stream.replace "user_#{@like.liked_user_id}" do %>
   <%= render partial: 'destroy', locals: { like: @like } %>
 <% end %>
+<%= turbo_stream.update "message" do %>
+  <% if current_user.liked_by?(user_id: @like.liked_user.id) %>
+    <p>マッチングしました。</p>
+  <% else %>
+    <p>いいねしました。</p>
+  <% end %>
+<% end %>
