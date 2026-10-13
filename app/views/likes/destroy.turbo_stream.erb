@@ -2,5 +2,5 @@
   <%= render partial: 'create', locals: { user_id: @like.liked_user_id } %>
 <% end %>
 <%= turbo_stream.update_all ".message" do %>
-  <p>いいねを削除しました。</p>
+  <%= render partial: "layouts/message", locals: { flash: flash } %>
 <% end %>

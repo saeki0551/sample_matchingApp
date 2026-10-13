@@ -50,13 +50,12 @@
   </header>
   
   <body>
-    <% flash.each do |name, msg| %>
-      <% if name == "alert" %>
-        <span class="alert-message"><%= content_tag :div, msg %></span>
-      <% else %>
-        <span class="notice-message"><%= content_tag :div, msg %></span>
+    <div class="message">
+      <% unless flash %>
+        <%= render layout: "message", locals: { flash: flash } %>
       <% end %>
-    <% end %>
+    </div>
+
     <main>
       <%= yield %>
     </main>

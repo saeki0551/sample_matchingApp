@@ -2,9 +2,5 @@
   <%= render partial: 'destroy', locals: { like: @like } %>
 <% end %>
 <%= turbo_stream.update_all ".message" do %>
-  <% if current_user.liked_by?(user_id: @like.liked_user.id) %>
-    <p>マッチングしました。</p>
-  <% else %>
-    <p>いいねしました。</p>
-  <% end %>
+  <%= render partial: "layouts/message", locals: { flash: flash } %>
 <% end %>
