@@ -2,5 +2,5 @@
   <%= render partial: 'destroy', locals: { like: @like } %>
 <% end %>
 <%= turbo_stream.update_all ".message" do %>
-  <%= render partial: "layouts/message", locals: { flash: flash } %>
+  <%= render partial: "application/message" %>
 <% end %>

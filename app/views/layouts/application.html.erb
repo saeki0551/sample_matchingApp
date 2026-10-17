@@ -51,9 +51,7 @@
   
   <body>
     <div class="message">
-      <% unless flash %>
-        <%= render layout: "message", locals: { flash: flash } %>
-      <% end %>
+      <%= render partial: "message" %>
     </div>
 
     <main>
