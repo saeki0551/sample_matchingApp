@@ -11,9 +11,9 @@ class LikesController < ApplicationController
       end
     end
     if current_user.liked_by?(user_id: @like.liked_user.id)
-      flash[:notice] = 'マッチングしました。'
+      flash.now[:notice] = 'マッチングしました。'
     else
-      flash[:notice] = 'いいねしました。'
+      flash.now[:notice] = 'いいねしました。'
     end
   end
 
@@ -25,6 +25,6 @@ class LikesController < ApplicationController
       logger.error e
       return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
-    flash[:notice] = 'いいねを削除しました。'
+    flash.now[:notice] = 'いいねを削除しました。'
   end
 end
