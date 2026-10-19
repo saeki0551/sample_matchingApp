@@ -2,7 +2,7 @@
 <div id="detail-user-wrap">
   <div id="detail-user"> 
     <li id="remove"><%= link_to '×', remove_user_path, data: { turbo_method: 'delete' } %></li>
-    <%= image_tag user.user_information.image, size: "50x50", class: "zoom" %>
+    <%= image_tag user.user_information.image, size: "50x50" %>
     <ul>
       <li>メールアドレス：<%= user.email %></li>
       <li>名前：<%= user.user_information.name %></li>
