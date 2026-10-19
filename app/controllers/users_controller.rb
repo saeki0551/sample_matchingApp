@@ -13,16 +13,12 @@ class UsersController < ApplicationController
     begin
       @user = User.find(params[:id])
       if @user.deleted_at
-        raise ActiveRecord::RecordNotFound
+        return redirect_to users_path, flash: {alert: '退会したユーザーです。'}
       end
     rescue => e
       logger.error(e.message)
-      if e.class == ActiveRecord::RecordNotFound
-        return redirect_to users_path, flash: {alert: '存在しないユーザーのため、ユーザーの詳細画面が開けませんでした。'}
-      elsif e.class == NoMethodError || e.class == NameError
-        return redirect_to users_path, flash: {alert: 'プログラムのコードに異常があるため、ユーザーの詳細画面が開けませんでした。'}
-      else
-        return redirect_to users_path, flash: {alert: '想定外のエラーのため、ユーザーの詳細画面が開けませんでした。'}
+      unless User.exists?(@user)
+        return redirect_to users_path, flash: {alert: '存在しないユーザーです。'}
       end
     end
   end
