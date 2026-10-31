@@ -1,21 +1,30 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(liked_user_id: like_params[:user_id])
-    unless @like.save
-      redirect_to users_path, alert: 'いいねができませんでした。'
+    begin
+      @like = current_user.likes.create!(liked_user_id: params[:user_id])
+    rescue ActiveRecord::RecordInvalid => e
+      logger.error e
+      if current_user.likes.exists?(liked_user_id: params[:user_id])
+        return redirect_to users_path, flash: {alert: '既にいいねしています'}
+      else
+        return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
+      end
+    end
+    if current_user.liked_by?(user_id: @like.liked_user.id)
+      flash.now[:notice] = 'マッチングしました。'
+    else
+      flash.now[:notice] = 'いいねしました。'
     end
   end
 
   def destroy
-    @like = Like.find(like_params[:id])
-    unless @like.destroy
-      redirect_to users_path, alert: 'いいねが削除できませんでした。'
+    begin
+      @like = current_user.likes.find(params[:id])
+      @like.destroy!
+    rescue ActiveRecord::RecordNotFound => e
+      logger.error e
+      return redirect_to users_path, flash: {alert: 'いいねする相手が存在しません。'}
     end
+    flash.now[:notice] = 'いいねを削除しました。'
   end
-
-  private
-
-    def like_params
-      params.permit(:id, :user_id)
-    end
 end
