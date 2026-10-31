@@ -46,6 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_28_225045) do
     t.datetime "updated_at", null: false
     t.index ["liked_user_id"], name: "index_likes_on_liked_user_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+    t.check_constraint "user_id != liked_user_id", name: "check_self_like"
   end
 
   create_table "user_informations", force: :cascade do |t|
