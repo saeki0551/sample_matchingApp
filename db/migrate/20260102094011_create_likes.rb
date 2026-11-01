@@ -4,6 +4,8 @@ class CreateLikes < ActiveRecord::Migration[8.0]
       t.references :user, foreign_key: true, null: false
       t.references :liked_user, foreign_key: { to_table: :users }, null: false
       t.check_constraint "user_id != liked_user_id", name: "check_self_like"
+      t.index [:user_id, :liked_user_id], unique: true
+
       t.timestamps
     end
   end
