@@ -10,16 +10,16 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'  unless user.id == current_user.id
-
-    if user.update(deleted_at: DateTime.now)
-      session[:ensure_user_id] = user.id
-      sign_out(user)
-      redirect_to cancel_membership_user_path(user)
-    else
-      redirect_to users_path, alert: '退会に失敗しました。'
+    begin
+      user = User.find(params[:id])
+      user.update!(deleted_at: DateTime.now)
+    rescue ActiveRecord::RecordNotFound => e
+      logger.error e
+      return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'
     end
+    session[:ensure_user_id] = user.id
+    sign_out(user)
+    redirect_to cancel_membership_user_path(user)
   end
 
   def cancel_membership
