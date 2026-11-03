@@ -10,18 +10,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    ActiveRecord::Base.transaction do
-      user.update!(deleted_at: DateTime.now)
-      current_user.likes.each do |like|
-        like.destroy!
-      end
-      current_user.liked_users.each do |liked|
-        liked.destroy!
+    begin
+      user = User.find(params[:id])
+      ActiveRecord::Base.transaction do
+        user.update!(deleted_at: DateTime.now)
+        current_user.likes.each do |like|
+          like.destroy!
+        end
+        current_user.liked_users.each do |liked|
+          liked.destroy!
+        end
       end
     rescue ActiveRecord::RecordNotFound => e
-      # logger.error e
-      # return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'
+      logger.error e
+      return redirect_to users_path, alert: 'ユーザーidが一致しないため、退会ができません。'
     end
     session[:ensure_user_id] = user.id
     sign_out(user)
