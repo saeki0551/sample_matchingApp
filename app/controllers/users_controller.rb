@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:id])
     ActiveRecord::Base.transaction do
-      user = User.find(params[:id])
       user.update!(deleted_at: DateTime.now)
       current_user.likes.each do |like|
         like.destroy!
