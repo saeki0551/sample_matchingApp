@@ -38,12 +38,25 @@ class UsersController < ApplicationController
 
   def matching_users
     @matching_users = []
-    users = User.includes(:likes)
-    users.each do |user|
-      if current_user.liked_user?(liked_user_id: user.id) && current_user.liked_by?(user_id: user.id)
-        @matching_users.push(user)
+    # users = User.includes(:likes)
+    # users.each do |user|
+    #   if current_user.liked_user?(liked_user_id: user.id) && current_user.liked_by?(user_id: user.id)
+    #     @matching_users.push(user)
+    #   end
+    # end
+    users = User.preload(:likes).all.each do |user|
+      current_user.likes.zip(current_user.liked_users) do |like, liked|
+        if like && liked
+          if like.liked_user_id == user.id && liked.user_id == user.id
+              @matching_users.push(user)
+          end
+        end
       end
     end
+    #   if current_user.liked_user?(liked_user_id: user.id) && current_user.liked_by?(user_id: user.id)
+    #     @matching_users.push(user)
+    #   index_users_on_email_and_deleted_at
+    # end
   end
 
   private
