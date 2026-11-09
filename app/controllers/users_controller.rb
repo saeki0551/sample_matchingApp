@@ -39,10 +39,8 @@ class UsersController < ApplicationController
   def matching_users
     @matching_users= []
     users = User.all
-    current_user_likes = User.preload(:likes).find(current_user.id)
-    current_user_likeds = User.preload(:liked_users).find(current_user.id)
-    current_user_likes.likes.each do |like|
-      if current_user_likeds.liked_users.find { |liked| liked.user_id == like.liked_user_id }
+    current_user.likes.each do |like|
+      if current_user.liked_users.find { |liked| liked.user_id == like.liked_user_id }
         @matching_users.push(users.find { |user| user.id == like.liked_user_id })
       end
     end
