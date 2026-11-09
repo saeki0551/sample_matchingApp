@@ -1,3 +1,6 @@
 <%= turbo_stream.replace "user_#{@like.liked_user_id}" do %>
   <%= render partial: 'create', locals: { user_id: @like.liked_user_id } %>
 <% end %>
+<%= turbo_stream.update_all ".message" do %>
+  <%= render partial: 'layouts/flash' %>
+<% end %>
